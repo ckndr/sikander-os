@@ -1,0 +1,13 @@
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Scratch & temporary files
+*.tmp
+*.bak
+*~
+.vscode/
+.idea/
