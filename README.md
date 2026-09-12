@@ -3,7 +3,8 @@
 > **Personal Life Operating System & Unified Dashboard**  
 > Live Production URL: **[https://ckndr.github.io/sikander-os/](https://ckndr.github.io/sikander-os/)**  
 > Cinema Hub Module: **[https://ckndr.github.io/sikander-os/cinema.html](https://ckndr.github.io/sikander-os/cinema.html)**  
-> Real Estate & Property Ledger: **[https://ckndr.github.io/sikander-os/property.html](https://ckndr.github.io/sikander-os/property.html)**
+> Real Estate & Property Ledger: **[https://ckndr.github.io/sikander-os/property.html](https://ckndr.github.io/sikander-os/property.html)**  
+> Music Hub Module: **[https://ckndr.github.io/sikander-os/music.html](https://ckndr.github.io/sikander-os/music.html)**
 
 ---
 
@@ -67,6 +68,33 @@ The second operational module in Sikander OS is the **Property Ledger** — a co
 
 ---
 
+## 🎵 Module 03: Music Hub & Taste Engine (LIVE)
+
+The third operational module in Sikander OS is the **Music Hub & Taste Engine** — an autonomous algorithmic audio intelligence system trained on Sikander's 5+ years of manual downloads (`I:\Music`), soulful Desi heritage archives, and Spotify Liked/Gym/Trance collections.
+
+### Key Capabilities:
+- **2,504 Master Curated Audio Tracks**:
+  - **684 Manually Downloaded Individual Choices** from 26 year-month monthly archives (2016–2020) with 1.5x top weightage.
+  - **110 Desi Heritage & Sufi Classics** (92 tracks in Desi archive + cross-collection Sufi tracks) with 1.5x top weightage.
+  - **557 Spotify Verified Tracks** with synced Spotify IDs, album art thumbnails, and 1-click player embeds.
+  - **294 Liked Songs**, **202 Gym Workout Tracks**, and **62 Late-Night Trance Tracks**.
+- **6-Pillar Mathematical Audio Taste DNA**:
+  1. *Sunset Deep House & Saxophone Melodic Chill* (25%) — 118–124 BPM (Nora En Pure, Klingande, Ehrling, Mahmut Orhan, De Hofnar).
+  2. *Hypnotic Progressive Trance & Sunset Balearic* (20%) — 128–136 BPM (Chicane, Deadmau5, Eric Prydz, Tiësto, Alpha 9, Blood Groove & Kikis).
+  3. *High-Energy Gym & Peak Electronic Drive* (20%) — 126–132 BPM (Avicii, Calvin Harris, David Guetta, Zedd, Don Omar).
+  4. *Soulful Desi Heritage & Melodic Sufi / Pop* (15%) — 85–115 BPM (Fuzon, Junoon, NFAK remixes, Atif Aslam, Kailash Kher).
+  5. *Atmospheric Lounge, Buddha Bar & World Chillout* (10%) — 80–105 BPM (Buddha-Bar, Blank & Jones, Schiller, Moby).
+  6. *90s-2000s Nostalgic Dance-Pop & Melodic Alt-Rock* (10%) — 112–128 BPM (Modjo, Sash!, Edward Maya, Coldplay, The Script).
+- **Interactive Features**:
+  - **Mood State Cockpit**: 1-click filtering by emotional or physical state (Gym Beast Mode, Sunset Chillout, Late Night Highway, Desi Soul, Zen Focus, Nostalgic Anthems).
+  - **AI Release Radar & Song Evaluator**: Evaluates any artist and track title against Sikander's 6 Taste Pillars with an instant **Taste Match %** score and sonic breakdown.
+  - **AI Prompt Studio & Markdown Importer**: Ready-to-copy AI prompt for web-enabled LLMs (ChatGPT / Gemini / Claude) to search for 2024–2026 releases matching his taste.
+  - **Integrated Audio & Spotify Player Drawer**: 1-click Spotify mini-player embed, YouTube Music search, and 1-click clipboard copying.
+  - **Dual View Modes**: Vinyl Album Card Grid View vs. Power Precision Table View.
+  - **Local Storage Synchronization**: Custom tracks and evaluations persist across sessions in `localStorage`.
+
+---
+
 ## 📂 Repository Structure
 
 ```
@@ -74,9 +102,14 @@ sikander-os/
 ├── index.html                     # Master OS Dashboard & Module Launcher
 ├── cinema.html                    # Operational Module 01: Cinema Hub & Taste Engine
 ├── property.html                  # Operational Module 02: Real Estate & Property Ledger
+├── music.html                     # Operational Module 03: Music Hub & Taste Engine
 ├── data/
 │   ├── sikander_unified_data.json # Master 373-title unified cinema database
 │   ├── SIKANDER_CINEMA_AI_PROFILE.md # Cinema taste profile & prompt engineering spec
+│   ├── SIKANDER_MUSIC_AI_PROFILE.md  # Music taste profile & AI prompt engineering spec
+│   ├── music/
+│   │   ├── sikander_music_library.json # Master 2,504-track music catalog database
+│   │   └── sikander_music_library.js   # Standalone zero-CORS offline JS dataset
 │   └── property/
 │       ├── alghafoor_property_ledger.json # Master property financial database
 │       └── receipts/              # Verified archive of all 20 receipt images & PDF
@@ -88,7 +121,7 @@ sikander-os/
 
 ## 🚀 Future Module Roadmap
 
-1. **Module 03: Iron & Bio-Metrics Hub** *(Phase 2)*
+1. **Module 04: Iron & Bio-Metrics Hub** *(Phase 2)*
    - Progressive overload calculations, hypertrophy volume tracking, macro adherence, recovery metrics.
 2. **Module 04: Second Brain & Cognitive Graph** *(Phase 2)*
    - Zettelkasten knowledge vault, atomic mental models, cross-referenced research papers.

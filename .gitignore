@@ -11,3 +11,5 @@ $RECYCLE.BIN/
 *~
 .vscode/
 .idea/
+__pycache__/
+*.pyc
