@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07090e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sikander OS">
   <title>Sikander OS — Music Hub & Taste Engine</title>
   <meta name="description" content="Hyper-personalized music intelligence and taste recommendation engine for Sikander OS.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -882,6 +889,169 @@
       font-weight: 600;
     }
 
+    /* Spotify Export & Categorizer Modal Styles */
+    .spotify-tab-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .spotify-tab-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spotify-tab-btn:hover {
+      background: rgba(30, 215, 96, 0.1);
+      color: #1ed760;
+      border-color: rgba(30, 215, 96, 0.3);
+    }
+    .spotify-tab-btn.active {
+      background: rgba(30, 215, 96, 0.18);
+      color: #1ed760;
+      border-color: #1ed760;
+      box-shadow: 0 0 15px rgba(30, 215, 96, 0.2);
+    }
+    .spotify-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .spotify-playlist-card {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+    .spotify-playlist-card:hover {
+      border-color: rgba(30, 215, 96, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .spotify-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .spotify-card-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .spotify-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .spotify-card-count {
+      font-size: 11px;
+      font-weight: 700;
+      color: #1ed760;
+      background: rgba(30, 215, 96, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 2px;
+    }
+    .spotify-card-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      flex-grow: 1;
+    }
+    .spotify-card-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn-spotify-action {
+      flex: 1;
+      min-width: 75px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+    }
+    .btn-spotify-action:hover {
+      background: rgba(30, 215, 96, 0.15);
+      color: #1ed760;
+      border-color: rgba(30, 215, 96, 0.4);
+    }
+    .btn-spotify-action.primary {
+      background: #1ed760;
+      color: #000;
+      font-weight: 700;
+      border: none;
+    }
+    .btn-spotify-action.primary:hover {
+      background: #1fdf64;
+      box-shadow: 0 0 12px rgba(30, 215, 96, 0.4);
+    }
+    .spotify-guide-step {
+      display: flex;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(30, 215, 96, 0.15);
+      border: 1px solid rgba(30, 215, 96, 0.4);
+      color: #1ed760;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .step-body p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
     @media (max-width: 992px) {
       .hero-banner {
         grid-template-columns: 1fr;
@@ -917,6 +1087,9 @@
         <a href="#" class="nav-btn active">
           <span>🎵 Music Hub</span>
         </a>
+        <a href="career.html" class="nav-btn">
+          <span>💼 Career Engine</span>
+        </a>
       </nav>
     </header>
 
@@ -931,8 +1104,11 @@
           Autonomous music intelligence trained on your 5+ years of manual downloads, Desi heritage archives, and Spotify Liked/Gym/Trance collections. Filter by exact mental or physical state, search new releases, and calculate your personalized Taste Match %.
         </p>
         <div class="hero-actions">
+          <button class="btn-primary" onclick="openSpotifyExportModal()" style="background:linear-gradient(135deg, #1ed760 0%, #1db954 100%); color:#000; font-weight:800; border:none; box-shadow:0 0 20px rgba(30,215,96,0.35);">
+            <span>🟢 Transfer to Spotify Hub</span>
+          </button>
           <button class="btn-primary" onclick="openEvaluatorModal()">
-            <span>🔍 AI Release Radar & Taste Evaluator</span>
+            <span>🔍 AI Release Radar</span>
           </button>
           <button class="btn-secondary" onclick="openBlueprintModal()">
             <span>🧠 View AI Taste Blueprint</span>
@@ -945,19 +1121,19 @@
 
       <div class="hero-metrics-grid">
         <div class="metric-box active-glow">
-          <div class="metric-val violet" id="m-total-tracks">2,504</div>
+          <div class="metric-val violet" id="m-total-tracks">2,519</div>
           <div class="metric-lbl">Total Master Tracks</div>
         </div>
         <div class="metric-box">
-          <div class="metric-val emerald" id="m-manual-tracks">684</div>
+          <div class="metric-val emerald" id="m-manual-tracks">1,219</div>
           <div class="metric-lbl">Manual High-Weight Picks</div>
         </div>
         <div class="metric-box">
-          <div class="metric-val cyan" id="m-spotify-tracks">557</div>
+          <div class="metric-val cyan" id="m-spotify-tracks">356</div>
           <div class="metric-lbl">Spotify Verified & Synced</div>
         </div>
         <div class="metric-box">
-          <div class="metric-val gold" id="m-desi-tracks">110</div>
+          <div class="metric-val gold" id="m-desi-tracks">108</div>
           <div class="metric-lbl">Desi Soul & Sufi Heritage</div>
         </div>
       </div>
@@ -981,31 +1157,31 @@
       <div class="mood-pills-row" id="mood-buttons-container">
         <button class="mood-pill active" data-mood="all" onclick="setMood('all')">
           <span>🌟 All Tracks</span>
-          <span class="badge-count" id="count-all">2,504</span>
+          <span class="badge-count" id="count-all">2,519</span>
         </button>
         <button class="mood-pill" data-mood="Sunset Deep House" onclick="setMood('Sunset Deep House')">
           <span>🌅 Sunset Deep House & Sax</span>
-          <span class="badge-count" id="count-sunset">507</span>
+          <span class="badge-count" id="count-sunset">586</span>
         </button>
         <button class="mood-pill" data-mood="Gym / High Energy" onclick="setMood('Gym / High Energy')">
           <span>⚡ Gym Beast Mode / PR Fuel</span>
-          <span class="badge-count" id="count-gym">280</span>
+          <span class="badge-count" id="count-gym">197</span>
         </button>
         <button class="mood-pill" data-mood="Hypnotic Trance" onclick="setMood('Hypnotic Trance')">
           <span>🌌 Late Night Highway / Trance</span>
-          <span class="badge-count" id="count-trance">204</span>
+          <span class="badge-count" id="count-trance">150</span>
         </button>
         <button class="mood-pill" data-mood="Desi Soul & Sufi" onclick="setMood('Desi Soul & Sufi')">
           <span>🪕 Desi Soul & Sufi Nostalgia</span>
-          <span class="badge-count" id="count-desi">110</span>
+          <span class="badge-count" id="count-desi">108</span>
         </button>
         <button class="mood-pill" data-mood="Buddha Bar Lounge" onclick="setMood('Buddha Bar Lounge')">
           <span>☕ Zen Focus / Buddha Bar</span>
-          <span class="badge-count" id="count-lounge">128</span>
+          <span class="badge-count" id="count-lounge">120</span>
         </button>
         <button class="mood-pill" data-mood="Retro Dance & Pop-Rock" onclick="setMood('Retro Dance & Pop-Rock')">
           <span>🎸 Nostalgic 90s-2000s & Alt-Rock</span>
-          <span class="badge-count" id="count-retro">1,275</span>
+          <span class="badge-count" id="count-retro">1,358</span>
         </button>
       </div>
 
@@ -1034,12 +1210,14 @@
 
       <div class="filter-group">
         <select class="select-styled" id="source-filter" onchange="onSourceChange(this.value)">
-          <option value="all">📁 All Sources (Full Library)</option>
-          <option value="manual">⭐ Manual Year-Month Downloads (High Weight)</option>
-          <option value="desi">🪕 Desi Soul Folder (High Weight)</option>
-          <option value="spotify_liked">💚 Spotify Liked Songs</option>
-          <option value="spotify_gym">⚡ Spotify Gym Playlist</option>
-          <option value="spotify_trance">🌌 Spotify Trance Playlist</option>
+          <option value="all">📁 All Sources (Full Master Archive · 2,519)</option>
+          <option value="manual_all">⭐ All Manual Downloads (1,219 Picks: Root + YM + Desi)</option>
+          <option value="manual_root">💾 Root Direct Singles (435 Individual Downloads)</option>
+          <option value="manual_ym">📅 Year-Month Monthly Batches (696 Tracks · 2016-2020)</option>
+          <option value="desi">🪕 Desi Soul & Sufi Heritage (108 Tracks)</option>
+          <option value="spotify_liked">💚 Spotify Liked Songs (294 Tracks)</option>
+          <option value="spotify_gym">⚡ Spotify Gym Playlist (202 Tracks)</option>
+          <option value="spotify_trance">🌌 Spotify Trance Playlist (62 Tracks)</option>
           <option value="deep_2019">🌅 Deep House 2019 Collection</option>
           <option value="buddha_bar">☕ Buddha Bar & Chillout</option>
         </select>
@@ -1068,7 +1246,7 @@
 
     <!-- PAGINATION BAR -->
     <div class="pagination-bar">
-      <div id="pagination-info">Showing 1–50 of 2,504 tracks</div>
+      <div id="pagination-info">Showing 1–50 of 2,519 tracks</div>
       <div class="pagination-controls">
         <button class="page-btn" id="btn-prev-page" onclick="prevPage()" disabled>← Previous</button>
         <button class="page-btn" id="btn-next-page" onclick="nextPage()">Next Page →</button>
@@ -1168,9 +1346,8 @@
 
         <h4 style="color:var(--gold); margin-bottom:8px; font-size:14px; text-transform:uppercase; letter-spacing:0.05em;">Source Hierarchy & Weighting</h4>
         <p style="margin-bottom:16px;">
-          <strong>Tier 1 Manual Year-Month Archives (1.5x Weight):</strong> 26 monthly folders from 2016 to 2020 representing individually chosen downloads.<br>
-          <strong>Tier 1 Desi Folder (1.5x Weight):</strong> Hand-selected cultural soul anchor.<br>
-          <strong>Tier 1 Spotify Playlists (1.3x–1.4x Weight):</strong> Active Liked songs, Gym playlist, Trance playlist.<br>
+          <strong>Tier 1 Manual Downloads (1.5x Highest Weight):</strong> 1,214 handpicked individual tracks — including 433 Root direct singles, 693 Year-Month monthly batch downloads (2016–2020), and 109 Desi heritage classics.<br>
+          <strong>Tier 1 Spotify Playlists (1.3x–1.4x Weight):</strong> Active Liked songs (294 tracks), Gym playlist (202 tracks), Trance playlist (62 tracks).<br>
           <strong>Tier 2 Compilations (1.0x–1.2x Weight):</strong> Deep 2019, Sax House, Buddha Bar, ISOS.
         </p>
 
@@ -1183,6 +1360,395 @@
           <span>📄 Open Full Markdown Document ↗</span>
         </a>
         <button class="btn-secondary" onclick="closeBlueprintModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPOTIFY TRANSFER & MOOD PLAYLIST HUB MODAL -->
+  <div class="modal-backdrop" id="spotify-export-modal" onclick="if(event.target===this) closeSpotifyExportModal()">
+    <div class="modal-card" style="max-width:960px; max-height:90vh; display:flex; flex-direction:column;">
+      <button class="modal-close" onclick="closeSpotifyExportModal()">✕</button>
+      
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+        <div style="width:44px; height:44px; border-radius:50%; background:rgba(30,215,96,0.15); border:1px solid rgba(30,215,96,0.4); display:flex; align-items:center; justify-content:center; font-size:22px;">🟢</div>
+        <div>
+          <h3 style="font-size:22px; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
+            <span>Spotify Transfer & Mood Categorizer Hub</span>
+            <span style="font-size:11px; padding:2px 8px; background:rgba(30,215,96,0.2); border:1px solid rgba(30,215,96,0.5); color:#1ed760; border-radius:6px;">AUTOMATED EXPORT</span>
+          </h3>
+          <p style="font-size:12px; color:var(--text-muted);">Transfer and organize your 2,519 tracks from <code style="color:#1ed760; font-family:'JetBrains Mono',monospace;">I:\Music</code> into categorized Spotify playlists to play by mood or shuffle all randomly.</p>
+        </div>
+      </div>
+
+      <!-- Modal Tabs -->
+      <div class="spotify-tab-bar">
+        <button class="spotify-tab-btn active" id="tab-btn-playlists" onclick="switchSpotifyTab('playlists')">
+          <span>📁 1-Click Mood Playlists</span>
+        </button>
+        <button class="spotify-tab-btn" id="tab-btn-cloud" onclick="switchSpotifyTab('cloud')">
+          <span>⚡ 60s Online Cloud Import (Easiest)</span>
+        </button>
+        <button class="spotify-tab-btn" id="tab-btn-folder" onclick="switchSpotifyTab('folder')">
+          <span>🎯 Play by Mood OR Shuffle All (Folder Trick)</span>
+        </button>
+        <button class="spotify-tab-btn" id="tab-btn-local" onclick="switchSpotifyTab('local')">
+          <span>💾 Desktop Local Files & Phone Sync</span>
+        </button>
+      </div>
+
+      <!-- Tab 1: 1-Click Mood Playlists -->
+      <div id="spotify-tab-content-playlists" style="overflow-y:auto; padding-right:6px; flex-grow:1;">
+        <div style="background:rgba(30,215,96,0.06); border:1px solid rgba(30,215,96,0.2); border-radius:10px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div style="font-size:12.5px; color:#cbd5e1;">
+            💡 <strong>Fast Transfer Tip:</strong> Download the <strong>CSV</strong> or click <strong>Copy Tracklist</strong>, then upload or paste into free web tool <a href="https://www.tunemymusic.com" target="_blank" style="color:#1ed760; text-decoration:underline; font-weight:700;">TuneMyMusic.com</a> to generate your Spotify playlists automatically in 60 seconds!
+          </div>
+          <div style="font-size:11.5px; color:var(--cyan); font-family:'JetBrains Mono',monospace;">
+            📁 Local Path: I:\sikander-os\data\music\spotify_exports\
+          </div>
+        </div>
+
+        <div class="spotify-card-grid">
+          <!-- 01 Sunset Deep House -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">🌅</span>
+                <div>
+                  <div class="spotify-card-title">Sunset Deep House</div>
+                  <span class="spotify-card-count">586 Tracks · 118–124 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Warm saxophone leads, organic piano chords, and breezy sunset euphoria (Nora En Pure, Klingande, Ehrling).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/01_Sunset_Deep_House.csv" download="01_Sikander_Sunset_Deep_House.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('01_Sunset_Deep_House')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('01_Sunset_Deep_House')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/01_Sunset_Deep_House_uris.txt" download="01_Sunset_Deep_House_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 02 Hypnotic Trance -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">🌌</span>
+                <div>
+                  <div class="spotify-card-title">Hypnotic Trance & Balearic</div>
+                  <span class="spotify-card-count">150 Tracks · 128–136 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Expansive synth arpeggios, ethereal breakdowns, late-night flow state (Chicane, Deadmau5, Eric Prydz, Tiësto, Reflekt).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/02_Hypnotic_Trance.csv" download="02_Sikander_Hypnotic_Trance.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('02_Hypnotic_Trance')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('02_Hypnotic_Trance')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/02_Hypnotic_Trance_uris.txt" download="02_Hypnotic_Trance_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 03 Gym Peak Energy -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">⚡</span>
+                <div>
+                  <div class="spotify-card-title">Gym Peak Energy</div>
+                  <span class="spotify-card-count">197 Tracks · 126–132 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Relentless 4-on-the-floor kick, explosive drops, PR progressive overload fuel (Avicii, Calvin Harris, David Guetta, Zedd).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/03_Gym_Peak_Energy.csv" download="03_Sikander_Gym_Peak_Energy.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('03_Gym_Peak_Energy')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('03_Gym_Peak_Energy')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/03_Gym_Peak_Energy_uris.txt" download="03_Gym_Peak_Energy_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 04 Desi Heritage & Sufi -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">🪕</span>
+                <div>
+                  <div class="spotify-card-title">Desi Heritage & Sufi</div>
+                  <span class="spotify-card-count">108 Tracks · 85–115 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Soulful South Asian classical/qawwali acoustics and Pakistani rock (NFAK, Fuzon, Junoon, Strings, Atif Aslam).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/04_Desi_Heritage_Sufi.csv" download="04_Sikander_Desi_Heritage_Sufi.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('04_Desi_Heritage_Sufi')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('04_Desi_Heritage_Sufi')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/04_Desi_Heritage_Sufi_uris.txt" download="04_Desi_Heritage_Sufi_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 05 Buddha Bar Lounge -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">☕</span>
+                <div>
+                  <div class="spotify-card-title">Buddha Bar Lounge</div>
+                  <span class="spotify-card-count">120 Tracks · 80–105 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Serene downtempo world groove, sitar, ethnic acoustic strings, evening contemplation (Buddha Bar, Blank & Jones, Schiller, Moby).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/05_Buddha_Bar_Lounge.csv" download="05_Sikander_Buddha_Bar_Lounge.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('05_Buddha_Bar_Lounge')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('05_Buddha_Bar_Lounge')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/05_Buddha_Bar_Lounge_uris.txt" download="05_Buddha_Bar_Lounge_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 06 Retro Dance & Pop-Rock -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">🎸</span>
+                <div>
+                  <div class="spotify-card-title">Retro Dance & Pop-Rock</div>
+                  <span class="spotify-card-count">1,358 Tracks · 112–128 BPM</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Timeless 90s-2000s hooks, millennial singalong anthems, Eurodance classics (Savage Garden, Modjo, Sash!, Coldplay).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/06_Retro_Dance_Rock.csv" download="06_Sikander_Retro_Dance_Rock.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('06_Retro_Dance_Rock')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('06_Retro_Dance_Rock')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/06_Retro_Dance_Rock_uris.txt" download="06_Retro_Dance_Rock_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 00 Top Taste Picks & Liked -->
+          <div class="spotify-playlist-card" style="border-color:rgba(234,179,8,0.4); background:rgba(234,179,8,0.04);">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">⭐</span>
+                <div>
+                  <div class="spotify-card-title" style="color:var(--gold);">Top Taste Picks & Liked (90%+)</div>
+                  <span class="spotify-card-count" style="color:var(--gold); background:rgba(234,179,8,0.15);">379 Tracks · High Conviction</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Your highest conviction songs across all moods: Spotify Liked songs and mathematical 90%+ match scores.</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/00_Top_Taste_Picks_Liked.csv" download="00_Sikander_Top_Taste_Picks_Liked.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('00_Top_Taste_Picks_Liked')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('00_Top_Taste_Picks_Liked')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/00_Top_Taste_Picks_Liked_uris.txt" download="00_Top_Taste_Picks_Liked_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 00 All Manual Downloads -->
+          <div class="spotify-playlist-card" style="border-color:rgba(16,185,129,0.4); background:rgba(16,185,129,0.04);">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">📁</span>
+                <div>
+                  <div class="spotify-card-title" style="color:var(--emerald);">All Manual Downloads (1.5x Weight)</div>
+                  <span class="spotify-card-count" style="color:var(--emerald); background:rgba(16,185,129,0.15);">1,219 Tracks · 100% Handpicked</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">All manually acquired tracks: 435 Root direct singles, 696 Year-Month monthly choices, and 108 Desi heritage picks.</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/00_All_Manual_Downloads.csv" download="00_Sikander_All_Manual_Downloads.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('00_All_Manual_Downloads')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('00_All_Manual_Downloads')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/00_All_Manual_Downloads_uris.txt" download="00_All_Manual_Downloads_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 00 Root Direct Singles -->
+          <div class="spotify-playlist-card">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">💾</span>
+                <div>
+                  <div class="spotify-card-title">Root Direct Singles</div>
+                  <span class="spotify-card-count">435 Tracks · Direct Singles Curation</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Individual standalone songs downloaded directly into I:\Music over the years (pop-rock, alt-rock, trance, and lounge).</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/00_Root_Direct_Singles.csv" download="00_Sikander_Root_Direct_Singles.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('00_Root_Direct_Singles')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('00_Root_Direct_Singles')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/00_Root_Direct_Singles_uris.txt" download="00_Root_Direct_Singles_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+
+          <!-- 00 Master Library (Shuffle All) -->
+          <div class="spotify-playlist-card" style="border-color:rgba(192,132,252,0.4); background:rgba(192,132,252,0.04);">
+            <div>
+              <div class="spotify-card-header">
+                <span class="spotify-card-icon">🔀</span>
+                <div>
+                  <div class="spotify-card-title" style="color:#c084fc;">Master Library (Shuffle All)</div>
+                  <span class="spotify-card-count" style="color:#c084fc; background:rgba(192,132,252,0.15);">2,519 Tracks · Complete Archive</span>
+                </div>
+              </div>
+              <div class="spotify-card-desc">Complete deduplicated collection across all moods and eras. Perfect for an all-day uninterrupted random shuffle.</div>
+            </div>
+            <div class="spotify-card-actions">
+              <a href="data/music/spotify_exports/00_Master_Library_All.csv" download="00_Sikander_Master_Library_All.csv" class="btn-spotify-action primary">📥 Download CSV</a>
+              <button class="btn-spotify-action" onclick="copyPresetTracklist('00_Master_Library_All')">📋 Copy List</button>
+              <button class="btn-spotify-action" onclick="copyPresetURIs('00_Master_Library_All')">🎧 Copy URIs</button>
+              <a href="data/music/spotify_exports/00_Master_Library_All_uris.txt" download="00_Master_Library_All_uris.txt" class="btn-spotify-action" title="Download URIs for Spotify Desktop Ctrl+V">📄 URIs.txt</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: 60s Online Cloud Import Guide -->
+      <div id="spotify-tab-content-cloud" style="display:none; overflow-y:auto; padding-right:6px; flex-grow:1;">
+        <div style="background:rgba(0,0,0,0.45); border:1px solid var(--border-subtle); border-radius:12px; padding:22px;">
+          <h4 style="color:#1ed760; font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            <span>⚡ How to Transfer in 60 Seconds Using TuneMyMusic or Soundiiz</span>
+          </h4>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
+            This is the <strong>fastest and easiest automated way</strong>. It searches Spotify's cloud catalog, matches your local songs, and adds them directly to playlists inside your Spotify account without copying any files to your phone.
+          </p>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">1</div>
+            <div class="step-body">
+              <h4>Download the CSV or Copy the Tracklist</h4>
+              <p>In the <strong>"1-Click Mood Playlists"</strong> tab above, click <strong>"Download CSV"</strong> for whichever mood playlist you want (e.g. <em>Gym Peak Energy</em> or <em>Sunset Deep House</em>), or click <strong>"Copy List"</strong> to copy the text to your clipboard.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">2</div>
+            <div class="step-body">
+              <h4>Open Free Web Importer</h4>
+              <p>Go to <a href="https://www.tunemymusic.com" target="_blank" style="color:#1ed760; font-weight:700; text-decoration:underline;">TuneMyMusic.com</a> (or <a href="https://soundiiz.com" target="_blank" style="color:#1ed760; font-weight:700; text-decoration:underline;">Soundiiz.com</a>) in your browser. Click <strong>"Let's Start"</strong>.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">3</div>
+            <div class="step-body">
+              <h4>Select Source: "Upload File" or "From Text"</h4>
+              <p>Choose <strong>"Upload File"</strong> and select the downloaded <code>.csv</code> file, OR select <strong>"From Text"</strong> and press <kbd>Ctrl+V</kbd> to paste the copied tracklist.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">4</div>
+            <div class="step-body">
+              <h4>Select Destination: Spotify</h4>
+              <p>Select <strong>Spotify</strong> as the destination and click <strong>"Start Transfer"</strong>. In under 60 seconds, TuneMyMusic creates the playlist in your Spotify account ready to play on desktop, mobile, and car!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Play by Mood OR Shuffle All (Folder Trick) -->
+      <div id="spotify-tab-content-folder" style="display:none; overflow-y:auto; padding-right:6px; flex-grow:1;">
+        <div style="background:rgba(0,0,0,0.45); border:1px solid var(--border-subtle); border-radius:12px; padding:22px;">
+          <h4 style="color:#c084fc; font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            <span>🎯 The Spotify Playlist Folder Secret: Mood Flow vs. Random Shuffle</span>
+          </h4>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
+            You asked: <em>"properly categorize those songs in Spotify playlist so I can either play what I'm in the mood for or play all randomly"</em>. Here is Spotify's built-in power feature that achieves exactly that:
+          </p>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">1</div>
+            <div class="step-body">
+              <h4>Create a Spotify Playlist Folder</h4>
+              <p>In the <strong>Spotify Desktop app</strong>, look at your left playlist sidebar. Right-click any blank area below your playlists and select <strong>"Create Folder"</strong>.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">2</div>
+            <div class="step-body">
+              <h4>Name the Folder: "🎵 Sikander OS Music"</h4>
+              <p>Drag all 6 of your mood playlists into this newly created folder:
+                <br>• 🌅 <em>Sikander — Sunset Deep House</em>
+                <br>• ⚡ <em>Sikander — Gym Peak Energy</em>
+                <br>• 🌌 <em>Sikander — Hypnotic Trance</em>
+                <br>• 🪕 <em>Sikander — Desi Heritage & Sufi</em>
+                <br>• ☕ <em>Sikander — Buddha Bar Lounge</em>
+                <br>• 🎸 <em>Sikander — Retro Dance & Pop-Rock</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step" style="border-color:rgba(30,215,96,0.3); background:rgba(30,215,96,0.04);">
+            <div class="step-number" style="background:#1ed760; color:#000;">✓</div>
+            <div class="step-body">
+              <h4 style="color:#1ed760;">How to Play What You're in the Mood For</h4>
+              <p>Simply click directly on that specific playlist (e.g. <strong>Gym Peak Energy</strong>) and press Play. You get 100% pure high-conviction motivation tailored strictly for that session.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step" style="border-color:rgba(192,132,252,0.3); background:rgba(192,132,252,0.04);">
+            <div class="step-number" style="background:#c084fc; color:#000;">🔀</div>
+            <div class="step-body">
+              <h4 style="color:#c084fc;">How to Play ALL Songs Randomly</h4>
+              <p>Click on the <strong>Parent Folder Name itself</strong> (<strong>🎵 Sikander OS Music</strong>) and click the big green <strong>Play button with Shuffle ON (<kbd>Ctrl + S</kbd>)</strong>.
+              <br><em>Spotify will dynamically shuffle across all songs from all 6 playlists simultaneously, giving you a full random master mix without creating a duplicate mega-playlist!</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Desktop Local Files & Phone Sync -->
+      <div id="spotify-tab-content-local" style="display:none; overflow-y:auto; padding-right:6px; flex-grow:1;">
+        <div style="background:rgba(0,0,0,0.45); border:1px solid var(--border-subtle); border-radius:12px; padding:22px;">
+          <h4 style="color:var(--cyan); font-size:16px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            <span>💾 100% Free Offline Playback via Spotify "Local Files"</span>
+          </h4>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
+            If you want Spotify to play your exact downloaded <code>.mp3</code> files directly from your hard drive without relying on whether the song is on Spotify's public streaming service:
+          </p>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">1</div>
+            <div class="step-body">
+              <h4>Enable Local Files in Spotify Desktop</h4>
+              <p>Open Spotify on your PC -> Click your Profile picture -> <strong>Settings</strong> (or press <kbd>Ctrl + P</kbd>). Scroll down to <strong>"Local Files"</strong> and toggle ON <strong>"Show Local Files"</strong>.</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">2</div>
+            <div class="step-body">
+              <h4>Add "I:\Music" as a Source</h4>
+              <p>Click <strong>"Add a source"</strong> and select your <code>I:\Music</code> folder. Instantly, all 2,500+ tracks will show up in Spotify under <strong>"Your Library" -> "Local Files"</strong>!</p>
+            </div>
+          </div>
+
+          <div class="spotify-guide-step">
+            <div class="step-number">3</div>
+            <div class="step-body">
+              <h4>Syncing Local Files to Your Phone (Wi-Fi Transfer)</h4>
+              <p>1. Connect your phone and PC to the <strong>same home Wi-Fi network</strong>.<br>
+                 2. On phone Spotify app: Go to Settings -> <strong>Local Files</strong> -> Toggle ON <strong>"Show audio files from this device"</strong>.<br>
+                 3. Open your playlists on your phone and tap the green <strong>Download arrow</strong>. Spotify transfers the audio files over Wi-Fi so they play on your phone even offline in the car or gym!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:12px; border-top:1px solid var(--border-subtle);">
+        <a href="data/music/spotify_exports/SPOTIFY_IMPORT_GUIDE.md" target="_blank" class="btn-secondary" style="font-size:12px;">
+          <span>📖 Open Full Offline Markdown Guide</span>
+        </a>
+        <button class="btn-secondary" onclick="closeSpotifyExportModal()">Close Hub</button>
       </div>
     </div>
   </div>
@@ -1367,29 +1933,75 @@
         }
       }
 
+      const urlParams = new URLSearchParams(window.location.search);
+      let q = urlParams.get('search') || urlParams.get('q');
+      if (!q && window.location.hash && window.location.hash.startsWith('#search=')) {
+        q = decodeURIComponent(window.location.hash.replace('#search=', ''));
+      }
+      if (q) {
+        searchQuery = q.trim();
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = q;
+      }
+
       renderRadarList();
       applyFilters();
+
+      if (window.location.hash === '#spotify-export') {
+        openSpotifyExportModal();
+      }
+
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#spotify-export') {
+          openSpotifyExportModal();
+        } else if (window.location.hash && window.location.hash.startsWith('#search=')) {
+          const newQ = decodeURIComponent(window.location.hash.replace('#search=', '')).trim();
+          searchQuery = newQ;
+          const searchInput = document.getElementById('search-input');
+          if (searchInput) searchInput.value = newQ;
+          applyFilters();
+        }
+      });
     }
 
     function updateMetadataDisplays(meta) {
-      if (!meta) return;
-      document.getElementById('m-total-tracks').textContent = (masterTracks.length).toLocaleString();
-      document.getElementById('m-manual-tracks').textContent = (meta.manual_downloads_count || 684).toLocaleString();
-      document.getElementById('m-spotify-tracks').textContent = (meta.spotify_matched_count || 557).toLocaleString();
-      document.getElementById('m-desi-tracks').textContent = (meta.categories && meta.categories['Desi Heritage & Sufi'] || 110).toLocaleString();
+      const total = masterTracks.length;
+      let manual = 0;
+      let spotify = 0;
+      let desi = 0;
+      const moodCounts = {
+        'Sunset Deep House': 0,
+        'Gym / High Energy': 0,
+        'Hypnotic Trance': 0,
+        'Desi Soul & Sufi': 0,
+        'Buddha Bar Lounge': 0,
+        'Retro Dance & Pop-Rock': 0
+      };
 
-      if (document.getElementById('count-all')) {
-        document.getElementById('count-all').textContent = (masterTracks.length).toLocaleString();
+      for (let i = 0; i < masterTracks.length; i++) {
+        const t = masterTracks[i];
+        if (t.is_manual_download || t.is_ym) manual++;
+        if (t.spotify_id) spotify++;
+        if (t.is_desi || t.category === 'Desi Heritage & Sufi' || t.mood === 'Desi Soul & Sufi') desi++;
+        if (t.mood && moodCounts[t.mood] !== undefined) {
+          moodCounts[t.mood]++;
+        } else if (t.category && moodCounts[t.category] !== undefined) {
+          moodCounts[t.category]++;
+        }
       }
 
-      if (meta.moods) {
-        if (document.getElementById('count-sunset')) document.getElementById('count-sunset').textContent = (meta.moods['Sunset Deep House'] || 507).toLocaleString();
-        if (document.getElementById('count-gym')) document.getElementById('count-gym').textContent = (meta.moods['Gym / High Energy'] || 280).toLocaleString();
-        if (document.getElementById('count-trance')) document.getElementById('count-trance').textContent = (meta.moods['Hypnotic Trance'] || 204).toLocaleString();
-        if (document.getElementById('count-desi')) document.getElementById('count-desi').textContent = (meta.moods['Desi Soul & Sufi'] || 110).toLocaleString();
-        if (document.getElementById('count-lounge')) document.getElementById('count-lounge').textContent = (meta.moods['Buddha Bar Lounge'] || 128).toLocaleString();
-        if (document.getElementById('count-retro')) document.getElementById('count-retro').textContent = (meta.moods['Retro Dance & Pop-Rock'] || 1275).toLocaleString();
-      }
+      if (document.getElementById('m-total-tracks')) document.getElementById('m-total-tracks').textContent = total.toLocaleString();
+      if (document.getElementById('m-manual-tracks')) document.getElementById('m-manual-tracks').textContent = manual.toLocaleString();
+      if (document.getElementById('m-spotify-tracks')) document.getElementById('m-spotify-tracks').textContent = spotify.toLocaleString();
+      if (document.getElementById('m-desi-tracks')) document.getElementById('m-desi-tracks').textContent = desi.toLocaleString();
+
+      if (document.getElementById('count-all')) document.getElementById('count-all').textContent = total.toLocaleString();
+      if (document.getElementById('count-sunset')) document.getElementById('count-sunset').textContent = (moodCounts['Sunset Deep House'] || 0).toLocaleString();
+      if (document.getElementById('count-gym')) document.getElementById('count-gym').textContent = (moodCounts['Gym / High Energy'] || 0).toLocaleString();
+      if (document.getElementById('count-trance')) document.getElementById('count-trance').textContent = (moodCounts['Hypnotic Trance'] || 0).toLocaleString();
+      if (document.getElementById('count-desi')) document.getElementById('count-desi').textContent = (moodCounts['Desi Soul & Sufi'] || 0).toLocaleString();
+      if (document.getElementById('count-lounge')) document.getElementById('count-lounge').textContent = (moodCounts['Buddha Bar Lounge'] || 0).toLocaleString();
+      if (document.getElementById('count-retro')) document.getElementById('count-retro').textContent = (moodCounts['Retro Dance & Pop-Rock'] || 0).toLocaleString();
     }
 
     function applyFilters() {
@@ -1399,7 +2011,11 @@
         list = list.filter(t => t.mood === currentMood || t.category === currentMood);
       }
 
-      if (currentSource === 'manual') {
+      if (currentSource === 'manual' || currentSource === 'manual_all') {
+        list = list.filter(t => t.is_manual_download);
+      } else if (currentSource === 'manual_root') {
+        list = list.filter(t => t.is_root_manual || (t.source_folder && t.source_folder === 'Root'));
+      } else if (currentSource === 'manual_ym') {
         list = list.filter(t => t.is_ym);
       } else if (currentSource === 'desi') {
         list = list.filter(t => t.is_desi || (t.source_folder && t.source_folder === 'Desi') || t.category === 'Desi Heritage & Sufi');
@@ -1721,10 +2337,19 @@
       document.getElementById('blueprint-modal').style.display = 'none';
     }
 
+    function openSpotifyExportModal(tab) {
+      document.getElementById('spotify-export-modal').style.display = 'flex';
+      if (tab) switchSpotifyTab(tab);
+    }
+    function closeSpotifyExportModal() {
+      document.getElementById('spotify-export-modal').style.display = 'none';
+    }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeEvaluatorModal();
         closeBlueprintModal();
+        closeSpotifyExportModal();
         closePlayer();
       }
     });
@@ -1738,48 +2363,66 @@
       }
 
       const text = `${artist} ${title}`.toLowerCase();
-      let match = 82;
-      let pillar = 'Pillar 1: Sunset Deep House (Weight: 25%)';
+      let match = 84;
+      let pillar = 'Pillar 1: Sunset Deep House & Melodic Chill';
       let category = 'Sunset Deep House';
       let mood = 'Sunset Deep House';
-      let bpm = '120-124 BPM';
+      let bpm = '122 BPM';
       let reason = 'Warm acoustic groove and organic instrumentation aligning with your primary sound profile.';
+      let isRejected = false;
 
-      if (text.includes('sax') || text.includes('nora') || text.includes('klingande') || text.includes('deep') || text.includes('ehrling') || text.includes('orhan')) {
+      // Anti-Pattern Detection (Acoustic Red Flags)
+      const redFlags = ['mumble', 'drill', 'screamo', 'deathcore', 'yeat', 'carti', 'lil pump', '6ix9ine', 'autotune rap', 'cannibal corpse', 'slipknot', 'monotone techno', 'trap drill'];
+      if (redFlags.some(f => text.includes(f))) {
+        isRejected = true;
+        match = 28;
+        pillar = 'REJECTED: Audio Anti-Pattern Penalty';
+        category = 'Acoustic Rejection';
+        mood = 'Rejected Anti-Pattern';
+        bpm = 'N/A';
+        reason = 'Acoustic Red Flag: Monotone cadence, harsh dissonance, or soul-less minimal repetition directly violates Sikander\'s harmonic taste blueprint.';
+      } else if (text.includes('sax') || text.includes('nora') || text.includes('klingande') || text.includes('deep') || text.includes('ehrling') || text.includes('orhan') || text.includes('hofnar') || text.includes('bakermat') || text.includes('tropical') || text.includes('lost frequencies') || text.includes('sam feldt') || text.includes('kungs') || text.includes('satin jackets') || text.includes('gamper')) {
         match = 98;
         pillar = 'Pillar 1: Sunset Deep House & Saxophone Melodic Chill (Weight: 25%)';
         category = 'Sunset Deep House';
         mood = 'Sunset Deep House';
         bpm = '122 BPM';
         reason = 'Airtight alignment with your #1 pillar: organic saxophone lead, bright piano progressions, and sunset balearic euphoria.';
-      } else if (text.includes('trance') || text.includes('chicane') || text.includes('deadmau5') || text.includes('prydz') || text.includes('armin') || text.includes('tiesto')) {
+      } else if (text.includes('trance') || text.includes('chicane') || text.includes('deadmau5') || text.includes('prydz') || text.includes('armin') || text.includes('tiesto') || text.includes('alpha 9') || text.includes('arty') || text.includes('anjuna') || text.includes('balearic') || text.includes('solarstone') || text.includes('lumidelic') || text.includes('roald velden') || text.includes('blood groove') || text.includes('reflekt') || text.includes('above & beyond')) {
         match = 97;
         pillar = 'Pillar 2: Hypnotic Progressive Trance & Sunset Balearic (Weight: 20%)';
         category = 'Hypnotic Trance & Balearic';
         mood = 'Hypnotic Trance';
         bpm = '132 BPM';
         reason = 'Matches your late-night highway trance vector: ethereal breakdown arpeggios and soaring atmospheric progression.';
-      } else if (text.includes('gym') || text.includes('avicii') || text.includes('calvin') || text.includes('guetta') || text.includes('zedd') || text.includes('drop')) {
+      } else if (text.includes('gym') || text.includes('avicii') || text.includes('calvin') || text.includes('guetta') || text.includes('zedd') || text.includes('drop') || text.includes('swedish house') || text.includes('hardwell') || text.includes('garrix') || text.includes('alesso') || text.includes('don omar') || text.includes('workout') || text.includes('beast') || text.includes('pr fuel') || text.includes('kuduro')) {
         match = 96;
         pillar = 'Pillar 3: High-Energy Gym & Peak Electronic Drive (Weight: 20%)';
         category = 'Gym Peak Energy';
         mood = 'Gym / High Energy';
         bpm = '128 BPM';
         reason = 'Relentless driving momentum, high four-on-the-floor energy, and motivating PR progressive overload fuel.';
-      } else if (text.includes('desi') || text.includes('sufi') || text.includes('coke studio') || text.includes('nfak') || text.includes('fuzon') || text.includes('junoon') || text.includes('atif')) {
+      } else if (text.includes('desi') || text.includes('sufi') || text.includes('coke studio') || text.includes('nfak') || text.includes('nusrat') || text.includes('fuzon') || text.includes('junoon') || text.includes('atif') || text.includes('rahat') || text.includes('qawwali') || text.includes('strings') || text.includes('ali azmat') || text.includes('kailash') || text.includes('lucky ali') || text.includes('urdu') || text.includes('hindi')) {
         match = 97;
         pillar = 'Pillar 4: Soulful Desi Heritage & Melodic Sufi / Pop (Weight: 15%)';
         category = 'Desi Heritage & Sufi';
         mood = 'Desi Soul & Sufi';
         bpm = '95 BPM';
         reason = 'Deep South Asian vocal acoustics, classical Sufi arrangements, and soulful cultural resonance matching your Desi archive.';
-      } else if (text.includes('lounge') || text.includes('buddha') || text.includes('schiller') || text.includes('moby') || text.includes('chill')) {
-        match = 91;
+      } else if (text.includes('lounge') || text.includes('buddha') || text.includes('schiller') || text.includes('moby') || text.includes('chill') || text.includes('cafe del mar') || text.includes('blank & jones') || text.includes('enigma') || text.includes('karunesh') || text.includes('lemongrass') || text.includes('sitar') || text.includes('downtempo')) {
+        match = 92;
         pillar = 'Pillar 5: Atmospheric Lounge & Buddha Bar (Weight: 10%)';
         category = 'Buddha Bar Lounge';
         mood = 'Buddha Bar Lounge';
         bpm = '90 BPM';
         reason = 'Serene downtempo textures and acoustic world instruments ideal for evening contemplation and focus.';
+      } else if (text.includes('coldplay') || text.includes('modjo') || text.includes('sash') || text.includes('edward maya') || text.includes('linkin') || text.includes('nirvana') || text.includes('cranberries') || text.includes('maroon 5') || text.includes('daft punk') || text.includes('fatboy') || text.includes('retro') || text.includes('90s') || text.includes('2000s') || text.includes('rock') || text.includes('script')) {
+        match = 90;
+        pillar = 'Pillar 6: 90s-2000s Nostalgic Dance-Pop & Alt-Rock (Weight: 10%)';
+        category = 'Retro Dance & Pop-Rock';
+        mood = 'Retro Dance & Pop-Rock';
+        bpm = '120 BPM';
+        reason = 'Timeless nostalgic hooks, acoustic foundation, and harmonic resolution matching your retro rock/dance archive.';
       } else {
         match = 85;
         pillar = 'Pillar 6: 90s-2000s Nostalgic Dance-Pop & Alt-Rock (Weight: 10%)';
@@ -1789,6 +2432,9 @@
         reason = 'Solid melodic hook and harmonic foundation consistent with your general aesthetic preferences.';
       }
 
+      const matchClass = isRejected ? 'match-rejected' : (match >= 90 ? 'match-90s' : (match >= 80 ? 'match-80s' : 'match-70s'));
+      const badgeText = isRejected ? `⚠️ ${match}% REJECTED MATCH` : `⚡ ${match}% TASTE MATCH`;
+
       const resBox = document.getElementById('eval-result-card');
       resBox.style.display = 'block';
       resBox.innerHTML = `
@@ -1797,8 +2443,8 @@
             <h3 style="font-size:18px; font-weight:800; color:#fff;">${escapeHTML(title)}</h3>
             <div style="font-size:14px; color:var(--cyan); font-weight:600;">${escapeHTML(artist)}</div>
           </div>
-          <span class="card-match-badge match-90s" style="font-size:14px; padding:6px 12px;">
-            ⚡ ${match}% TASTE MATCH
+          <span class="card-match-badge ${matchClass}" style="font-size:14px; padding:6px 12px; ${isRejected ? 'background:rgba(244,63,94,0.25); border:1px solid rgba(244,63,94,0.6); color:#f43f5e; box-shadow:0 0 15px rgba(244,63,94,0.3);' : ''}">
+            ${badgeText}
           </span>
         </div>
         <div style="font-size:13px; color:#cbd5e1; margin-bottom:14px; line-height:1.6;">
@@ -1807,9 +2453,11 @@
           <strong>AI Analysis:</strong> ${reason}
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          ${!isRejected ? `
           <button class="btn-primary" onclick="saveCustomTrack('${escapeHTML(artist)}', '${escapeHTML(title)}', '${escapeHTML(category)}', '${escapeHTML(mood)}', ${match}, '${escapeHTML(bpm)}', '${escapeHTML(pillar)}', '${escapeHTML(reason)}')" style="padding:8px 16px; font-size:12px;">
             + Add to My Saved Library
           </button>
+          ` : ''}
           <a href="https://open.spotify.com/search/${encodeURIComponent(artist + ' ' + title)}" target="_blank" class="btn-secondary" style="padding:8px 14px; font-size:12px;">
             🎧 Search Spotify
           </a>
@@ -1869,9 +2517,8 @@
       }
 
       applyFilters();
-      if (window.SIKANDER_MUSIC_DATA && window.SIKANDER_MUSIC_DATA.metadata) {
-        updateMetadataDisplays(window.SIKANDER_MUSIC_DATA.metadata);
-      }
+      updateMetadataDisplays();
+      renderRadarList();
       showToast(`Added "${title}" to your active library!`);
       closeEvaluatorModal();
     }
@@ -1886,9 +2533,8 @@
         console.warn('LocalStorage error:', e);
       }
       applyFilters();
-      if (window.SIKANDER_MUSIC_DATA && window.SIKANDER_MUSIC_DATA.metadata) {
-        updateMetadataDisplays(window.SIKANDER_MUSIC_DATA.metadata);
-      }
+      updateMetadataDisplays();
+      renderRadarList();
       showToast('Track removed from library');
     }
 
@@ -1987,9 +2633,8 @@
           console.warn('LocalStorage error:', e);
         }
         applyFilters();
-        if (window.SIKANDER_MUSIC_DATA && window.SIKANDER_MUSIC_DATA.metadata) {
-          updateMetadataDisplays(window.SIKANDER_MUSIC_DATA.metadata);
-        }
+        updateMetadataDisplays();
+        renderRadarList();
         document.getElementById('ai-import-input').value = '';
         statusEl.textContent = `✓ Successfully imported ${importedCount} tracks!`;
         showToast(`Imported ${importedCount} tracks into your library!`);
@@ -2005,20 +2650,48 @@
     function renderRadarList() {
       const c = document.getElementById('curated-radar-list');
       if (!c) return;
-      c.innerHTML = CURATED_RADAR.map(r => `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:8px; padding:12px 16px; gap:12px;">
-          <div>
+      c.innerHTML = CURATED_RADAR.map((r, idx) => {
+        const inLibrary = masterTracks.some(t => t.title && t.title.toLowerCase() === r.title.toLowerCase());
+        return `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:8px; padding:12px 16px; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:240px;">
             <div style="font-weight:700; color:#fff; font-size:14px;">${escapeHTML(r.title)}</div>
             <div style="font-size:12px; color:var(--cyan);">${escapeHTML(r.artist)} · <span style="color:var(--text-dim);">${escapeHTML(r.category)} (${r.year})</span></div>
             <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">${escapeHTML(r.reason)}</div>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
             <span class="card-match-badge match-90s" style="font-size:12px;">⚡ ${r.match}%</span>
+            ${inLibrary ? `
+              <span style="font-size:11px; font-weight:700; color:#10b981; padding:4px 8px; background:rgba(16,185,129,0.15); border-radius:6px; border:1px solid rgba(16,185,129,0.3); white-space:nowrap;">✓ In Library</span>
+            ` : `
+              <button class="btn-primary" onclick="addRadarTrack(${idx})" style="padding:4px 10px; font-size:11px; white-space:nowrap;">
+                + Add to Library
+              </button>
+            `}
             <a href="${escapeHTML(r.spotifyUrl)}" target="_blank" class="card-action-icon" title="Listen on Spotify">🎧</a>
             <a href="${escapeHTML(r.ytUrl)}" target="_blank" class="card-action-icon" title="Listen on YouTube">▶</a>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
+    }
+
+    function addRadarTrack(index) {
+      const r = CURATED_RADAR[index];
+      if (!r) return;
+      const already = masterTracks.some(t => t.title && t.title.toLowerCase() === r.title.toLowerCase());
+      if (already) {
+        showToast(`"${r.title}" is already in your library!`);
+        return;
+      }
+      let mood = 'Sunset Deep House';
+      if (r.category === 'Hypnotic Trance & Balearic') mood = 'Hypnotic Trance';
+      else if (r.category === 'Gym Peak Energy') mood = 'Gym / High Energy';
+      else if (r.category === 'Desi Heritage & Sufi') mood = 'Desi Soul & Sufi';
+      else if (r.category === 'Buddha Bar Lounge') mood = 'Buddha Bar Lounge';
+      else if (r.category === 'Retro Dance & Pop-Rock') mood = 'Retro Dance & Pop-Rock';
+
+      saveCustomTrack(r.artist, r.title, r.category, mood, r.match, r.bpm, `Pillar: ${r.category}`, r.reason);
     }
 
     function copyAIPrompt() {
@@ -2040,6 +2713,89 @@ Strict Rules:
       });
     }
 
+    function switchSpotifyTab(tabName) {
+      const tabs = ['playlists', 'cloud', 'folder', 'local'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const content = document.getElementById(`spotify-tab-content-${t}`);
+        if (btn) btn.classList.toggle('active', t === tabName);
+        if (content) content.style.display = (t === tabName) ? 'block' : 'none';
+      });
+    }
+
+    function copyPresetTracklist(collectionKey) {
+      fetch(`data/music/spotify_exports/${collectionKey}.txt`)
+        .then(r => {
+          if (!r.ok) throw new Error('File fetch fallback');
+          return r.text();
+        })
+        .then(txt => {
+          navigator.clipboard.writeText(txt).then(() => {
+            showToast(`Copied tracklist for ${collectionKey} to clipboard!`);
+          });
+        })
+        .catch(() => {
+          let filtered = [];
+          if (collectionKey === '01_Sunset_Deep_House') filtered = masterTracks.filter(t => t.mood === 'Sunset Deep House' || t.category === 'Sunset Deep House');
+          else if (collectionKey === '02_Hypnotic_Trance') filtered = masterTracks.filter(t => t.mood === 'Hypnotic Trance' || t.category === 'Hypnotic Trance & Balearic');
+          else if (collectionKey === '03_Gym_Peak_Energy') filtered = masterTracks.filter(t => t.mood === 'Gym / High Energy' || t.category === 'Gym Peak Energy');
+          else if (collectionKey === '04_Desi_Heritage_Sufi') filtered = masterTracks.filter(t => t.is_desi || t.category === 'Desi Heritage & Sufi');
+          else if (collectionKey === '05_Buddha_Bar_Lounge') filtered = masterTracks.filter(t => t.mood === 'Buddha Bar Lounge' || t.category === 'Buddha Bar Lounge');
+          else if (collectionKey === '06_Retro_Dance_Rock') filtered = masterTracks.filter(t => t.mood === 'Retro Dance & Pop-Rock' || t.category === 'Retro Dance & Pop-Rock');
+          else if (collectionKey === '00_Top_Taste_Picks_Liked') filtered = masterTracks.filter(t => t.in_spotify_liked || t.taste_match >= 90);
+          else if (collectionKey === '00_All_Manual_Downloads') filtered = masterTracks.filter(t => t.is_manual_download);
+          else if (collectionKey === '00_Root_Direct_Singles') filtered = masterTracks.filter(t => t.is_root_manual || (t.source_folder && t.source_folder === 'Root'));
+          else filtered = masterTracks;
+
+          const lines = filtered.map(t => `${t.artist} - ${t.title}`).join('\n');
+          navigator.clipboard.writeText(lines).then(() => {
+            showToast(`Copied ${filtered.length} tracks to clipboard!`);
+          });
+        });
+    }
+
+    function copyPresetURIs(collectionKey) {
+      fetch(`data/music/spotify_exports/${collectionKey}_uris.txt`)
+        .then(r => {
+          if (!r.ok) throw new Error('File fetch fallback');
+          return r.text();
+        })
+        .then(uris => {
+          const cleanUris = uris.trim();
+          if (!cleanUris) throw new Error('Empty URIs file');
+          navigator.clipboard.writeText(cleanUris).then(() => {
+            const count = cleanUris.split('\n').filter(Boolean).length;
+            showToast(`Copied ${count} Spotify URIs to clipboard! Press Ctrl+V in Spotify Desktop.`);
+          });
+        })
+        .catch(() => {
+          let filtered = [];
+          if (collectionKey === '01_Sunset_Deep_House') filtered = masterTracks.filter(t => t.mood === 'Sunset Deep House' || t.category === 'Sunset Deep House');
+          else if (collectionKey === '02_Hypnotic_Trance') filtered = masterTracks.filter(t => t.mood === 'Hypnotic Trance' || t.category === 'Hypnotic Trance & Balearic');
+          else if (collectionKey === '03_Gym_Peak_Energy') filtered = masterTracks.filter(t => t.mood === 'Gym / High Energy' || t.category === 'Gym Peak Energy');
+          else if (collectionKey === '04_Desi_Heritage_Sufi') filtered = masterTracks.filter(t => t.is_desi || t.category === 'Desi Heritage & Sufi');
+          else if (collectionKey === '05_Buddha_Bar_Lounge') filtered = masterTracks.filter(t => t.mood === 'Buddha Bar Lounge' || t.category === 'Buddha Bar Lounge');
+          else if (collectionKey === '06_Retro_Dance_Rock') filtered = masterTracks.filter(t => t.mood === 'Retro Dance & Pop-Rock' || t.category === 'Retro Dance & Pop-Rock');
+          else if (collectionKey === '00_Top_Taste_Picks_Liked') filtered = masterTracks.filter(t => t.in_spotify_liked || t.taste_match >= 90);
+          else if (collectionKey === '00_All_Manual_Downloads') filtered = masterTracks.filter(t => t.is_manual_download);
+          else if (collectionKey === '00_Root_Direct_Singles') filtered = masterTracks.filter(t => t.is_root_manual || (t.source_folder && t.source_folder === 'Root'));
+          else filtered = masterTracks;
+
+          const uris = filtered.filter(t => t.spotify_uri).map(t => t.spotify_uri).join('\n');
+          if (uris) {
+            navigator.clipboard.writeText(uris).then(() => {
+              showToast(`Copied ${uris.split('\n').length} Spotify URIs to clipboard! Press Ctrl+V in Spotify Desktop.`);
+            });
+          } else {
+            showToast('No Spotify URIs found in this selection.');
+          }
+        });
+    }
+
+    function downloadAllPlaylistsZip() {
+      showToast('All CSV, TXT, and M3U8 files are available in I:\\sikander-os\\data\\music\\spotify_exports\\');
+    }
+
     function escapeHTML(str) {
       if (!str) return '';
       return String(str).replace(/[&<>'"]/g, 
@@ -2055,5 +2811,7 @@ Strict Rules:
 
     document.addEventListener('DOMContentLoaded', init);
   </script>
+  <!-- Sikander OS Local-First Multi-Device Sync Engine & PWA Core -->
+  <script src="data/sync_engine.js"></script>
 </body>
 </html>

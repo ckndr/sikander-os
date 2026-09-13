@@ -1,0 +1,106 @@
+{
+  "generated_at": "2026-09-13T01:35:00+05:00",
+  "total_library_tracks": 2519,
+  "collections": {
+    "01_Sunset_Deep_House": {
+      "title": "Sikander — 🌅 Sunset Deep House",
+      "description": "Warm saxophone melodic house, deep rolling basslines, and euphoric sunset dopamine.",
+      "track_count": 586,
+      "spotify_matched_count": 55,
+      "csv_filename": "01_Sunset_Deep_House.csv",
+      "txt_filename": "01_Sunset_Deep_House.txt",
+      "uris_filename": "01_Sunset_Deep_House_uris.txt",
+      "m3u_filename": "01_Sunset_Deep_House.m3u8"
+    },
+    "02_Hypnotic_Trance": {
+      "title": "Sikander — 🌌 Hypnotic Trance & Balearic",
+      "description": "Expansive progressive synth arpeggios, ethereal breakdowns, and late-night highway flow state.",
+      "track_count": 150,
+      "spotify_matched_count": 58,
+      "csv_filename": "02_Hypnotic_Trance.csv",
+      "txt_filename": "02_Hypnotic_Trance.txt",
+      "uris_filename": "02_Hypnotic_Trance_uris.txt",
+      "m3u_filename": "02_Hypnotic_Trance.m3u8"
+    },
+    "03_Gym_Peak_Energy": {
+      "title": "Sikander — ⚡ Gym Peak Energy",
+      "description": "Relentless 4-on-the-floor kick, explosive drops, driving cadence (126-132 BPM), and PR workout motivation.",
+      "track_count": 197,
+      "spotify_matched_count": 98,
+      "csv_filename": "03_Gym_Peak_Energy.csv",
+      "txt_filename": "03_Gym_Peak_Energy.txt",
+      "uris_filename": "03_Gym_Peak_Energy_uris.txt",
+      "m3u_filename": "03_Gym_Peak_Energy.m3u8"
+    },
+    "04_Desi_Heritage_Sufi": {
+      "title": "Sikander — 🪕 Desi Heritage & Melodic Sufi",
+      "description": "Soul-piercing South Asian classical/qawwali vocals, Pakistani rock guitars, and cultural nostalgia.",
+      "track_count": 108,
+      "spotify_matched_count": 7,
+      "csv_filename": "04_Desi_Heritage_Sufi.csv",
+      "txt_filename": "04_Desi_Heritage_Sufi.txt",
+      "uris_filename": "04_Desi_Heritage_Sufi_uris.txt",
+      "m3u_filename": "04_Desi_Heritage_Sufi.m3u8"
+    },
+    "05_Buddha_Bar_Lounge": {
+      "title": "Sikander — ☕ Buddha Bar & World Lounge",
+      "description": "Serene downtempo world groove, ethnic acoustic strings, sitar, and evening contemplative zen.",
+      "track_count": 120,
+      "spotify_matched_count": 2,
+      "csv_filename": "05_Buddha_Bar_Lounge.csv",
+      "txt_filename": "05_Buddha_Bar_Lounge.txt",
+      "uris_filename": "05_Buddha_Bar_Lounge_uris.txt",
+      "m3u_filename": "05_Buddha_Bar_Lounge.m3u8"
+    },
+    "06_Retro_Dance_Rock": {
+      "title": "Sikander — 🎸 Retro Dance & Pop-Rock",
+      "description": "Timeless 90s-2000s singalong hooks, nostalgic millennial Eurodance, and melodic alt-rock classics.",
+      "track_count": 1358,
+      "spotify_matched_count": 136,
+      "csv_filename": "06_Retro_Dance_Rock.csv",
+      "txt_filename": "06_Retro_Dance_Rock.txt",
+      "uris_filename": "06_Retro_Dance_Rock_uris.txt",
+      "m3u_filename": "06_Retro_Dance_Rock.m3u8"
+    },
+    "00_Top_Taste_Picks_Liked": {
+      "title": "Sikander — ⭐ Top Taste Picks & Liked (90%+)",
+      "description": "Highest conviction tracks across all pillars: Spotify Liked songs and 90%+ mathematical taste matches.",
+      "track_count": 379,
+      "spotify_matched_count": 353,
+      "csv_filename": "00_Top_Taste_Picks_Liked.csv",
+      "txt_filename": "00_Top_Taste_Picks_Liked.txt",
+      "uris_filename": "00_Top_Taste_Picks_Liked_uris.txt",
+      "m3u_filename": "00_Top_Taste_Picks_Liked.m3u8"
+    },
+    "00_All_Manual_Downloads": {
+      "title": "Sikander — 📁 All Manual Downloads (1,219 Tracks)",
+      "description": "100% handpicked choices: Root direct singles, Year-Month monthly folders (2016-2020), and Desi Heritage collection.",
+      "track_count": 1219,
+      "spotify_matched_count": 347,
+      "csv_filename": "00_All_Manual_Downloads.csv",
+      "txt_filename": "00_All_Manual_Downloads.txt",
+      "uris_filename": "00_All_Manual_Downloads_uris.txt",
+      "m3u_filename": "00_All_Manual_Downloads.m3u8"
+    },
+    "00_Root_Direct_Singles": {
+      "title": "Sikander — 💾 Root Direct Singles (435 Tracks)",
+      "description": "Standalone individual songs downloaded directly to the root of I:\\Music over the years.",
+      "track_count": 435,
+      "spotify_matched_count": 3,
+      "csv_filename": "00_Root_Direct_Singles.csv",
+      "txt_filename": "00_Root_Direct_Singles.txt",
+      "uris_filename": "00_Root_Direct_Singles_uris.txt",
+      "m3u_filename": "00_Root_Direct_Singles.m3u8"
+    },
+    "00_Master_Library_All": {
+      "title": "Sikander — 🔀 Master Library (Shuffle All)",
+      "description": "Complete deduplicated archive of 2519 tracks for seamless random shuffle across all moods.",
+      "track_count": 2519,
+      "spotify_matched_count": 356,
+      "csv_filename": "00_Master_Library_All.csv",
+      "txt_filename": "00_Master_Library_All.txt",
+      "uris_filename": "00_Master_Library_All_uris.txt",
+      "m3u_filename": "00_Master_Library_All.m3u8"
+    }
+  }
+}

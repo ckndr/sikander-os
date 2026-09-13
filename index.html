@@ -540,13 +540,21 @@
       gap: 8px;
       padding: 10px 16px;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border: 1px dashed rgba(255, 255, 255, 0.14);
       border-radius: var(--radius-sm);
       color: var(--text-dim);
       font-size: 12px;
       font-weight: 600;
-      cursor: not-allowed;
+      cursor: pointer;
       width: 100%;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-dev:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
     }
 
     /* FOOTER */
@@ -577,7 +585,7 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(10px);
-      z-index: 1000;
+      z-index: 10020;
       align-items: center;
       justify-content: center;
       padding: 20px;
@@ -614,7 +622,363 @@
       background: rgba(255,255,255,0.15);
     }
 
+    /* TOPBAR BUTTONS (SEARCH & PRIVACY) */
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-search-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .topbar-search-btn:hover {
+      background: rgba(0, 242, 254, 0.18);
+      border-color: var(--cyan);
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
+      color: #fff;
+    }
+    .search-btn-kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 7px;
+      background: rgba(0, 242, 254, 0.15);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 6px;
+      color: #fff;
+    }
+    .privacy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .privacy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+    .privacy-btn.active {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+
+    /* QUICK LAUNCH DOCK */
+    .quick-launch-dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 12px;
+      background: rgba(9, 13, 23, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 40px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 242, 254, 0.15);
+      max-width: calc(100vw - 20px);
+      overflow-x: auto;
+    }
+    .dock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      padding: 6px 8px;
+      border-radius: 14px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dock-item:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+    }
+    .dock-icon {
+      font-size: 18px;
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+    .dock-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .dock-shortcut {
+      position: absolute;
+      top: -3px;
+      right: 0px;
+      font-size: 8.5px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1px 4px;
+      background: rgba(0, 242, 254, 0.15);
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      border-radius: 5px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+    .dock-separator {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* UNIVERSAL COMMAND PALETTE MODAL */
+    .palette-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 13, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 10000;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 60px 16px 20px;
+      animation: fadeIn 0.18s ease-out;
+    }
+    .palette-box {
+      background: #0d121f;
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      border-radius: 20px;
+      max-width: 740px;
+      width: 100%;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.9), 0 0 40px rgba(0, 242, 254, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      max-height: 80vh;
+      animation: scaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .palette-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 20, 32, 0.95);
+    }
+    .palette-search-icon {
+      font-size: 20px;
+      color: var(--cyan);
+    }
+    .palette-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 16px;
+      font-family: inherit;
+    }
+    .palette-input::placeholder {
+      color: var(--text-dim);
+    }
+    .palette-esc-badge {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .palette-filter-row {
+      display: flex;
+      gap: 6px;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 14, 24, 0.8);
+      overflow-x: auto;
+    }
+    .palette-chip {
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .palette-chip:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .palette-chip.active {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+    }
+    .palette-results {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 14px;
+      min-height: 280px;
+    }
+    .palette-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s ease;
+      margin-bottom: 4px;
+    }
+    .palette-item:hover, .palette-item.selected {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(0, 242, 254, 0.3);
+    }
+    .palette-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
+    .palette-item-icon {
+      font-size: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      flex-shrink: 0;
+    }
+    .palette-item-info {
+      overflow: hidden;
+    }
+    .palette-item-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .palette-item-subtitle {
+      font-size: 11.5px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .palette-item-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .palette-cat-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-cinema { background: rgba(0, 242, 254, 0.12); color: var(--cyan); border: 1px solid rgba(0, 242, 254, 0.3); }
+    .badge-property { background: rgba(245, 158, 11, 0.12); color: var(--gold); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-music { background: rgba(139, 92, 246, 0.12); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-career { background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-finance { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-health { background: rgba(16, 185, 129, 0.12); color: var(--emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .palette-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 14, 24, 0.95);
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* SHORTCUTS HELP MODAL */
+    .help-modal-box {
+      background: #0d121f;
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      border-radius: 20px;
+      max-width: 640px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.9), 0 0 35px rgba(0, 242, 254, 0.15);
+      position: relative;
+    }
+    .shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .shortcut-row:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .shortcut-key-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 6px;
+      color: var(--cyan);
+    }
+
     @media (max-width: 900px) {
+      body {
+        padding-bottom: 90px !important;
+      }
       .cinema-hero-card {
         grid-template-columns: 1fr;
       }
@@ -629,6 +993,24 @@
       .topbar-right {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .quick-launch-dock {
+        bottom: 8px;
+        padding: 6px 10px;
+        gap: 2px;
+        max-width: 96vw;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .quick-launch-dock::-webkit-scrollbar {
+        display: none;
+      }
+      .dock-item {
+        min-width: 42px;
+        padding: 4px 6px;
       }
     }
   </style>
@@ -641,12 +1023,21 @@
       <div class="os-brand">
         <div class="os-logo-gem">⚡</div>
         <div class="os-brand-info">
-          <h1>Sikander OS <span class="version-tag">v1.0.0</span></h1>
+          <h1>Sikander OS <span class="version-tag">v2.0.0</span></h1>
           <p>Unified Life & Intelligence Dashboard</p>
         </div>
       </div>
 
       <div class="topbar-right">
+        <button class="topbar-search-btn" onclick="openCommandPalette()" title="Universal Command Palette (Ctrl+K)">
+          <span>🔍</span>
+          <span>Search OS...</span>
+          <kbd class="search-btn-kbd">Ctrl K</kbd>
+        </button>
+        <button class="privacy-btn" id="privacy-toggle-btn" onclick="toggleGlobalPrivacy()" title="1-Click Global Privacy Shield (Press P)">
+          <span id="privacy-icon">👁️</span>
+          <span id="privacy-text">Privacy Mode: OFF</span>
+        </button>
         <div class="telemetry-item">
           <div class="telemetry-time" id="clock-display">12:00:00 AM</div>
           <div class="telemetry-date" id="date-display">Saturday, Sep 13, 2026</div>
@@ -660,44 +1051,68 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
-      <div class="hero-badge">◈ Master Architecture & Execution Environment</div>
+      <div class="hero-badge">◈ Master Command Center & Unified Execution Environment (OS v2.0)</div>
       <h2 class="hero-title">Welcome back, <span>Sikander</span>.</h2>
       <p class="hero-desc">
-        Your unified personal command center. Consolidating entertainment intelligence, algorithmic taste models, cognitive workflows, and daily execution into a single high-performance cockpit.
+        Your sovereign life operating system unifying entertainment intelligence, Al Ghafoor property equity, music taste models, 11-year industrial career operations, capital reserves, and family health telemetry into a single high-performance cockpit.
       </p>
 
-      <!-- SYSTEM METRICS STRIP -->
+      <!-- EXECUTIVE LIFE METRICS STRIP -->
       <div class="metrics-strip">
-        <div class="metric-card">
-          <div class="metric-label">Media Catalog</div>
-          <div class="metric-value">2,877</div>
-          <div class="metric-sub">Cinema (373) + Music (2,504)</div>
-        </div>
-        <div class="metric-card" style="border-color: rgba(16, 185, 129, 0.35); background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 20, 32, 0.8) 100%);">
-          <div class="metric-label" style="color: var(--emerald);">Real Estate Equity</div>
-          <div class="metric-value" style="color: var(--emerald);">67.0%</div>
-          <div class="metric-sub">PKR 2.093M Paid / 3.124M Outlay</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Active Modules</div>
-          <div class="metric-value" style="color: var(--cyan);">3 Live</div>
-          <div class="metric-sub">Cinema + Property + Music</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Live Deployment</div>
-          <div class="metric-value">100%</div>
-          <div class="metric-sub">GitHub Pages CDN</div>
-        </div>
+        <a href="finance.html" class="metric-card" style="border-color: rgba(245, 158, 11, 0.4); background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 20, 32, 0.85) 100%); text-decoration:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="metric-label" style="color: var(--gold);">Total Net Worth</div>
+            <span style="font-size:16px;">🏦</span>
+          </div>
+          <div class="metric-value privacy-maskable" data-real-val="PKR 8.45M" style="color: var(--gold);" id="metric-networth">PKR 8.45M</div>
+          <div class="metric-sub privacy-maskable" data-real-val="Bank PKR 6.35M · Property PKR 2.09M (67% Equity)" id="metric-networth-sub">Bank PKR 6.35M · Property PKR 2.09M (67% Equity)</div>
+        </a>
+
+        <a href="health.html" class="metric-card" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 20, 32, 0.85) 100%); text-decoration:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="metric-label" style="color: var(--emerald);">Physical Health Status</div>
+            <span style="font-size:16px;">🚶</span>
+          </div>
+          <div class="metric-value" style="color: var(--emerald);" id="metric-health-steps">10,420 Steps</div>
+          <div class="metric-sub" id="metric-health-sub">Goal: 10,000 (104.2%) · 19-Day Streak 🔥 · 8.13 km</div>
+        </a>
+
+        <a href="career.html" class="metric-card" style="border-color: rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(15, 20, 32, 0.85) 100%); text-decoration:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="metric-label" style="color: #38bdf8;">Career Target</div>
+            <span style="font-size:16px;">💼</span>
+          </div>
+          <div class="metric-value" style="color: #38bdf8; font-size:22px; line-height:1.2; margin-top:4px;" id="metric-career-target">Senior SCM / Planning Lead</div>
+          <div class="metric-sub" id="metric-career-sub">Novatex (10+ Yrs) + Alpha Containers Lead · 90 WPM</div>
+        </a>
+
+        <a href="cinema.html" class="metric-card" style="border-color: rgba(0, 242, 254, 0.4); background: linear-gradient(135deg, rgba(0, 242, 254, 0.08) 0%, rgba(15, 20, 32, 0.85) 100%); text-decoration:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="metric-label" style="color: var(--cyan);">Cinema Watchlist</div>
+            <span style="font-size:16px;">🎬</span>
+          </div>
+          <div class="metric-value" style="color: var(--cyan);" id="metric-cinema-count">217 Titles</div>
+          <div class="metric-sub" id="metric-cinema-sub">Curated Queue · 156 Watched Ratings (373 Total)</div>
+        </a>
+
+        <a href="music.html" class="metric-card" style="border-color: rgba(139, 92, 246, 0.4); background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(15, 20, 32, 0.85) 100%); text-decoration:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="metric-label" style="color: #c084fc;">Music Catalog Size</div>
+            <span style="font-size:16px;">🎵</span>
+          </div>
+          <div class="metric-value" style="color: #c084fc;" id="metric-music-count">2,519 Tracks</div>
+          <div class="metric-sub" id="metric-music-sub">1,219 Manual Archive · 356 Spotify Verified · 6 Moods</div>
+        </a>
       </div>
     </section>
 
-    <!-- ACTIVE & ECOSYSTEM MODULES -->
+    <!-- ACTIVE LIVE MODULES -->
     <section>
       <div class="section-header">
         <div class="section-title">
-          <span>◈ Operating Modules</span>
+          <span>◈ Live Operational Modules</span>
         </div>
-        <div class="section-subtitle">3 Operational · 3 Roadmap Systems</div>
+        <div class="section-subtitle">6 Operational Systems Live on GitHub Pages · Cinema, Capital & Property, Music, Career & Health Hub</div>
       </div>
 
       <div class="modules-grid">
@@ -759,60 +1174,65 @@
           </div>
         </article>
 
-        <!-- FEATURED HERO MODULE: REAL ESTATE & PROPERTY LEDGER -->
-        <article class="cinema-hero-card" style="border-color: rgba(245, 158, 11, 0.35); background: linear-gradient(135deg, rgba(20, 24, 38, 0.85) 0%, rgba(15, 18, 30, 0.95) 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(245, 158, 11, 0.08);">
+        <!-- FEATURED HERO MODULE: SOVEREIGN CAPITAL, PROPERTY & BANKING HUB -->
+        <article class="cinema-hero-card" style="border-color: rgba(245, 158, 11, 0.38); background: linear-gradient(135deg, rgba(20, 24, 38, 0.9) 0%, rgba(13, 17, 28, 0.96) 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 35px rgba(245, 158, 11, 0.1);">
           <div class="cinema-hero-left">
             <div class="cinema-badge-row">
               <span class="module-status-active" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
                 <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>
                 LIVE & OPERATIONAL
               </span>
-              <span class="module-category" style="color: var(--gold);">Module 02 · Real Estate & Capital Outlay</span>
+              <span class="module-category" style="color: var(--gold);">Module 05 · Sovereign Capital, Property & Banking Hub</span>
             </div>
 
-            <h3 class="cinema-title">Al Ghafoor Towers & Mall — Unit 206</h3>
+            <h3 class="cinema-title">Sovereign Capital, Property & Banking Hub</h3>
             <p class="cinema-desc">
-              Consolidated property acquisition & utility installment ledger for Unit 206 (Apartments / Residential, Surjani Town Sector 12, Karachi). Features 100 historical construction transactions, 37-month utility schedule, and a 20-document verified receipt vault.
+              Unified financial command center consolidating 9,003 Bluecoins transactions (2020–2025), 9 multi-account bank & wallet reserves (PKR 6.35M liquid), the complete Al Ghafoor Unit 206 property ledger (67% equity paid / PKR 2.093M), and statutory FBR Form 114/116 tax compliance with transparent ground-truth wealth reconciliation.
             </p>
 
             <div class="cinema-pills">
-              <span class="pillar-pill" style="border-color: rgba(245, 158, 11, 0.25); color: #fde68a;">🏢 Flat Cost: PKR 2,174,000</span>
-              <span class="pillar-pill" style="border-color: rgba(16, 185, 129, 0.25); color: #6ee7b7;">⚡ Net Utilities: PKR 950,000</span>
-              <span class="pillar-pill">📄 100 Cleared Ledger Txs</span>
-              <span class="pillar-pill">🏦 Raast / Habib Metro</span>
+              <span class="pillar-pill" style="border-color: rgba(245, 158, 11, 0.3); color: #fde68a;">🏦 5 Live Liquid Accounts</span>
+              <span class="pillar-pill" style="border-color: rgba(245, 158, 11, 0.3); color: #fde68a;">🛡️ Net Worth: PKR 8.45M</span>
+              <span class="pillar-pill" style="border-color: rgba(16, 185, 129, 0.3); color: #6ee7b7;">🏢 Unit 206: 67.0% Equity</span>
+              <span class="pillar-pill" style="border-color: rgba(0, 242, 254, 0.3); color: #a5f3fc;">🏦 9 Bank Accounts (6.35M)</span>
+              <span class="pillar-pill">📊 9,003 Bluecoins Txs</span>
+              <span class="pillar-pill">🏛️ FBR ATL Active (10.16M)</span>
               <span class="pillar-pill">🧾 20 Verified Receipts</span>
             </div>
 
             <div class="cinema-actions">
-              <a href="property.html" class="btn-launch" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050811; box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);">
-                <span>🏢 Launch Property Ledger</span>
+              <a href="finance.html" class="btn-launch" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #050811; box-shadow: 0 0 25px rgba(245, 158, 11, 0.45);">
+                <span>🚀 Launch Capital Hub</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </a>
-              <a href="property.html" class="btn-secondary">
-                <span>🗄️ Receipt Vault (20 Docs)</span>
+              <a href="finance.html#property" class="btn-secondary" style="border-color: rgba(245, 158, 11, 0.35); color: var(--gold); background: rgba(245, 158, 11, 0.06);">
+                <span>🏢 Property Ledger</span>
               </a>
-              <a href="data/property/alghafoor_property_ledger.json" target="_blank" class="btn-secondary" style="font-family:'JetBrains Mono',monospace; font-size:12px;">
-                <span>{ } Ledger JSON</span>
+              <a href="finance.html#tax" class="btn-secondary" style="border-color: rgba(16, 185, 129, 0.35); color: var(--emerald); background: rgba(16, 185, 129, 0.06);">
+                <span>🏛️ FBR Tax Vault</span>
+              </a>
+              <a href="data/finance/sikander_finance_master.json" target="_blank" class="btn-secondary" style="font-family:'JetBrains Mono',monospace; font-size:12px;">
+                <span>{ } Finance JSON</span>
               </a>
             </div>
           </div>
 
           <div class="cinema-stats-box">
             <div class="stat-item gold">
-              <div class="stat-numb" style="color:var(--gold);">67.0%</div>
-              <div class="stat-txt">Capital Equity Settled</div>
+              <div class="stat-numb" style="color:var(--gold);">8.45M</div>
+              <div class="stat-txt">True Sovereign Net Worth</div>
             </div>
             <div class="stat-item emerald">
-              <div class="stat-numb" style="color:var(--emerald);">2.093M</div>
-              <div class="stat-txt">PKR Paid to Date</div>
+              <div class="stat-numb" style="color:var(--emerald);">6.35M</div>
+              <div class="stat-txt">Verified Bank Liquidity</div>
             </div>
             <div class="stat-item">
-              <div class="stat-numb">9 / 37</div>
-              <div class="stat-txt">Utility Months Cleared</div>
+              <div class="stat-numb" style="color:var(--cyan);">67.0%</div>
+              <div class="stat-txt">Property Equity Paid</div>
             </div>
             <div class="stat-item purple">
-              <div class="stat-numb">15,000</div>
-              <div class="stat-txt">Next Due (M10 Sep 26)</div>
+              <div class="stat-numb" style="color:#c084fc;">9,003</div>
+              <div class="stat-txt">Bluecoins Transactions</div>
             </div>
           </div>
         </article>
@@ -847,6 +1267,9 @@
                 <span>🎧 Launch Music Hub</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
               </a>
+              <a href="music.html#spotify-export" class="btn-secondary" style="border-color: rgba(30, 215, 96, 0.4); color: #1ed760; background: rgba(30, 215, 96, 0.08);">
+                <span>🟢 Spotify Transfer</span>
+              </a>
               <a href="data/SIKANDER_MUSIC_AI_PROFILE.md" target="_blank" class="btn-secondary">
                 <span>🧠 AI Taste Blueprint</span>
               </a>
@@ -858,103 +1281,305 @@
 
           <div class="cinema-stats-box">
             <div class="stat-item purple">
-              <div class="stat-numb" style="color:#c084fc;">2,504</div>
+              <div class="stat-numb" style="color:#c084fc;">2,519</div>
               <div class="stat-txt">Total Master Tracks</div>
             </div>
             <div class="stat-item emerald">
-              <div class="stat-numb" style="color:var(--emerald);">684</div>
+              <div class="stat-numb" style="color:var(--emerald);">1,219</div>
               <div class="stat-txt">Manual Archive Picks</div>
             </div>
             <div class="stat-item">
-              <div class="stat-numb" style="color:var(--cyan);">557</div>
+              <div class="stat-numb" style="color:var(--cyan);">356</div>
               <div class="stat-txt">Spotify Verified</div>
             </div>
             <div class="stat-item gold">
-              <div class="stat-numb" style="color:var(--gold);">110</div>
+              <div class="stat-numb" style="color:var(--gold);">108</div>
               <div class="stat-txt">Desi Soul Heritage</div>
             </div>
           </div>
         </article>
 
-        <!-- MODULE 02: GYM & PHYSICAL PERFORMANCE -->
-        <article class="roadmap-card">
-          <div>
-            <div class="roadmap-header">
-              <div class="roadmap-icon">🏋️‍♂️</div>
-              <span class="roadmap-phase">MODULE 02 · PHASE 2</span>
+        <!-- FEATURED HERO MODULE: CAREER INTELLIGENCE & AI RESUME BUILDER -->
+        <article class="cinema-hero-card" style="border-color: rgba(0, 242, 254, 0.4); background: linear-gradient(135deg, rgba(16, 23, 40, 0.9) 0%, rgba(11, 16, 30, 0.96) 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 35px rgba(0, 242, 254, 0.12);">
+          <div class="cinema-hero-left">
+            <div class="cinema-badge-row">
+              <span class="module-status-active" style="background: rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.4); color: var(--cyan);">
+                <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;"></span>
+                LIVE & OPERATIONAL
+              </span>
+              <span class="module-category" style="color: var(--cyan);">Module 04 · Career & Industrial Intelligence</span>
             </div>
-            <h3>Iron & Bio-Metrics Hub</h3>
-            <p>
-              Progressive overload telemetry, volume calculations per muscle group, hyper-optimized lifting cycles, and bio-marker recovery tracking.
+
+            <h3 class="cinema-title">Career Intelligence & AI Resume Builder</h3>
+            <p class="cinema-desc">
+              11-year industrial context engine uniting 10+ years of Novatex BOPET manufacturing and the 2026 Alpha Containers / Tubex Planning Lead appointment. Features interactive AI resume tailoring across 4 target roles, real-time Job Match Fit Evaluator, searchable vault of 21 SAP macros, industrial SOPs & cold extrusion mechanics, and a 38-month verified compensation curve.
             </p>
-            <div class="roadmap-tags">
-              <span class="tag-chip">RPE Logging</span>
-              <span class="tag-chip">Volume Trends</span>
-              <span class="tag-chip">PR Telemetry</span>
-              <span class="tag-chip">Macro Adherence</span>
+
+            <div class="cinema-pills">
+              <span class="pillar-pill" style="border-color: rgba(0, 242, 254, 0.3); color: #a5f3fc;">💼 4 Live Target Roles</span>
+              <span class="pillar-pill" style="border-color: rgba(0, 242, 254, 0.3); color: #a5f3fc;">💼 11+ Yrs Continuous SCM</span>
+              <span class="pillar-pill" style="border-color: rgba(16, 185, 129, 0.3); color: #a7f3d0;">⚡ 90 WPM Certified Typing</span>
+              <span class="pillar-pill" style="border-color: rgba(139, 92, 246, 0.3); color: #e9d5ff;">🤖 21 SAP Macros (825m/day)</span>
+              <span class="pillar-pill" style="border-color: rgba(245, 158, 11, 0.3); color: #fde68a;">🏭 Novatex + Tubex Lead</span>
+              <span class="pillar-pill">📊 38 Salary Slips Verified</span>
+              <span class="pillar-pill">⚙️ Cold Extrusion & SOPs</span>
+            </div>
+
+            <div class="cinema-actions">
+              <a href="career.html" class="btn-launch" style="background: var(--cyan-gradient); color: #050811; box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);">
+                <span>🚀 Launch Career Engine</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="career.html#advisor" class="btn-secondary" style="border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); background: rgba(0, 242, 254, 0.06);">
+                <span>🎯 Job Strategy Advisor</span>
+              </a>
+              <a href="data/career/sikander_career_data.json" target="_blank" class="btn-secondary" style="font-family:'JetBrains Mono',monospace; font-size:12px;">
+                <span>{ } Career JSON</span>
+              </a>
             </div>
           </div>
-          <button class="btn-dev" disabled>🔒 In Active Development</button>
+
+          <div class="cinema-stats-box">
+            <div class="stat-item">
+              <div class="stat-numb" style="color:var(--cyan);">11+ Yrs</div>
+              <div class="stat-txt">Continuous Manufacturing</div>
+            </div>
+            <div class="stat-item emerald">
+              <div class="stat-numb" style="color:var(--emerald);">21</div>
+              <div class="stat-txt">SAP Macros Cataloged</div>
+            </div>
+            <div class="stat-item purple">
+              <div class="stat-numb" style="color:#c084fc;">825m</div>
+              <div class="stat-txt">Daily Automation Yield</div>
+            </div>
+            <div class="stat-item gold">
+              <div class="stat-numb" style="color:var(--gold);">38</div>
+              <div class="stat-txt">Verified Salary Slips</div>
+            </div>
+          </div>
         </article>
 
-        <!-- MODULE 03: SECOND BRAIN & COGNITION -->
-        <article class="roadmap-card">
-          <div>
-            <div class="roadmap-header">
-              <div class="roadmap-icon">🧠</div>
-              <span class="roadmap-phase">MODULE 03 · PHASE 2</span>
+        <!-- FEATURED HERO MODULE: HEALTH, FITNESS & FAMILY VITALITY HUB -->
+        <article class="cinema-hero-card" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(135deg, rgba(14, 26, 36, 0.9) 0%, rgba(10, 18, 28, 0.96) 100%); box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 35px rgba(16, 185, 129, 0.12);">
+          <div class="cinema-hero-left">
+            <div class="cinema-badge-row">
+              <span class="module-status-active" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: var(--emerald);">
+                <span style="width:6px;height:6px;border-radius:50%;background:var(--emerald);display:inline-block;"></span>
+                LIVE & OPERATIONAL
+              </span>
+              <span class="module-category" style="color: var(--emerald);">Module 06 · Health, Fitness & Family Vitality</span>
             </div>
-            <h3>Second Brain & Cognitive Graph</h3>
-            <p>
-              Zettelkasten knowledge vault, atomic mental model index, research paper synthesis, and AI semantic vector retrieval.
+
+            <h3 class="cinema-title">Health, Fitness & Family Vitality Hub</h3>
+            <p class="cinema-desc">
+              Active daily health cockpit integrating Google Fit daily walking telemetry (10,000 steps goal ring & streak tracker), Google Sheets gym progressive overload logger (Push/Pull/Legs splits & PR tracking), clinical laboratory biomarkers across 5 diagnostic panels with automated reference intervals, 24-hour circadian routine mapper, and Jubilee Life corporate health coverage guidelines.
             </p>
-            <div class="roadmap-tags">
-              <span class="tag-chip">Markdown Sync</span>
-              <span class="tag-chip">Bi-directional Links</span>
-              <span class="tag-chip">Concept Clusters</span>
+
+            <div class="cinema-pills">
+              <span class="pillar-pill" style="border-color: rgba(16, 185, 129, 0.3); color: #a7f3d0;">🚶 10,000 Steps Goal (19d Streak)</span>
+              <span class="pillar-pill" style="border-color: rgba(0, 242, 254, 0.3); color: #a5f3fc;">🏋️ 4 Gym Splits (PPL + Upper)</span>
+              <span class="pillar-pill" style="border-color: rgba(245, 158, 11, 0.3); color: #fde68a;">🏆 8 Personal Records (PRs)</span>
+              <span class="pillar-pill" style="border-color: rgba(139, 92, 246, 0.3); color: #e9d5ff;">🧪 5 Clinical Lab Panels</span>
+              <span class="pillar-pill">⏰ 24h Circadian Routine</span>
+              <span class="pillar-pill">🛡️ Jubilee CTP & 45 Daycare Surgeries</span>
+            </div>
+
+            <div class="cinema-actions">
+              <a href="health.html" class="btn-launch" style="background: var(--emerald-gradient); color: #050811; box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);">
+                <span>🚀 Launch Health Hub</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="health.html#biomarkers" class="btn-secondary" style="border-color: rgba(139, 92, 246, 0.4); color: #c084fc; background: rgba(139, 92, 246, 0.06);">
+                <span>🧪 Lab Biomarkers</span>
+              </a>
+              <a href="health.html#gym" class="btn-secondary" style="border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); background: rgba(0, 242, 254, 0.06);">
+                <span>🏋️ Gym Logger</span>
+              </a>
+              <a href="data/health/sikander_health_data.json" target="_blank" class="btn-secondary" style="font-family:'JetBrains Mono',monospace; font-size:12px;">
+                <span>{ } Health JSON</span>
+              </a>
             </div>
           </div>
-          <button class="btn-dev" disabled>🔒 In Active Development</button>
+
+          <div class="cinema-stats-box">
+            <div class="stat-item emerald">
+              <div class="stat-numb" style="color:var(--emerald);">10,420</div>
+              <div class="stat-txt">Today's Walking Steps</div>
+            </div>
+            <div class="stat-item gold">
+              <div class="stat-numb" style="color:var(--gold);">19 Days</div>
+              <div class="stat-txt">10k Active Streak</div>
+            </div>
+            <div class="stat-item purple">
+              <div class="stat-numb" style="color:#c084fc;">94/100</div>
+              <div class="stat-txt">Family Vitality Score</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-numb" style="color:var(--cyan);">45</div>
+              <div class="stat-txt">Covered Daycare Surgeries</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SOVEREIGN EXPANSION ROADMAP v2.0 -->
+    <section style="margin-top: 20px;">
+      <div class="section-header">
+        <div class="section-title">
+          <span>🚀 Sovereign Expansion Roadmap (v2.0)</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <div class="section-subtitle">Lean, High-Utility Architecture · 5 Phased Execution Prompts · Zero Cloud Bloat</div>
+          <a href="data/SIKANDER_OS_EXPANSION_ROADMAP.md" target="_blank" class="btn-secondary" style="font-size:12px; padding:6px 14px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            <span>⚡ Architecture Blueprint & Prompts ↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="modules-grid">
+        <!-- PHASE 1: PROGRESSIVE WEB APP (PWA) & MOBILE CORE -->
+        <article class="roadmap-card" style="border-color: rgba(0, 242, 254, 0.3);">
+          <div>
+            <div class="roadmap-header">
+              <div class="roadmap-icon" style="background: rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.3); color: var(--cyan);">📱</div>
+              <span class="roadmap-phase" style="color: var(--cyan); border-color: rgba(0, 242, 254, 0.3);">FOUNDATIONAL · PHASE 1</span>
+            </div>
+            <h3>PWA Mobile Foundation & Offline Sync Core</h3>
+            <p>
+              Standalone native mobile app experience on Android and iOS. Service Worker offline caching, app manifest, touch navigation gestures, and local multi-device sync for logging walks and gym workouts on the go.
+            </p>
+            <div class="roadmap-tags">
+              <span class="tag-chip">Standalone PWA</span>
+              <span class="tag-chip">Service Worker</span>
+              <span class="tag-chip">Offline Cache</span>
+              <span class="tag-chip">Touch Navigation</span>
+              <span class="tag-chip">Local Sync</span>
+            </div>
+          </div>
+          <button class="btn-dev" onclick="openPromptModal(1)" style="border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); background: rgba(0, 242, 254, 0.06);"><span>📋 View Phase 1 Prompt & Specs</span></button>
         </article>
 
-        <!-- MODULE 04: HABIT LOOP & DAILY SPRINT -->
-        <article class="roadmap-card">
+        <!-- PHASE 2 / MODULE 04: CAREER INTELLIGENCE & AI RESUME BUILDER -->
+        <article class="roadmap-card" style="border-color: rgba(0, 242, 254, 0.35); opacity: 1;">
           <div>
             <div class="roadmap-header">
-              <div class="roadmap-icon">⚡</div>
-              <span class="roadmap-phase">MODULE 04 · PHASE 3</span>
+              <div class="roadmap-icon" style="background: rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.3); color: var(--cyan);">💼</div>
+              <span class="roadmap-phase" style="color: var(--cyan); border-color: rgba(0, 242, 254, 0.3);">MODULE 04 · LIVE & OPERATIONAL</span>
             </div>
-            <h3>Habit Telemetry & Sprint Loop</h3>
+            <h3>Career Intelligence & AI Resume Builder</h3>
             <p>
-              High-leverage timeboxing, deep work state analytics, daily streak protection, and frictionless micro-journal captures.
+              11-year industrial context engine (Novatex BOPET & Alpha Containers / Tubex Planning Lead). Interactive AI resume tailoring for target roles (Supply Chain, SCM, Automation), 21 SAP macro scripts, job match scoring, and 38-month verified compensation curve.
             </p>
             <div class="roadmap-tags">
-              <span class="tag-chip">Timeboxing</span>
-              <span class="tag-chip">Focus Telemetry</span>
-              <span class="tag-chip">Streak Velocity</span>
+              <span class="tag-chip">AI Resume Builder</span>
+              <span class="tag-chip">Job Strategy Advisor</span>
+              <span class="tag-chip">Novatex & Tubex Lead</span>
+              <span class="tag-chip">21 SAP Macros</span>
+              <span class="tag-chip">38 Salary Slips</span>
             </div>
           </div>
-          <button class="btn-dev" disabled>🔒 In Active Development</button>
+          <div style="display:flex; gap:8px;">
+            <a href="career.html" class="btn-dev" style="flex:1; border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); background: rgba(0, 242, 254, 0.08); font-weight:700; text-decoration:none;"><span>🚀 Launch Career Engine</span></a>
+            <button class="btn-dev" onclick="openPromptModal(2)" style="width:auto; padding:10px 14px; border-color: rgba(255, 255, 255, 0.2); color: #f1f5f9; background: rgba(255, 255, 255, 0.04);"><span>📋 Specs</span></button>
+          </div>
         </article>
 
-        <!-- MODULE 05: CAPITAL & WEALTH ALLOCATION -->
-        <article class="roadmap-card">
+        <!-- PHASE 3 / MODULE 05: SOVEREIGN CAPITAL, PROPERTY & BANKING HUB -->
+        <article class="roadmap-card" style="border-color: rgba(245, 158, 11, 0.4); opacity: 1;">
           <div>
             <div class="roadmap-header">
-              <div class="roadmap-icon">📈</div>
-              <span class="roadmap-phase">MODULE 05 · PHASE 3</span>
+              <div class="roadmap-icon" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.3); color: var(--gold);">💳</div>
+              <span class="roadmap-phase" style="color: var(--gold); border-color: rgba(245, 158, 11, 0.3);">MODULE 05 · LIVE & OPERATIONAL</span>
             </div>
-            <h3>Capital Intelligence & Net Worth</h3>
+            <h3>Sovereign Capital, Property & Banking Hub</h3>
             <p>
-              Automated portfolio tracking, liquidity runways, venture evaluation models, and cash flow velocity projections.
+              Sovereign personal CFO integrating 9,003 Bluecoins transactions across 8 accounts (2020–2025), FBR Form 114(1) returns (PKR 10.16M declared net assets), multi-bank account cards, 5-year cashflow burn curves, and the complete Al Ghafoor Unit 206 property ledger.
             </p>
             <div class="roadmap-tags">
-              <span class="tag-chip">Asset Allocation</span>
-              <span class="tag-chip">Runway Analytics</span>
-              <span class="tag-chip">Monte Carlo Projections</span>
+              <span class="tag-chip">9,003 Bluecoins Txs</span>
+              <span class="tag-chip">FBR 10.16M Assets</span>
+              <span class="tag-chip">9 Bank Accounts</span>
+              <span class="tag-chip">Unit 206 67% Equity</span>
+              <span class="tag-chip">1-Click Privacy Shield</span>
             </div>
           </div>
-          <button class="btn-dev" disabled>🔒 In Active Development</button>
+          <div style="display:flex; gap:8px;">
+            <a href="finance.html" class="btn-dev" style="flex:1; border-color: rgba(245, 158, 11, 0.4); color: var(--gold); background: rgba(245, 158, 11, 0.08); font-weight:700; text-decoration:none;"><span>🚀 Launch Capital Hub</span></a>
+            <button class="btn-dev" onclick="openPromptModal(3)" style="width:auto; padding:10px 14px; border-color: rgba(255, 255, 255, 0.2); color: #f1f5f9; background: rgba(255, 255, 255, 0.04);"><span>📋 Specs</span></button>
+          </div>
+        </article>
+
+        <!-- PHASE 4 / MODULE 06: HEALTH, FITNESS & FAMILY VITALITY HUB -->
+        <article class="roadmap-card" style="border-color: rgba(16, 185, 129, 0.4); opacity: 1;">
+          <div>
+            <div class="roadmap-header">
+              <div class="roadmap-icon" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); color: var(--emerald);">🏥</div>
+              <span class="roadmap-phase" style="color: var(--emerald); border-color: rgba(16, 185, 129, 0.3);">MODULE 06 · LIVE & OPERATIONAL</span>
+            </div>
+            <h3>Health, Fitness & Family Vitality Hub</h3>
+            <p>
+              Active personal and family health hub: daily walking steps connected from Google Fit (10k goal ring), gym workout logs connected to Google Sheets (splits, weights, sets, PRs), family blood test biomarker panels with clinical reference ranges, and circadian routine mapper.
+            </p>
+            <div class="roadmap-tags">
+              <span class="tag-chip">Google Fit Steps</span>
+              <span class="tag-chip">Google Sheets Gym Log</span>
+              <span class="tag-chip">Family Blood Biomarkers</span>
+              <span class="tag-chip">Circadian Routines</span>
+              <span class="tag-chip">Jubilee CTP</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <a href="health.html" class="btn-dev" style="flex:1; border-color: rgba(16, 185, 129, 0.4); color: var(--emerald); background: rgba(16, 185, 129, 0.08); font-weight:700; text-decoration:none;"><span>🚀 Launch Health Hub</span></a>
+            <button class="btn-dev" onclick="openPromptModal(4)" style="width:auto; padding:10px 14px; border-color: rgba(255, 255, 255, 0.2); color: #f1f5f9; background: rgba(255, 255, 255, 0.04);"><span>📋 Specs</span></button>
+          </div>
+        </article>
+
+        <!-- PHASE 5: UNIFIED COMMAND CENTER v2.0 -->
+        <article class="roadmap-card" style="border-color: rgba(0, 242, 254, 0.4); background: linear-gradient(135deg, rgba(14, 26, 42, 0.9) 0%, rgba(10, 16, 30, 0.96) 100%);">
+          <div>
+            <div class="roadmap-header">
+              <div class="roadmap-icon" style="background: rgba(0, 242, 254, 0.15); border-color: rgba(0, 242, 254, 0.4); color: var(--cyan);">⚡</div>
+              <span class="roadmap-phase" style="color: var(--cyan); border-color: rgba(0, 242, 254, 0.4);">LIVE & OPERATIONAL · OS v2.0</span>
+            </div>
+            <h3>Master Command Center & Universal Search</h3>
+            <p>
+              Full system integration unifying Cinema, Property, Music, Career, Finance, and Health. Universal Ctrl+K command palette, cross-module telemetry sync, executive life metrics strip, and global privacy shield.
+            </p>
+            <div class="roadmap-tags">
+              <span class="tag-chip" style="color:var(--cyan); border-color:rgba(0,242,254,0.3);">Ctrl+K Universal Search</span>
+              <span class="tag-chip">Cross-Module Telemetry</span>
+              <span class="tag-chip">Quick Action Dock</span>
+              <span class="tag-chip">Global Privacy Shield</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-dev" onclick="openCommandPalette()" style="flex:1; border-color: rgba(0, 242, 254, 0.4); color: var(--cyan); background: rgba(0, 242, 254, 0.08); font-weight:700;"><span>🔍 Search (Ctrl+K)</span></button>
+            <button class="btn-dev" onclick="openPromptModal(5)" style="width:auto; padding:10px 14px; border-color: rgba(139, 92, 246, 0.3); color: #c084fc; background: rgba(139, 92, 246, 0.05);"><span>📋 Specs</span></button>
+          </div>
+        </article>
+
+        <!-- SOVEREIGN CLOUD & ACADEMIC OFFLOAD CARD -->
+        <article class="roadmap-card" style="background: rgba(13, 18, 30, 0.6); border-style: dashed;">
+          <div>
+            <div class="roadmap-header">
+              <div class="roadmap-icon">☁️</div>
+              <span class="roadmap-phase" style="color: #94a3b8;">CLOUD & EXTERNAL REPOS</span>
+            </div>
+            <h3 style="color: #cbd5e1;">Sovereign Cloud & Academic Offload</h3>
+            <p>
+              Static cold archives pruned from OS to maintain zero bloat: Legal Identity & Tenancy (CNIC, BRC, deeds) secured in Google Drive Vault; Family Photos (1.4 GB) & Chats in Google Photos & Drive; Education & Degree actively tracked in dedicated <strong style="color:var(--cyan);">AceDrill</strong> GitHub repository.
+            </p>
+            <div class="roadmap-tags">
+              <span class="tag-chip">Google Drive Vault</span>
+              <span class="tag-chip">Google Photos (1.4GB)</span>
+              <span class="tag-chip">AceDrill GitHub Repo</span>
+              <span class="tag-chip">Zero OS Bloat</span>
+            </div>
+          </div>
+          <a href="https://github.com/ckndr/AceDrill" target="_blank" class="btn-dev" style="cursor: pointer; text-decoration: none; color: var(--cyan); border-color: rgba(0, 242, 254, 0.3); background: rgba(0, 242, 254, 0.05); display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span>🎓 Open AceDrill Repository ↗</span>
+          </a>
         </article>
       </div>
     </section>
@@ -1006,6 +1631,194 @@
     </div>
   </div>
 
+  <!-- PHASE PROMPT MODAL -->
+  <div class="modal-backdrop" id="prompt-modal" onclick="if(event.target === this) closePromptModal()">
+    <div class="modal-content" style="max-width: 820px; max-height: 88vh; display: flex; flex-direction: column;">
+      <button class="modal-close" onclick="closePromptModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+        <span style="font-size:26px;" id="modal-phase-icon">📱</span>
+        <div>
+          <span class="roadmap-phase" id="modal-phase-badge" style="font-size:10px;">FOUNDATIONAL · PHASE 1</span>
+          <h3 style="font-size:20px; font-weight:800; color:#fff; margin-top:4px;" id="modal-phase-title">PWA Mobile Foundation</h3>
+        </div>
+      </div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;" id="modal-phase-desc">
+        Phase execution specification and ready-to-run prompt.
+      </p>
+
+      <div style="flex:1; overflow:hidden; display:flex; flex-direction:column; margin-bottom:16px;">
+        <pre id="modal-phase-code" style="flex:1; overflow-y:auto; background:rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:16px; font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.6; color:#cbd5e1; white-space:pre-wrap; max-height: 48vh;"></pre>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+        <a href="data/SIKANDER_OS_EXPANSION_ROADMAP.md" target="_blank" class="btn-secondary" style="font-size:12px; text-decoration:none;">
+          📄 Open Full Roadmap Markdown ↗
+        </a>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-launch" id="btn-copy-prompt" onclick="copyPromptText()" style="padding:8px 18px; font-size:13px;">
+            <span id="btn-copy-label">📋 Copy Prompt to Clipboard</span>
+          </button>
+          <button class="btn-secondary" onclick="closePromptModal()" style="font-size:12px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK LAUNCH DOCK -->
+  <div class="quick-launch-dock" id="quick-launch-dock" role="navigation" aria-label="Quick Launch Dock">
+    <a href="cinema.html" class="dock-item" title="Cinema Hub & Watchlist (Press 1)">
+      <span class="dock-shortcut">1</span>
+      <span class="dock-icon">🎬</span>
+      <span class="dock-label">Cinema</span>
+    </a>
+    <a href="finance.html#property" class="dock-item" title="Al Ghafoor Property Ledger (Press 2)">
+      <span class="dock-shortcut">2</span>
+      <span class="dock-icon">🏢</span>
+      <span class="dock-label">Property</span>
+    </a>
+    <a href="music.html" class="dock-item" title="Music Hub & Taste Engine (Press 3)">
+      <span class="dock-shortcut">3</span>
+      <span class="dock-icon">🎵</span>
+      <span class="dock-label">Music</span>
+    </a>
+    <a href="career.html" class="dock-item" title="Career Intelligence & Resume Builder (Press 4)">
+      <span class="dock-shortcut">4</span>
+      <span class="dock-icon">💼</span>
+      <span class="dock-label">Career</span>
+    </a>
+    <a href="finance.html" class="dock-item" title="Sovereign Capital & Banking Hub (Press 5)">
+      <span class="dock-shortcut">5</span>
+      <span class="dock-icon">🏦</span>
+      <span class="dock-label">Finance</span>
+    </a>
+    <a href="health.html" class="dock-item" title="Health, Fitness & Family Vitality (Press 6)">
+      <span class="dock-shortcut">6</span>
+      <span class="dock-icon">🏃</span>
+      <span class="dock-label">Health</span>
+    </a>
+    <div class="dock-separator"></div>
+    <button type="button" class="dock-item" onclick="openCommandPalette()" title="Universal Command Palette (Ctrl+K)">
+      <span class="dock-shortcut" style="font-size:8px;">^K</span>
+      <span class="dock-icon">🔍</span>
+      <span class="dock-label">Search</span>
+    </button>
+    <button type="button" class="dock-item" id="dock-privacy-btn" onclick="toggleGlobalPrivacy()" title="Toggle Global Privacy Shield (Press P)">
+      <span class="dock-shortcut">P</span>
+      <span class="dock-icon">🔒</span>
+      <span class="dock-label">Privacy</span>
+    </button>
+    <button type="button" class="dock-item" onclick="openHelpModal()" title="Keyboard Shortcuts Cheat Sheet (Press ?)">
+      <span class="dock-shortcut">?</span>
+      <span class="dock-icon">❓</span>
+      <span class="dock-label">Help</span>
+    </button>
+  </div>
+
+  <!-- UNIVERSAL COMMAND PALETTE (CTRL + K) -->
+  <div class="palette-backdrop" id="command-palette-modal" onclick="if(event.target === this) closeCommandPalette()">
+    <div class="palette-box">
+      <div class="palette-input-wrap">
+        <span class="palette-search-icon">🔍</span>
+        <input type="text" id="palette-search-input" class="palette-input" placeholder="Search across all 6 modules (movies, property, music, career, finance, health)..." autocomplete="off" spellcheck="false" oninput="handlePaletteInput(this.value)">
+        <span class="palette-esc-badge" onclick="closeCommandPalette()" title="Close Palette (Esc)">ESC</span>
+      </div>
+
+      <div class="palette-filter-row" id="palette-filter-row">
+        <button class="palette-chip active" data-filter="all" onclick="setPaletteFilter('all')">All (<span id="count-all">0</span>)</button>
+        <button class="palette-chip" data-filter="Cinema" onclick="setPaletteFilter('Cinema')">🎬 Cinema (<span id="count-cinema">0</span>)</button>
+        <button class="palette-chip" data-filter="Property" onclick="setPaletteFilter('Property')">🏢 Property (<span id="count-property">0</span>)</button>
+        <button class="palette-chip" data-filter="Music" onclick="setPaletteFilter('Music')">🎵 Music (<span id="count-music">0</span>)</button>
+        <button class="palette-chip" data-filter="Career" onclick="setPaletteFilter('Career')">💼 Career (<span id="count-career">0</span>)</button>
+        <button class="palette-chip" data-filter="Finance" onclick="setPaletteFilter('Finance')">🏦 Finance (<span id="count-finance">0</span>)</button>
+        <button class="palette-chip" data-filter="Health" onclick="setPaletteFilter('Health')">🏃 Health (<span id="count-health">0</span>)</button>
+      </div>
+
+      <div class="palette-results" id="palette-results">
+        <!-- Results dynamically rendered -->
+      </div>
+
+      <div class="palette-footer">
+        <div>
+          <span>↑↓ Navigate</span> · <span>↵ Select</span> · <span>ESC Close</span> · <span>P Privacy</span>
+        </div>
+        <div id="palette-stats-text" style="color: var(--cyan);">
+          Sikander OS v2.0 Universal Index
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEYBOARD SHORTCUTS HELP MODAL -->
+  <div class="modal-backdrop" id="help-modal" onclick="if(event.target === this) closeHelpModal()">
+    <div class="help-modal-box">
+      <button class="modal-close" onclick="closeHelpModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:26px;">⌨️</span>
+        <h3 style="font-size:20px; font-weight:800; color:#fff;">Sikander OS v2.0 Shortcuts & Command Center</h3>
+      </div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+        High-performance single-key and multi-key shortcuts across the unified sovereign cockpit.
+      </p>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🎬 Launch Cinema Hub</span>
+          <span class="shortcut-key-pill">1</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🏢 Open Property Ledger</span>
+          <span class="shortcut-key-pill">2</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🎵 Launch Music Hub</span>
+          <span class="shortcut-key-pill">3</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">💼 Open Career Intelligence</span>
+          <span class="shortcut-key-pill">4</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🏦 Launch Capital & Finance</span>
+          <span class="shortcut-key-pill">5</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🏃 Open Health & Vitality</span>
+          <span class="shortcut-key-pill">6</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🔍 Universal Command Palette</span>
+          <span class="shortcut-key-pill">Ctrl + K</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">🔒 Global Privacy Shield</span>
+          <span class="shortcut-key-pill">P</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">❓ Shortcuts Cheat Sheet</span>
+          <span class="shortcut-key-pill">?</span>
+        </div>
+        <div class="shortcut-row">
+          <span style="font-size:13px; color:#fff;">✕ Close Dialogs / Modals</span>
+          <span class="shortcut-key-pill">Esc</span>
+        </div>
+      </div>
+
+      <div style="text-align:right;">
+        <button class="btn-secondary" onclick="closeHelpModal()" style="font-size:12px; padding:8px 18px;">
+          Close (Esc)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sikander OS Zero-CORS Data Stores -->
+  <script src="data/sikander_unified_cinema.js"></script>
+  <script src="data/property/alghafoor_property_ledger.js"></script>
+  <script src="data/music/sikander_music_library.js"></script>
+  <script src="data/career/sikander_career_data.js"></script>
+  <script src="data/finance/sikander_finance_master.js"></script>
+  <script src="data/health/sikander_health_data.js"></script>
+
   <script>
     // Live Clock & Date
     function updateTelemetry() {
@@ -1024,9 +1837,1178 @@
     function closeProfileModal() {
       document.getElementById('profile-modal').style.display = 'none';
     }
+
+    // Phase Prompts Data
+    const PHASE_PROMPTS = {
+      1: {
+        icon: '📱',
+        badge: 'FOUNDATIONAL · PHASE 1',
+        title: 'PWA Mobile Foundation & Offline Sync Core',
+        desc: 'Transforms Sikander OS into an installable standalone native mobile app with offline caching and touch gestures.',
+        prompt: `Build Phase 1: Progressive Web App (PWA) Mobile Foundation & Offline Sync Core for Sikander OS.
+
+Objectives:
+Transform Sikander OS (\`ckndr/sikander-os\`) into an installable, lightning-fast Progressive Web App on mobile (Android/iOS) and desktop with robust offline capabilities.
+
+Tasks:
+1. Create \`manifest.json\` in repository root:
+   - Name: "Sikander OS — Sovereign Life Command Center"
+   - Short Name: "Sikander OS"
+   - Start URL: "./index.html"
+   - Display: "standalone"
+   - Orientation: "portrait-primary"
+   - Background Color: "#07090e"
+   - Theme Color: "#00f2fe"
+   - Categories: ["productivity", "utilities", "lifestyle"]
+   - Icons: Add maskable and standard icon definitions (192x192, 512x512, SVG).
+   - App Shortcuts: Direct shortcuts to Cinema Hub (\`cinema.html\`), Property Ledger (\`property.html\`), Music Hub (\`music.html\`), and Health Hub (\`health.html\`).
+
+2. Generate App Icons:
+   - Create high-resolution SVG app icon in \`icons/icon.svg\` featuring the Sikander OS obsidian/cyan gem aesthetic.
+   - Create lightweight fallback canvas script to render crisp icon assets.
+
+3. Implement Service Worker (\`sw.js\`):
+   - Cache Name: \`sikander-os-v1-core\`.
+   - Pre-cache critical app shell: \`index.html\`, \`cinema.html\`, \`property.html\`, \`music.html\`, Google Fonts (\`Outfit\`, \`JetBrains Mono\`).
+   - Stale-While-Revalidate caching strategy for data assets: \`data/sikander_unified_data.json\`, \`data/property/alghafoor_property_ledger.json\`, \`data/music/sikander_music_library.json\`.
+   - Network-First with Offline Fallback for external assets.
+   - Self-updating cache lifecycle with automatic cleanup of old caches.
+
+4. Create Mobile PWA Helper (\`js/pwa-core.js\`):
+   - Service worker registration with update notification.
+   - Custom "Install App" banner / prompt trigger for mobile browsers.
+   - Network status monitor (Online / Offline status badge in topbar).
+   - Touch navigation gestures and viewport meta tags (\`viewport-fit=cover\`, \`mobile-web-app-capable\`).
+
+5. Update \`index.html\`, \`cinema.html\`, \`property.html\`, \`music.html\`:
+   - Link \`manifest.json\`, theme color meta tags, and apple-touch-icon.
+   - Include \`js/pwa-core.js\` in all pages.
+   - Add mobile install button in topbar that shows when install prompt is available.
+
+6. Verification:
+   - Validate manifest in Chrome DevTools / Lighthouse PWA audit.
+   - Test offline mode by disconnecting network in DevTools and ensuring all pages and catalogs load from service worker cache.`
+      },
+      2: {
+        icon: '💼',
+        badge: 'MODULE 04 · PHASE 2',
+        title: 'Career Intelligence, AI Resume Builder & Industrial Cockpit',
+        desc: 'Deep context engine leveraging 11+ years of Novatex and Tubex manufacturing telemetry for ATS resume tailoring and job strategy.',
+        prompt: `Build Module 04: Career Intelligence, AI Resume Builder & Industrial Operations Cockpit for Sikander OS.
+
+Reference data from:
+- \`I:\\Personal\\Career_Job\` (Resumes, Appointment & Promotion Letters: July 2024, July 2025)
+- \`I:\\Personal\\Chats\\Aerosol Pinned chat.txt\` (Planning Lead appointment at Alpha Containers / Aerosol startup & Tubex)
+- \`I:\\Personal\\Documents\\Google Doc Formatting and Export.docx\` (Cold extrusion mechanics, Zinc Stearate technical manual)
+- \`I:\\Personal\\Documents\\Personal\\Notes.docx\` (Production Engineer Daily Logs March 2026)
+- \`I:\\Personal\\Documents\\Personal\\01042026 to 08042026.pdf\` (Tubex-Alum raw material inventory report April 2026)
+- \`I:\\Personal\\Pay Slip\` (38 monthly salary slips from Nov 2022 to Dec 2025; Dec 2025: Fixed Gross PKR 73,375, Net PKR 110,098)
+- \`I:\\Personal\\Macro_Recorder\` (20 SAP .mrf scripts: COOIS, TECO, Film Line PO, PO L3 Char) & \`Claim.mrf\`
+- \`I:\\Personal\\Trash\` (Novatex Planning SOPs for Film Line, Primary & Secondary Slitters)
+- Blueprint in \`data/SIKANDER_OS_EXPANSION_ROADMAP.md\`
+
+Tasks:
+1. Create Data Engine \`data/career/build_career_data.py\`:
+   - Parse and extract career history into \`data/career/sikander_career_data.json\`:
+     * 11-year timeline (2015–2026): QA Operator -> Computer Lead -> BOPET Planning Associate -> Export SCM -> Alpha Containers / Tubex Planning Lead.
+     * Core competencies: SAP PP, S/4HANA PPDS, Excel/VBA, Macro Automation, SCM Export Logistics, Cold Extrusion Mechanics.
+     * 21 SAP Macro Recorder scripts catalog with transaction codes and triggers.
+     * 38-month verified salary progression (gross, net, allowances, tax).
+     * Operational accomplishments and metrics (90% paperwork automation, resin MRP, slitting schedules).
+
+2. Build \`career.html\` adhering strictly to Sikander OS design language:
+   - Executive Header: Professional title, dual-employer status (Novatex + Alpha Containers), 90 WPM badge, and Privacy Shield toggle.
+   - Interactive AI Resume Builder:
+     * Role Persona Selector: (1) Supply Chain & Export Logistics Manager, (2) Manufacturing Planning Lead, (3) Industrial Automation Specialist.
+     * Competency & Achievement Toggles: Check/uncheck specific accomplishments to dynamically tailor the resume.
+     * 1-Click Clean Print/PDF Export: Formatted cleanly for ATS scanners and international recruiters.
+   - Target Job Strategy & Match Advisor:
+     * Job Description Input Box: Paste a target job posting to see an instant Competency Match Score (%), matched skills, and detected keyword gaps.
+     * Strategic recommendations and custom cover letter snippet generator grounded in real Novatex/Tubex metrics.
+   - Interactive Career Timeline (2015–2026): Detailed chronological rail with promotion badges and milestone details.
+   - SAP Automation & Macro Cockpit: Searchable table of 21 .mrf scripts with transaction codes (\`COOIS\`, \`TECO\`) and workflow summaries.
+   - Confidential Compensation Curve (Private Mode Toggle): 38-month salary growth chart (gross vs net vs tax).
+
+3. Update \`index.html\`:
+   - Replace Module 04 roadmap placeholder with an active Hero Card linking to \`career.html\`.
+   - Update active module counts and telemetry.
+
+4. Verify offline performance and ensure no external CDN dependencies.`
+      },
+      3: {
+        icon: '💳',
+        badge: 'MODULE 05 · PHASE 3',
+        title: 'Sovereign Capital, Property & Banking Hub',
+        desc: 'Unified financial command center combining verified bank accounts, the Al Ghafoor real estate ledger, and statutory FBR tax compliance.',
+        prompt: `Build Phase 3: Sovereign Capital, Property & Banking Hub (Module 05: finance.html) for Sikander OS.
+
+Objectives:
+Consolidate personal cash flow, multi-account banking, the Al Ghafoor real estate ledger, and statutory FBR tax compliance into a single unified financial intelligence portal (Module 05: finance.html).
+
+CRITICAL FINANCIAL GROUND-TRUTH PRINCIPLE:
+- The declared wealth on FBR Form 114(1)/116 (PKR 10.16M in 2025) contains artificial balancing figures inserted by Pakistani tax consultants (e.g. fictional jewelry, household furniture, and phantom cash in hand to balance wealth reconciliation with income).
+- Ground-Truth Reality: Sikander keeps almost all capital in banks with minimal cash in hand. Therefore, TRUE NET WORTH is strictly calculated from:
+  1. Verified Real Bank Balances (Habib Metro, Meezan, EasyPaisa, Sanm Wallet, etc.) from bank statements and Bluecoins.
+  2. Verified Real Estate Equity from Al Ghafoor Unit 206 (PKR 2,093,000 paid to date / PKR 3,124,000 outlay).
+- The portal must cleanly distinguish:
+  * Primary Dashboard: TRUE GROUND-TRUTH NET WORTH (Bank Liquidity + Property Equity - Outstanding Liabilities).
+  * Secondary Tab: STATUTORY FBR TAX VAULT (Tax return copies, ATL status, tax paid, and a clear "Tax Consultant Balancing Figures vs Real Assets" reconciliation explainer).
+
+Reference data from:
+- \`data/property/alghafoor_property_ledger.json\` & \`data/property/receipts/\` (Al Ghafoor Unit 206: PKR 3.124M outlay, 67% equity, 100-tx ledger, 37-month utility schedule, 20 verified receipts)
+- \`I:\\Personal\\Documents\\Personal\\Bluecoins_2025-10-31_11_16_41.fydb\` (SQLite database with 9,003 transactions across 8 accounts: Easy Paisa, Meezan, Sanm Wallet, Credit Card, Savings Home, Bhuddu Purse, Habib Metro Salary, Habib Metro Saving)
+- \`I:\\Personal\\Filer\` (FBR Form 114(1) returns for 2024 & 2025: PKR 10.16M declared net assets, Form 116 Wealth Statement, ATL/NTN certificates, bank statements, JazzCash)
+- Blueprint in \`data/SIKANDER_OS_EXPANSION_ROADMAP.md\`
+
+Tasks:
+1. Create \`data/finance/extract_finance_data.py\`:
+   - Query Bluecoins SQLite \`.fydb\` database:
+     * Aggregate 9,003 transactions into monthly cash flow totals (inflows, outflows, net savings).
+     * Calculate spending distributions across primary categories (Housing/Installments, Household, Family, Commute, Healthcare).
+     * Extract exact verified balances across all 8 bank/wallet accounts.
+   - Ingest \`alghafoor_property_ledger.json\` as a core fixed capital asset.
+   - Parse FBR tax returns (Form 114(1) 2024 & 2025, Form 116) as statutory compliance records.
+   - Export into \`data/finance/sikander_finance_master.json\`.
+
+2. Build \`finance.html\` adhering to the Sikander OS design system:
+   - Executive Ground-Truth Net Worth Banner:
+     * True Sovereign Net Worth = Verified Bank Balances + Al Ghafoor Property Equity (PKR 2.093M) - Outstanding Liabilities (PKR 1.031M).
+     * Sub-indicator: "FBR Statutory Declared: PKR 10.16M (includes consultant tax balancing items)".
+   - 1-Click Privacy Shield Toggle: Masks all rupee figures (\`••••••\`) and account digits by default; 1-click reveals real values.
+   - 3-Tab Architecture:
+     * Tab 1: Banking & Cash Flow (8 bank/wallet cards with IBAN copy, 5-year cashflow/burn SVG chart from 9k Bluecoins txs, expense category sunburst).
+     * Tab 2: Real Estate & Property Ledger (Complete Al Ghafoor Unit 206 ledger, 37-month utility schedule with 'PAID/NEXT DUE' badges, and 20 verified receipts lightbox viewer).
+     * Tab 3: FBR Tax & Compliance Station (Active Taxpayer badge, Form 114(1) annual filing summaries, and a transparent "Paper Tax Declaration vs Ground-Truth Bank Ledger" divergence breakdown).
+
+3. Ensure \`property.html\` cleanly redirects to \`finance.html#property\` with seamless deep-linking.
+
+4. Update \`index.html\`:
+   - Consolidate Property and Finance into a single featured "Capital & Real Estate" command card with unified net worth and equity telemetry.`
+      },
+      4: {
+        icon: '🏥',
+        badge: 'MODULE 06 · PHASE 4',
+        title: 'Health, Fitness & Family Vitality Hub',
+        desc: 'Active daily wellness cockpit connecting Google Fit steps, Google Sheets gym logs, family blood test biomarkers, and daily routines.',
+        prompt: `Build Module 06: Health, Fitness & Family Vitality Hub for Sikander OS.
+
+Objectives:
+Create an active daily health, fitness, and family vitality dashboard uniting Google Fit daily walking telemetry, Google Sheets gym workout logs, family blood test biomarker tracking, and daily routine mapping.
+
+Reference data from:
+- Google Fit walking logs (daily steps, distance, active minutes, 10,000 steps goal)
+- Google Sheet gym logs (routine splits, exercises, weights, sets, reps, personal records)
+- Family medical lab tests (Chughtai, Essa, IDC: lipid panels, blood glucose, HbA1c, CBC, vitamins, kidney/liver profiles)
+- \`I:\\Personal\\Documents\\Personal\\Jubilee Health App.pdf\` & \`Specialized Investiagation Tests and Day care surgeries.pdf\` (Novatex CTP insurance reference)
+- Blueprint in \`data/SIKANDER_OS_EXPANSION_ROADMAP.md\`
+
+Tasks:
+1. Create Data Engine \`data/health/build_health_data.py\`:
+   - Generate schema and sample seed data in \`data/health/sikander_health_data.json\`:
+     * \`walking_telemetry\`: Daily steps history, 10k target completion, km walked, active minutes, weekly average.
+     * \`gym_workouts\`: Routine splits (Push: Chest/Tri; Pull: Back/Bi; Legs/Shoulders), exercise logs with weights (kg), sets, reps, personal records (PRs), consistency streaks. Supports zero-CORS Google Sheet Web Publish CSV URL (/export?format=csv) and local storage offline cache.
+     * \`family_biomarkers\`: Profiles for Sikander, Spouse, Child, Parents. Structured biomarker panels with clinical reference ranges (Normal, Borderline, High):
+       - Lipid Panel: Total Cholesterol (<200 mg/dL), HDL (>40 mg/dL), LDL (<100 mg/dL), Triglycerides (<150 mg/dL).
+       - Glucose & HbA1c: Fasting Blood Sugar (70-99 mg/dL), HbA1c (<5.7%).
+       - Vitamins & Minerals: Vitamin D3 (30-100 ng/mL), Vitamin B12 (200-900 pg/mL).
+       - Liver & Kidney: SGPT/ALT, Creatinine, Uric Acid.
+       - Complete Blood Count (CBC): Hemoglobin, WBC, Platelets.
+     * \`daily_routines\`: Morning walk window, deep work sprints, gym workout slot, family evening routine, sleep targets.
+     * \`insurance_emergency\`: Jubilee Life CTP policy number, 24/7 helpline, 45 covered daycare surgeries summary.
+
+2. Build \`health.html\` adhering strictly to Sikander OS aesthetics:
+   - Header & Today's Vitality Ring: Circular progress ring showing today's walking steps towards 10,000 goal, gym status (Active / Rest), and hydration/routine badge.
+   - Google Fit Daily Walking Cockpit:
+     * Live step counter, distance walked (km), active calories.
+     * 7-day and 30-day step velocity bar charts.
+     * Quick step update modal & Google Fit Takeout JSON sync connector.
+   - Google Sheets Gym Workout Station:
+     * Split Selector (Push / Pull / Legs / Conditioning).
+     * Interactive exercise table with weights, sets, reps, and PR badges.
+     * Weekly workout consistency streak tracker (target: 4 days/week).
+     * Direct zero-CORS Google Sheet CSV Web Publish URL connector (/export?format=csv) with automatic CSV parsing, LocalStorage caching, or manual log entry.
+   - Family Blood Test & Biomarker Station:
+     * Member profile switcher (Sikander / Spouse / Daughter / Parents).
+     * Panel Cards with visual colored range meters (Green = Optimal, Yellow = Borderline, Red = Action Required).
+     * Historical biomarker trend comparison over time.
+     * Lab result entry form to record new test dates and values from Chughtai, Essa, IDC, or Aga Khan.
+   - Daily Routine & Circadian Schedule Mapper:
+     * Visual chronological rail of the daily routine (05:30 walk, work blocks, 18:30 gym, 20:30 family, 22:30 sleep).
+     * Interactive daily completion checkboxes.
+   - Emergency Insurance Reference Card:
+     * Compact Jubilee CTP card with 24/7 hotline and panel hospital search shortcut.
+
+3. Update \`index.html\`:
+   - Replace old health placeholder with an active Health & Family Vitality card linking to \`health.html\`.
+   - Add Daily Steps and Gym Streak metrics to the master dashboard.
+
+4. Verify responsive mobile layout and offline PWA capability.`
+      },
+      5: {
+        icon: '⚡',
+        badge: 'OS v2.0 · PHASE 5',
+        title: 'Master Unified Command Center & Cross-Module Intelligence',
+        desc: 'Unifies all 6 life modules into a cohesive sovereign OS with universal Ctrl+K search and global privacy shielding.',
+        prompt: `Build Phase 5: Sikander OS v2.0 Master Unified Command Center & Cross-Module Intelligence.
+
+Objectives:
+Unify all active modules (Cinema Hub, Property Ledger, Music Hub, Career Engine, Finance Vault, Health Hub) into a cohesive sovereign life operating system with universal search, cross-module telemetry, and PWA mobile synchronization.
+
+Tasks:
+1. Universal Command Palette (\`Ctrl + K\` or mobile search icon):
+   - Fast client-side fuzzy search across the entire OS:
+     * Cinema titles (373 titles, ratings, genres).
+     * Music tracks (2,519 tracks, moods, artists).
+     * Property ledger transactions and receipts.
+     * Career achievements, SAP macros, and resume keywords.
+     * Financial expense categories and bank accounts.
+     * Health routines, gym workouts, and blood test biomarkers.
+   - Keyboard shortcuts (\`Arrow keys\`, \`Enter\`, \`Esc\`) and instant navigation jumps.
+
+2. Master Dashboard Header & Life Telemetry Strip in \`index.html\`:
+   - Consolidated executive metrics:
+     * Real Estate Equity: 67.0% (PKR 2.093M / 3.124M Outlay)
+     * FBR Declared Net Assets: PKR 10.16M
+     * Career Progression: 11 Years / Planning Lead (Alpha Containers) & Novatex
+     * Daily Fitness: Walking Steps (Google Fit) & Gym Consistency Streak
+     * Media Catalog: 2,892 Titles (Cinema + Music)
+   - Live system status badge and PWA install / offline indicator.
+
+3. Cross-Module Intelligence & Quick Actions:
+   - Floating Action Bar / Mobile Bottom Bar with quick actions (+ Log Walk, + Quick Gym Entry, + Search Movie, + Toggle Privacy Shield).
+   - Unified global privacy shield toggle that syncs masked/unmasked state across all modules via LocalStorage.
+
+4. Sovereign Cloud & Academic Offload Summary Section:
+   - Elegant card explaining the zero-bloat architecture:
+     * Legal Identity & Tenancy: Secured in Google Drive Vault.
+     * Family Media (1.4 GB) & Chats: Preserved in Google Photos & Drive.
+     * Education & Degree Tracking: Actively managed in \`AceDrill\` GitHub repository.
+     * Google My Activity: Archived in Google Drive.
+
+5. Final Integration & Verification:
+   - Test all navigation routes across all modules.
+   - Validate PWA offline capability across the entire system.
+   - Confirm zero broken links, zero console errors, and zero external runtime dependencies.`
+      }
+    };
+
+    function openPromptModal(phaseNum) {
+      const data = PHASE_PROMPTS[phaseNum];
+      if (!data) return;
+      document.getElementById('modal-phase-icon').textContent = data.icon;
+      document.getElementById('modal-phase-badge').textContent = data.badge;
+      document.getElementById('modal-phase-title').textContent = data.title;
+      document.getElementById('modal-phase-desc').textContent = data.desc;
+      document.getElementById('modal-phase-code').textContent = data.prompt;
+      document.getElementById('btn-copy-label').textContent = '📋 Copy Prompt to Clipboard';
+      document.getElementById('prompt-modal').style.display = 'flex';
+    }
+
+    function closePromptModal() {
+      document.getElementById('prompt-modal').style.display = 'none';
+    }
+
+    function copyPromptText() {
+      const code = document.getElementById('modal-phase-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const lbl = document.getElementById('btn-copy-label');
+        lbl.textContent = '✅ Copied to Clipboard!';
+        setTimeout(() => {
+          lbl.textContent = '📋 Copy Prompt to Clipboard';
+        }, 2200);
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        const lbl = document.getElementById('btn-copy-label');
+        lbl.textContent = '✅ Copied to Clipboard!';
+        setTimeout(() => {
+          lbl.textContent = '📋 Copy Prompt to Clipboard';
+        }, 2200);
+      });
+    }
+
+    // ==========================================
+    // SIKANDER OS v2.0 UNIVERSAL COMMAND CENTER
+    // ==========================================
+
+    // Escape HTML helper
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // 1. Universal Search Index Store
+    let searchIndex = [];
+    let isIndexBuilt = false;
+    let currentPaletteFilter = 'all';
+    let currentPaletteQuery = '';
+    let currentPaletteResults = [];
+    let currentPaletteSelectedIndex = -1;
+    let paletteInputTimer = null;
+
+    function buildSearchIndex() {
+      if (isIndexBuilt && searchIndex.length > 0) return;
+      const items = [];
+
+      // MODULE 01: CINEMA HUB
+      const cinema = window.__SIKANDER_CINEMA_DATA__;
+      if (cinema) {
+        (cinema.watchlist || []).forEach((m) => {
+          items.push({
+            category: 'Cinema',
+            title: m.title + (m.year ? ' (' + m.year + ')' : ''),
+            subtitle: `⭐ ${m.sikander_score || m.imdb_rating || 'Queue'} · ${(m.genres || []).join(', ') || 'Film'} · Watchlist`,
+            badge: 'Cinema',
+            badgeClass: 'badge-cinema',
+            icon: '🎬',
+            url: `cinema.html?search=${encodeURIComponent(m.title)}`,
+            keywords: [m.title, m.raw_title, m.year, (m.genres || []).join(' '), (m.director || []).join(' '), (m.cast || []).join(' '), m.badge, m.notes, m.country, 'cinema watchlist movie queue'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (cinema.history || []).forEach((m) => {
+          items.push({
+            category: 'Cinema',
+            title: m.title + (m.year ? ' (' + m.year + ')' : ''),
+            subtitle: `⭐ ${m.user_rating || m.imdb_rating || 'Watched'} · Watched History · ${(m.genres || []).join(', ') || 'Film'}`,
+            badge: 'Cinema',
+            badgeClass: 'badge-cinema',
+            icon: '🎬',
+            url: `cinema.html?search=${encodeURIComponent(m.title)}`,
+            keywords: [m.title, m.year, (m.genres || []).join(' '), (m.director || []).join(' '), (m.cast || []).join(' '), m.review, 'watched history cinema movie rating'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+      }
+
+      // MODULE 02: PROPERTY LEDGER (AL GHAFOOR UNIT 206)
+      const prop = window.__SIKANDER_PROPERTY_DATA__;
+      if (prop) {
+        items.push({
+          category: 'Property',
+          title: 'Al Ghafoor Grande City — Unit 206',
+          subtitle: '2-Bed Luxury · 67% Equity Paid (PKR 2.093M / 3.124M Outlay)',
+          badge: 'Property',
+          badgeClass: 'badge-property',
+          icon: '🏢',
+          url: 'finance.html#property',
+          keywords: 'al ghafoor grande city unit 206 luxury apartment equity property ledger surjani karachi real estate fixed asset'
+        });
+        (prop.historical_ledger || []).forEach((tx) => {
+          items.push({
+            category: 'Property',
+            title: `${tx.description || tx.category || 'Property Payment'} (${tx.date || ''})`,
+            subtitle: `PKR ${Number(tx.amount_pkr || 0).toLocaleString()} · ${tx.payment_method || 'Cleared'} · ${tx.category || ''} · Ref: ${tx.cheque_ref || tx.receipt_num || tx.tx_no}`,
+            badge: 'Property',
+            badgeClass: 'badge-property',
+            icon: '🏢',
+            url: 'finance.html#historical',
+            keywords: [tx.description, tx.category, tx.payment_method, tx.date, 'pkr ' + tx.amount_pkr, tx.amount_pkr, tx.cheque_ref, tx.receipt_num, 'tx ' + tx.tx_no, 'property ledger transaction payment al ghafoor'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (prop.document_vault || []).forEach((doc) => {
+          items.push({
+            category: 'Property',
+            title: `Receipt #${doc.doc_id}: ${doc.document_type || 'Verified Document'}`,
+            subtitle: `PKR ${Number(doc.amount || 0).toLocaleString()} · Date: ${doc.event_date || ''} · Ref: ${doc.reference || ''}`,
+            badge: 'Property',
+            badgeClass: 'badge-property',
+            icon: '🏢',
+            url: 'finance.html#vault',
+            keywords: [doc.doc_id, doc.document_type, doc.description, doc.event_date, doc.reference, doc.filename, 'pkr ' + doc.amount, doc.amount, 'receipt voucher document verified property al ghafoor'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (prop.utility_schedule || []).forEach((u) => {
+          items.push({
+            category: 'Property',
+            title: `Utility Bill: ${u.inst_label || ''} (${u.scheduled_month || ''}) — ${u.status || 'Pending'}`,
+            subtitle: `Dues: PKR ${Number(u.scheduled_dues || 0).toLocaleString()} · Paid: ${u.paid_amount ? 'PKR ' + Number(u.paid_amount).toLocaleString() : 'Pending'} · Receipt #${u.receipt_no || 'Pending'}`,
+            badge: 'Property',
+            badgeClass: 'badge-property',
+            icon: '🏢',
+            url: 'finance.html#utilities',
+            keywords: [u.inst_label, u.scheduled_month, u.period, u.status, u.channel, u.bank_ref, u.receipt_no, u.scheduled_dues, u.paid_amount, 'utility maintenance charges electric gas water property'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+      }
+
+      // MODULE 03: MUSIC HUB & TASTE ENGINE
+      const music = window.SIKANDER_MUSIC_DATA;
+      if (music) {
+        (music.tracks || []).forEach((t) => {
+          items.push({
+            category: 'Music',
+            title: t.title || 'Track',
+            subtitle: `${t.artist || 'Unknown Artist'} · ${t.genre || t.mood || 'Music'} ${t.duration ? '(' + t.duration + ')' : ''}`,
+            badge: 'Music',
+            badgeClass: 'badge-music',
+            icon: '🎵',
+            url: `music.html?search=${encodeURIComponent(t.title)}`,
+            keywords: [t.title, t.artist, t.album, t.genre, t.mood, t.source, t.bitrate, 'music track audio mp3 song'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+      }
+
+      // MODULE 04: CAREER INTELLIGENCE & RESUME COCKPIT
+      const career = window.__SIKANDER_CAREER_DATA__;
+      if (career) {
+        const prof = career.candidate_profile || {};
+        items.push({
+          category: 'Career',
+          title: `${prof.full_name || 'Muhammad Sikander Shahjahan'} — ${prof.professional_title || 'Planning Lead & SCM Specialist'}`,
+          subtitle: `${prof.dual_employer_status || 'Novatex & Alpha Containers'} · ${prof.typing_speed_wpm || 90} WPM`,
+          badge: 'Career',
+          badgeClass: 'badge-career',
+          icon: '💼',
+          url: 'career.html#resume',
+          keywords: [prof.full_name, prof.professional_title, prof.dual_employer_status, prof.location, prof.phone, 'resume bio curriculum vitae cv career profile'].filter(Boolean).join(' ').toLowerCase()
+        });
+        (career.target_roles || []).forEach((r) => {
+          items.push({
+            category: 'Career',
+            title: `Target Role: ${r.title || ''}`,
+            subtitle: `${r.level || 'Senior'} · Target: ${r.salary_target || ''} · Strategy Match`,
+            badge: 'Career',
+            badgeClass: 'badge-career',
+            icon: '💼',
+            url: 'career.html#advisor',
+            keywords: [r.title, r.level, r.salary_target, (r.target_keywords || []).join(' '), (r.matched_skills || []).join(' '), 'target role job strategy ats match'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (career.career_milestones || []).forEach((m) => {
+          items.push({
+            category: 'Career',
+            title: `${m.role || ''} @ ${m.company || ''} (${m.period || ''})`,
+            subtitle: (m.highlights && m.highlights[0]) || m.overview || 'Career milestone',
+            badge: 'Career',
+            badgeClass: 'badge-career',
+            icon: '💼',
+            url: 'career.html#timeline',
+            keywords: [m.role, m.company, m.period, (m.highlights || []).join(' '), m.overview, m.category, 'career milestone promotion work experience tenure'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (career.sap_automation_vault || []).forEach((s) => {
+          items.push({
+            category: 'Career',
+            title: `SAP Macro: ${s.name || s.id || ''} [${s.tcode || 'MRF'}]`,
+            subtitle: `${s.description || s.category || ''} · Saves ${s.time_saved_daily_mins || 30} mins/day`,
+            badge: 'Career',
+            badgeClass: 'badge-career',
+            icon: '💼',
+            url: 'career.html#vault',
+            keywords: [s.name, s.tcode, s.id, s.category, (s.trigger_keywords || []).join(' '), s.description, s.workflow_rationale, (s.script_chain || []).join(' '), 'sap macro automation script coois teco mb52 planning bopet'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        const skills = career.skills_inventory || {};
+        for (const [cat, list] of Object.entries(skills)) {
+          if (Array.isArray(list)) {
+            list.forEach((sk) => {
+              items.push({
+                category: 'Career',
+                title: `Competency: ${sk}`,
+                subtitle: `Domain: ${cat.replace(/_/g, ' ').toUpperCase()}`,
+                badge: 'Career',
+                badgeClass: 'badge-career',
+                icon: '💼',
+                url: 'career.html#resume',
+                keywords: [sk, cat, 'skill competency industrial supply chain planning sap erp'].join(' ').toLowerCase()
+              });
+            });
+          }
+        }
+      }
+
+      // MODULE 05: SOVEREIGN CAPITAL & FINANCE
+      const fin = window.__SIKANDER_FINANCE_DATA__;
+      if (fin) {
+        const em = fin.executive_metrics || {};
+        items.push({
+          category: 'Finance',
+          title: `True Ground-Truth Net Worth: ${em.ground_truth_net_worth_formatted || 'PKR 8.45M'}`,
+          subtitle: `Bank PKR ${((em.liquid_bank_balances_pkr || 6354042) / 1e6).toFixed(2)}M + Property PKR ${((em.property_equity_paid_pkr || 2093000) / 1e6).toFixed(2)}M (${em.property_equity_percentage || 67}% Equity)`,
+          badge: 'Finance',
+          badgeClass: 'badge-finance',
+          icon: '🏦',
+          url: 'finance.html#banking',
+          keywords: 'true ground truth net worth pkr wealth capital liquidity bank equity sovereign assets'
+        });
+        (fin.banking_strip || []).forEach((b) => {
+          items.push({
+            category: 'Finance',
+            title: `${b.account_name || 'Bank Account'} (${b.institution || b.type || ''})`,
+            subtitle: `PKR ${Number(b.verified_statement_balance || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} · A/C: ${b.account_number || ''} · ${b.type || ''}`,
+            badge: 'Finance',
+            badgeClass: 'badge-finance',
+            icon: '🏦',
+            url: 'finance.html#banking',
+            keywords: [b.account_name, b.institution, b.type, b.account_number, b.iban, b.verified_statement_balance, 'bank wallet account balance cash finance liquidity'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        const fbr = fin.fbr_vault || {};
+        (fbr.annual_returns || []).forEach((ar) => {
+          items.push({
+            category: 'Finance',
+            title: `FBR Form ${ar.form_type || '114(1)'} Tax Year ${ar.tax_year || ''}`,
+            subtitle: `Declared Net Assets: PKR ${Number(ar.net_declared_assets || 0).toLocaleString()} · Income: PKR ${Number(ar.total_income || 0).toLocaleString()} · Active Taxpayer`,
+            badge: 'Finance',
+            badgeClass: 'badge-finance',
+            icon: '🏦',
+            url: 'finance.html#tax',
+            keywords: [ar.tax_year, ar.form_type, ar.period, ar.filing_date, ar.net_declared_assets, ar.total_income, 'fbr tax filer wealth statement return compliance'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        const exp = fin.expense_intelligence || {};
+        (exp.cluster_summary || []).forEach((c) => {
+          items.push({
+            category: 'Finance',
+            title: `Expense Cluster: ${c.cluster || ''}`,
+            subtitle: `Total Spend: PKR ${Number(c.total_pkr || 0).toLocaleString()} (${c.percentage || 0}% of Outflows) · ${c.item_count || (c.items || []).length} Categories`,
+            badge: 'Finance',
+            badgeClass: 'badge-finance',
+            icon: '🏦',
+            url: 'finance.html#banking',
+            keywords: [c.cluster, c.total_pkr, c.percentage, (c.items || []).join(' '), 'expense spending budget cashflow burn rate bluecoins'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+      }
+
+      // MODULE 06: HEALTH, FITNESS & FAMILY VITALITY
+      const health = window.__SIKANDER_HEALTH_DATA__;
+      if (health) {
+        const wt = health.walking_telemetry || {};
+        const today = wt.today || {};
+        const stepsStr = today.steps_formatted || (today.steps ? Number(today.steps).toLocaleString() : '10,420');
+        items.push({
+          category: 'Health',
+          title: `Walking Telemetry: ${stepsStr} Steps`,
+          subtitle: `Goal: ${wt.daily_target ? wt.daily_target.toLocaleString() : '10,000'} · ${today.distance_km || '8.13'} km · Streak ${wt.streak_summary ? wt.streak_summary.current_streak_days : '19'} days`,
+          badge: 'Health',
+          badgeClass: 'badge-health',
+          icon: '🏃',
+          url: 'health.html#walking',
+          keywords: 'walking steps google fit telemetry distance km streak physical fitness health daily walk'
+        });
+        const gym = health.gym_workouts || {};
+        (gym.splits || []).forEach((sp) => {
+          items.push({
+            category: 'Health',
+            title: `Gym Split: ${sp.name || ''}`,
+            subtitle: `Target: ${sp.target_muscles || ''} · ${(sp.exercises || []).length} Exercises`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏃',
+            url: 'health.html#gym',
+            keywords: [sp.name, sp.target_muscles, 'gym workout routine split weights bodybuilding hypertrophy'].filter(Boolean).join(' ').toLowerCase()
+          });
+          (sp.exercises || []).forEach((ex) => {
+            items.push({
+              category: 'Health',
+              title: `Exercise: ${ex.name || ''}`,
+              subtitle: `Current: ${ex.current_weight_kg || 0}kg (${ex.sets || 0}x${ex.target_reps || ex.reps || 0}) · PR: ${ex.pr_weight_kg || ex.current_weight_kg || 0}kg · Target: ${ex.target_muscle || sp.name}`,
+              badge: 'Health',
+              badgeClass: 'badge-health',
+              icon: '🏃',
+              url: 'health.html#gym',
+              keywords: [ex.name, ex.target_muscle, ex.current_weight_kg, ex.pr_weight_kg, ex.estimated_1rm_kg, sp.name, 'gym exercise pr personal record lift weight strength'].filter(Boolean).join(' ').toLowerCase()
+            });
+          });
+        });
+        const bio = health.family_biomarkers || {};
+        const panels = bio.reference_panels || {};
+        for (const [pKey, pVal] of Object.entries(panels)) {
+          items.push({
+            category: 'Health',
+            title: `Biomarker Panel: ${pVal.name || pKey}`,
+            subtitle: pVal.description || 'Clinical Reference Panel',
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏃',
+            url: 'health.html#biomarkers',
+            keywords: [pVal.name, pVal.description, pKey, 'blood test lab panel biomarker medical diagnostic'].filter(Boolean).join(' ').toLowerCase()
+          });
+          (pVal.biomarkers || []).forEach((bm) => {
+            items.push({
+              category: 'Health',
+              title: `Biomarker: ${bm.name || ''} (${bm.code || ''})`,
+              subtitle: `Target: ${bm.target_text || ''} · ${bm.clinical_significance || ''}`,
+              badge: 'Health',
+              badgeClass: 'badge-health',
+              icon: '🏃',
+              url: 'health.html#biomarkers',
+              keywords: [bm.name, bm.code, bm.target_text, bm.unit, pVal.name, 'blood test biomarker clinical lab test range optimal'].filter(Boolean).join(' ').toLowerCase()
+            });
+          });
+        }
+        (bio.profiles || []).forEach((pr) => {
+          items.push({
+            category: 'Health',
+            title: `Health Profile: ${pr.name || ''}`,
+            subtitle: `Blood Group: ${pr.blood_group || 'N/A'} · Relation: ${pr.relation || ''}`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏃',
+            url: 'health.html#biomarkers',
+            keywords: [pr.name, pr.relation, pr.blood_group, pr.dob, 'family member health profile blood group'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        const circ = health.circadian_routines || {};
+        (circ.schedule_slots || []).forEach((sl) => {
+          items.push({
+            category: 'Health',
+            title: `Daily Routine: ${sl.time || ''} — ${sl.title || ''}`,
+            subtitle: `${sl.badge || sl.category || ''} · Target: ${sl.target_metric || sl.duration || ''}`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏃',
+            url: 'health.html#routine',
+            keywords: [sl.time, sl.title, sl.badge, sl.category, sl.target_metric, sl.description, 'daily routine circadian schedule habit sleep work'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        const ins = health.insurance_emergency || {};
+        items.push({
+          category: 'Health',
+          title: `Insurance: ${ins.policy_provider || 'Jubilee Life'} CTP (${ins.policy_number || ''})`,
+          subtitle: `Sponsor: ${ins.corporate_sponsor || 'Novatex'} · Inpatient Limit: ${ins.inpatient_hospitalization_limit_pkr || ''} · 24/7 Helpline: ${ins.emergency_contacts ? ins.emergency_contacts.jubilee_24_7_helpline : ''}`,
+          badge: 'Health',
+          badgeClass: 'badge-health',
+          icon: '🏃',
+          url: 'health.html#insurance',
+          keywords: [ins.policy_provider, ins.corporate_sponsor, ins.policy_number, ins.employee_id, 'insurance medical ctp jubilee novatex hospitalization surgery helpline emergency'].filter(Boolean).join(' ').toLowerCase()
+        });
+        (ins.daycare_surgeries || []).forEach((sug) => {
+          items.push({
+            category: 'Health',
+            title: `Daycare Surgery: ${sug.procedure || ''}`,
+            subtitle: `Category: ${sug.category || 'General Surgery'} · Jubilee CTP 100% Covered`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏥',
+            url: 'health.html#insurance',
+            keywords: [sug.procedure, sug.category, 'daycare surgery procedure hospital jubilee ctp covered operation'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (ins.specialized_investigations || []).forEach((inv) => {
+          items.push({
+            category: 'Health',
+            title: `Outpatient Test: ${inv.name || ''}`,
+            subtitle: `Domain: ${inv.category || 'Diagnostic'} · ${inv.coverage || '100% IPD Limit Covered'}`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🔬',
+            url: 'health.html#insurance',
+            keywords: [inv.name, inv.category, inv.coverage, 'investigation lab diagnostic radiology scan mri ct endoscopy biopsy'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+        (ins.panel_hospitals || []).forEach((h) => {
+          items.push({
+            category: 'Health',
+            title: `Panel Hospital: ${h.name || ''}`,
+            subtitle: `${h.city} · ${h.address} · Emergency: ${h.emergency}`,
+            badge: 'Health',
+            badgeClass: 'badge-health',
+            icon: '🏥',
+            url: 'health.html#insurance',
+            keywords: [h.name, h.city, h.address, h.emergency, h.rating, 'panel hospital emergency direct cashless tpa jubilee novatex'].filter(Boolean).join(' ').toLowerCase()
+          });
+        });
+      }
+
+      searchIndex = items;
+      isIndexBuilt = true;
+      console.log(`[Sikander OS] Universal Search Index Built: ${searchIndex.length} items across 6 modules.`);
+    }
+
+    // 2. Command Palette UI Logic
+    function openCommandPalette() {
+      const helpModal = document.getElementById('help-modal');
+      if (helpModal && helpModal.style.display === 'flex') {
+        closeHelpModal();
+      }
+      const modal = document.getElementById('command-palette-modal');
+      if (!modal) return;
+      buildSearchIndex();
+      modal.style.display = 'flex';
+      const input = document.getElementById('palette-search-input');
+      if (input) {
+        input.focus();
+        input.select();
+      }
+      renderPaletteResults();
+    }
+
+    function closeCommandPalette() {
+      const modal = document.getElementById('command-palette-modal');
+      if (modal) modal.style.display = 'none';
+      currentPaletteSelectedIndex = -1;
+      if (window.location.hash === '#palette' || window.location.hash.startsWith('#search')) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    function toggleCommandPalette() {
+      const modal = document.getElementById('command-palette-modal');
+      if (modal && modal.style.display === 'flex') {
+        closeCommandPalette();
+      } else {
+        openCommandPalette();
+      }
+    }
+
+    function setPaletteFilter(filterName) {
+      currentPaletteFilter = filterName;
+      const chips = document.querySelectorAll('.palette-chip');
+      chips.forEach((c) => {
+        if (c.getAttribute('data-filter') === filterName) {
+          c.classList.add('active');
+        } else {
+          c.classList.remove('active');
+        }
+      });
+      renderPaletteResults();
+      const input = document.getElementById('palette-search-input');
+      if (input) input.focus();
+    }
+
+    function handlePaletteInput(val) {
+      currentPaletteQuery = (val || '').trim();
+      if (paletteInputTimer) clearTimeout(paletteInputTimer);
+      paletteInputTimer = setTimeout(() => {
+        renderPaletteResults();
+      }, 40);
+    }
+
+    function renderPaletteResults() {
+      buildSearchIndex();
+      const container = document.getElementById('palette-results');
+      if (!container) return;
+
+      const tokens = currentPaletteQuery.toLowerCase().split(/\s+/).filter(Boolean);
+
+      function matchesItem(item) {
+        if (tokens.length === 0) return true;
+        for (let i = 0; i < tokens.length; i++) {
+          if (!item.keywords.includes(tokens[i])) return false;
+        }
+        return true;
+      }
+
+      const counts = { all: 0, Cinema: 0, Property: 0, Music: 0, Career: 0, Finance: 0, Health: 0 };
+      const matchedAll = [];
+
+      for (let i = 0; i < searchIndex.length; i++) {
+        const it = searchIndex[i];
+        if (matchesItem(it)) {
+          counts.all++;
+          if (counts[it.category] !== undefined) counts[it.category]++;
+          matchedAll.push(it);
+        }
+      }
+
+      // Update counters
+      const setCnt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+      setCnt('count-all', counts.all);
+      setCnt('count-cinema', counts.Cinema);
+      setCnt('count-property', counts.Property);
+      setCnt('count-music', counts.Music);
+      setCnt('count-career', counts.Career);
+      setCnt('count-finance', counts.Finance);
+      setCnt('count-health', counts.Health);
+
+      let filtered = matchedAll;
+      if (currentPaletteFilter !== 'all') {
+        filtered = matchedAll.filter((it) => it.category === currentPaletteFilter);
+      }
+
+      // Default quick jumps if query is empty and filter is all
+      if (tokens.length === 0 && currentPaletteFilter === 'all') {
+        currentPaletteResults = [
+          { category: 'Cinema', title: '🎬 Cinema Hub & Watchlist', subtitle: 'Browse 373 curated titles, ratings & taste profile', badge: 'Cinema', badgeClass: 'badge-cinema', icon: '🎬', url: 'cinema.html' },
+          { category: 'Property', title: '🏢 Al Ghafoor Unit 206 Property Ledger', subtitle: '67% Equity Paid (PKR 2.093M) · 100 txs & 20 receipts', badge: 'Property', badgeClass: 'badge-property', icon: '🏢', url: 'finance.html#property' },
+          { category: 'Music', title: '🎵 Music Hub & Taste Engine', subtitle: '2,519 tracks catalog · 6 mood profiles & Spotify exports', badge: 'Music', badgeClass: 'badge-music', icon: '🎵', url: 'music.html' },
+          { category: 'Career', title: '💼 Career Intelligence & ATS Resume', subtitle: '11-year industrial trajectory, 21 SAP macros & competencies', badge: 'Career', badgeClass: 'badge-career', icon: '💼', url: 'career.html' },
+          { category: 'Finance', title: '🏦 Sovereign Capital & Banking Hub', subtitle: 'True Net Worth PKR 8.45M · 9 bank accounts & FBR tax vault', badge: 'Finance', badgeClass: 'badge-finance', icon: '🏦', url: 'finance.html' },
+          { category: 'Health', title: '🏃 Health, Fitness & Family Vitality', subtitle: '10,420 steps · 4 gym splits, 8 PRs & biomarker panels', badge: 'Health', badgeClass: 'badge-health', icon: '🏃', url: 'health.html' }
+        ];
+      } else {
+        currentPaletteResults = filtered.slice(0, 45);
+      }
+
+      currentPaletteSelectedIndex = currentPaletteResults.length > 0 ? 0 : -1;
+
+      const statsText = document.getElementById('palette-stats-text');
+      if (statsText) {
+        if (tokens.length === 0 && currentPaletteFilter === 'all') {
+          statsText.textContent = `Indexed ${searchIndex.length.toLocaleString()} items across 6 modules`;
+        } else {
+          statsText.textContent = `Showing ${currentPaletteResults.length} of ${filtered.length} matching items`;
+        }
+      }
+
+      if (currentPaletteResults.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:48px 20px; color:var(--text-dim);">
+            <div style="font-size:32px; margin-bottom:10px;">🔍</div>
+            <div style="font-size:15px; font-weight:700; color:#cbd5e1; margin-bottom:6px;">No matching items found</div>
+            <div style="font-size:12px; max-width:380px; margin:0 auto; line-height:1.6;">
+              Try searching by movie name, bank account, SAP macro (COOIS, TECO), gym exercise, or biomarker panel.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      currentPaletteResults.forEach((it, idx) => {
+        const isSel = idx === currentPaletteSelectedIndex ? 'selected' : '';
+        html += `
+          <a href="${it.url}" class="palette-item ${isSel}" data-index="${idx}" onclick="closeCommandPalette()">
+            <div class="palette-item-left">
+              <div class="palette-item-icon">${it.icon}</div>
+              <div class="palette-item-info">
+                <div class="palette-item-title">${escapeHtml(it.title)}</div>
+                <div class="palette-item-subtitle">${escapeHtml(it.subtitle)}</div>
+              </div>
+            </div>
+            <div class="palette-item-right">
+              <span class="palette-cat-badge ${it.badgeClass}">${it.badge}</span>
+            </div>
+          </a>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function paletteNavigate(direction) {
+      if (currentPaletteResults.length === 0) return;
+      currentPaletteSelectedIndex += direction;
+      if (currentPaletteSelectedIndex < 0) currentPaletteSelectedIndex = currentPaletteResults.length - 1;
+      if (currentPaletteSelectedIndex >= currentPaletteResults.length) currentPaletteSelectedIndex = 0;
+
+      const items = document.querySelectorAll('#palette-results .palette-item');
+      items.forEach((el, idx) => {
+        if (idx === currentPaletteSelectedIndex) {
+          el.classList.add('selected');
+          el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+          el.classList.remove('selected');
+        }
+      });
+    }
+
+    function paletteSelectActive() {
+      if (currentPaletteSelectedIndex >= 0 && currentPaletteSelectedIndex < currentPaletteResults.length) {
+        const target = currentPaletteResults[currentPaletteSelectedIndex];
+        if (target && target.url) {
+          closeCommandPalette();
+          window.location.href = target.url;
+        }
+      }
+    }
+
+    // 3. Global Privacy Shield Operations
+    function getGlobalPrivacyState() {
+      if (window.SikanderSync && typeof window.SikanderSync.getPrivacyMode === 'function') {
+        return window.SikanderSync.getPrivacyMode();
+      }
+      return localStorage.getItem('sikander_privacy_mode') === '1' || localStorage.getItem('sikander_finance_privacy') === '1';
+    }
+
+    function applyGlobalPrivacy() {
+      const active = getGlobalPrivacyState();
+
+      // Topbar & Dock buttons
+      const btn = document.getElementById('privacy-toggle-btn');
+      if (btn) {
+        if (active) {
+          btn.classList.add('active');
+          btn.classList.remove('unmasked');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('unmasked');
+        }
+      }
+      const dockBtn = document.getElementById('dock-privacy-btn');
+      if (dockBtn) {
+        if (active) dockBtn.classList.add('active');
+        else dockBtn.classList.remove('active');
+      }
+      const icon = document.getElementById('privacy-icon');
+      if (icon) icon.textContent = active ? '🔒' : '👁️';
+      const txt = document.getElementById('privacy-text');
+      if (txt) txt.textContent = active ? 'Privacy Mode: ON' : 'Privacy Mode: OFF';
+
+      // Maskable elements
+      document.querySelectorAll('.privacy-maskable').forEach((el) => {
+        if (!el.getAttribute('data-real-val')) {
+          el.setAttribute('data-real-val', el.textContent.trim());
+        }
+        const real = el.getAttribute('data-real-val');
+        if (active) {
+          if (real.startsWith('PKR')) {
+            el.textContent = 'PKR ••••••';
+          } else if (real.includes('Bank') && real.includes('Property')) {
+            el.textContent = 'Bank PKR •••••• · Property PKR •••••• (67% Equity)';
+          } else {
+            el.textContent = '••••••';
+          }
+        } else {
+          el.textContent = real;
+        }
+      });
+    }
+
+    function toggleGlobalPrivacy() {
+      if (window.SikanderSync && typeof window.SikanderSync.togglePrivacy === 'function') {
+        window.SikanderSync.togglePrivacy();
+      } else {
+        const next = !getGlobalPrivacyState();
+        localStorage.setItem('sikander_privacy_mode', next ? '1' : '0');
+        localStorage.setItem('sikander_finance_privacy', next ? '1' : '0');
+        applyGlobalPrivacy();
+        window.dispatchEvent(new CustomEvent('sikander-privacy-change', { detail: { active: next } }));
+      }
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'sikander_privacy_mode' || e.key === 'sikander_finance_privacy') {
+        applyGlobalPrivacy();
+      }
+    });
+    window.addEventListener('sikander-privacy-change', () => {
+      applyGlobalPrivacy();
+    });
+
+    // 4. Keyboard Shortcuts Help Modal
+    function openHelpModal() {
+      const pal = document.getElementById('command-palette-modal');
+      if (pal && pal.style.display === 'flex') {
+        closeCommandPalette();
+      }
+      const modal = document.getElementById('help-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeHelpModal() {
+      const modal = document.getElementById('help-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function toggleHelpModal() {
+      const modal = document.getElementById('help-modal');
+      if (modal && modal.style.display === 'flex') {
+        closeHelpModal();
+      } else {
+        openHelpModal();
+      }
+    }
+
+    // 5. Executive Life Metrics Strip Hydration
+    function hydrateExecutiveMetrics() {
+      // Net Worth from Finance
+      if (window.__SIKANDER_FINANCE_DATA__ && window.__SIKANDER_FINANCE_DATA__.executive_metrics) {
+        const em = window.__SIKANDER_FINANCE_DATA__.executive_metrics;
+        const nwEl = document.getElementById('metric-networth');
+        if (nwEl && em.ground_truth_net_worth_formatted) {
+          nwEl.setAttribute('data-real-val', em.ground_truth_net_worth_formatted);
+          nwEl.textContent = em.ground_truth_net_worth_formatted;
+        }
+        const nwSubEl = document.getElementById('metric-networth-sub');
+        if (nwSubEl && em.liquid_bank_balances_pkr && em.property_equity_paid_pkr) {
+          const bankM = (em.liquid_bank_balances_pkr / 1e6).toFixed(2);
+          const propM = (em.property_equity_paid_pkr / 1e6).toFixed(2);
+          const fullSub = `Bank PKR ${bankM}M · Property PKR ${propM}M (${em.property_equity_percentage}% Equity)`;
+          nwSubEl.setAttribute('data-real-val', fullSub);
+          nwSubEl.textContent = fullSub;
+        }
+      }
+      // Steps from Health
+      if (window.__SIKANDER_HEALTH_DATA__ && window.__SIKANDER_HEALTH_DATA__.walking_telemetry) {
+        const wt = window.__SIKANDER_HEALTH_DATA__.walking_telemetry;
+        const stepsEl = document.getElementById('metric-health-steps');
+        if (stepsEl && wt.today && (wt.today.steps || wt.today.steps_formatted)) {
+          const stp = wt.today.steps_formatted || (wt.today.steps ? Number(wt.today.steps).toLocaleString() : '10,420');
+          stepsEl.textContent = `${stp} Steps`;
+        }
+        const subEl = document.getElementById('metric-health-sub');
+        if (subEl && wt.today) {
+          const pct = wt.today.achievement_pct || wt.today.goal_pct || 104.2;
+          subEl.textContent = `Goal: 10,000 (${pct}%) · ${wt.streak_summary ? wt.streak_summary.current_streak_days : 19}-Day Streak 🔥 · ${wt.today.distance_km || '8.13'} km`;
+        }
+      }
+      // Career Target from Career
+      if (window.__SIKANDER_CAREER_DATA__) {
+        const cd = window.__SIKANDER_CAREER_DATA__;
+        const targetEl = document.getElementById('metric-career-target');
+        const role = (cd.target_roles && cd.target_roles[0]) ? cd.target_roles[0].title : (cd.candidate_profile ? cd.candidate_profile.professional_title : 'Senior SCM / Planning Lead');
+        if (targetEl && role) {
+          targetEl.textContent = role;
+        }
+        const subEl = document.getElementById('metric-career-sub');
+        if (subEl && cd.candidate_profile) {
+          const cp = cd.candidate_profile;
+          subEl.textContent = `${cp.dual_employer_status ? cp.dual_employer_status.split(':')[0] : 'Novatex (10+ Yrs) + Alpha Containers Lead'} · ${cp.typing_speed_wpm || 90} WPM`;
+        }
+      }
+      // Cinema count
+      if (window.__SIKANDER_CINEMA_DATA__) {
+        const cin = window.__SIKANDER_CINEMA_DATA__;
+        const countEl = document.getElementById('metric-cinema-count');
+        const watchLen = (cin.watchlist || []).length;
+        const histLen = (cin.history || []).length;
+        if (countEl && watchLen > 0) {
+          countEl.textContent = `${watchLen} Titles`;
+        }
+        const subEl = document.getElementById('metric-cinema-sub');
+        if (subEl) {
+          subEl.textContent = `Curated Queue · ${histLen} Watched Ratings (${watchLen + histLen} Total)`;
+        }
+      }
+      // Music count
+      if (window.SIKANDER_MUSIC_DATA && window.SIKANDER_MUSIC_DATA.tracks) {
+        const trkLen = window.SIKANDER_MUSIC_DATA.tracks.length;
+        const musEl = document.getElementById('metric-music-count');
+        if (musEl && trkLen > 0) {
+          musEl.textContent = `${trkLen.toLocaleString()} Tracks`;
+        }
+      }
+      applyGlobalPrivacy();
+    }
+
+    // 6. Global Event Handlers & Shortcut Key Listener
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeProfileModal();
+      const isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable;
+
+      // ESC closes any open modal
+      if (e.key === 'Escape') {
+        closeCommandPalette();
+        closeHelpModal();
+        closeProfileModal();
+        closePromptModal();
+        if (window.SikanderSync && typeof window.SikanderSync.closeSyncModal === 'function') {
+          window.SikanderSync.closeSyncModal();
+        }
+        return;
+      }
+
+      // Ctrl+K or Cmd+K opens Command Palette
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        toggleCommandPalette();
+        return;
+      }
+
+      const paletteModal = document.getElementById('command-palette-modal');
+      const isPaletteOpen = paletteModal && paletteModal.style.display === 'flex';
+      const helpModal = document.getElementById('help-modal');
+      const isHelpOpen = helpModal && helpModal.style.display === 'flex';
+      const isAnyModalOpen = isPaletteOpen || isHelpOpen ||
+        (document.getElementById('profile-modal') && document.getElementById('profile-modal').style.display === 'flex') ||
+        (document.getElementById('prompt-modal') && document.getElementById('prompt-modal').style.display === 'flex') ||
+        (document.getElementById('sikander-sync-modal') && document.getElementById('sikander-sync-modal').style.display === 'flex');
+
+      // If palette is open: ArrowDown, ArrowUp, Enter navigate inside palette
+      if (isPaletteOpen) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          paletteNavigate(1);
+          return;
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          paletteNavigate(-1);
+          return;
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          paletteSelectActive();
+          return;
+        }
+      }
+
+      // Prevent single-key shortcuts when typing in inputs or when ANY modal is open!
+      if (isInput || isAnyModalOpen) return;
+
+      // Single-key global navigation
+      if (e.key === '1') {
+        e.preventDefault();
+        window.location.href = 'cinema.html';
+      } else if (e.key === '2') {
+        e.preventDefault();
+        window.location.href = 'finance.html#property';
+      } else if (e.key === '3') {
+        e.preventDefault();
+        window.location.href = 'music.html';
+      } else if (e.key === '4') {
+        e.preventDefault();
+        window.location.href = 'career.html';
+      } else if (e.key === '5') {
+        e.preventDefault();
+        window.location.href = 'finance.html';
+      } else if (e.key === '6') {
+        e.preventDefault();
+        window.location.href = 'health.html';
+      } else if (e.key === '?') {
+        e.preventDefault();
+        toggleHelpModal();
+      } else if (e.key === '/') {
+        e.preventDefault();
+        openCommandPalette();
+      } else if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        toggleGlobalPrivacy();
+      }
+    });
+
+    // Check URL query / hash on page load for Command Palette trigger
+    function checkUrlForPalette() {
+      const hash = window.location.hash || '';
+      const params = new URLSearchParams(window.location.search);
+      if (hash === '#palette' || hash === '#search' || params.has('palette') || params.has('search')) {
+        openCommandPalette();
+        const q = params.get('search') || params.get('q');
+        if (q && q !== 'open') {
+          const inp = document.getElementById('palette-search-input');
+          if (inp) {
+            inp.value = q;
+            handlePaletteInput(q);
+          }
+        }
+      }
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      hydrateExecutiveMetrics();
+      buildSearchIndex();
+      applyGlobalPrivacy();
+      checkUrlForPalette();
+    });
+
+    // Also run immediately in case DOMContentLoaded has already fired
+    setTimeout(() => {
+      hydrateExecutiveMetrics();
+      buildSearchIndex();
+      applyGlobalPrivacy();
+      checkUrlForPalette();
+    }, 100);
+
+    window.addEventListener('beforeinstallprompt', () => {
+      const topbarBtn = document.getElementById('topbar-install-btn');
+      if (topbarBtn) topbarBtn.style.display = 'inline-flex';
     });
   </script>
+  <!-- Sikander OS Local-First Multi-Device Sync Engine & PWA Core -->
+  <script src="data/sync_engine.js"></script>
 </body>
 </html>

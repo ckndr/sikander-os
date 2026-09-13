@@ -1,7 +1,7 @@
 # 🎵 SIKANDER'S MUSIC INTELLIGENCE & TASTE DNA PROFILE
 > **Autonomous AI Recommendation, Online Discovery & Taste Synchronization Specification**  
-> *When uploaded to ChatGPT, Claude, Gemini, DeepSeek, or any web-enabled LLM: The AI will autonomously parse Sikander's 6 Taste Pillars, 684 manual year-month track choices (1,205 total manual archive picks), 297 Spotify Liked songs, and gym/trance playlists, and output high-conviction recommendations strictly in the sync table format below.*  
-> *Master Catalog: 2,504 Deduplicated Tracks | 684 Manually Downloaded Year-Month Choices | 557 Spotify Verified Tracks | 92 Desi Heritage Tracks.*
+> *When uploaded to ChatGPT, Claude, Gemini, DeepSeek, or any web-enabled LLM: The AI will autonomously parse Sikander's 6 Taste Pillars, 1,219 manually downloaded choices (435 Root direct singles + 696 Year-Month choices + 108 Desi Heritage classics), 294 Spotify Liked songs, and gym/trance playlists, and output high-conviction recommendations strictly in the sync table format below.*  
+> *Master Catalog: 2,519 Deduplicated Tracks | 1,219 Total Manual Archive Picks (435 Root Direct Singles, 696 Year-Month Monthly Batches, 108 Desi Heritage Picks) | 356 Spotify Verified Tracks.*
 
 ---
 
@@ -138,16 +138,16 @@ At the very end of your response, always provide the full table inside a clean, 
 ## 📊 SOURCE WEIGHTAGE ARCHITECTURE (CRITICAL FOR SCORING)
 
 When scoring or prioritizing songs, follow Sikander's explicit weighting hierarchy:
-1. **Tier 1 — Manual Year-Month Downloads (684 Tracks) · Weight: 1.5x (HIGHEST)**:
-   - Folders spanning 2016 through 2020 (e.g. `2016 June`, `2016 December`, `2017 Febuary`, `2018 August`, `2020 July`, etc.).
-   - Represents songs Sikander individually chose and downloaded one by one over years.
-2. **Tier 1 — Desi Folder (92 Tracks) · Weight: 1.5x (HIGHEST)**:
-   - Hand-selected South Asian heritage and Sufi classics. Carries equal highest priority alongside Year-Month folders.
-3. **Tier 1 — Spotify Active Playlists · Weight: 1.3x–1.4x**:
-   - `Liked Songs` (297 tracks)
-   - `Gym Playlist` (207 tracks)
-   - `Trance Playlist` (66 tracks)
-4. **Tier 2 — Curated Compilations · Weight: 1.0x–1.2x**:
+1. **Tier 1 — Manual Downloads (1,219 Deduplicated Picks) · Weight: 1.5x (HIGHEST PRIORITY)**:
+   - **Root Direct Singles (435 Tracks)**: Individual standalone songs downloaded directly into the root of `I:\Music` (not inside any subfolder) one by one over many years. This represents Sikander's **Intentional Singles Curation** — tracks he personally sought out and acquired individually.
+     - *Taste Implication:* Heavy reinforcement of **Pillar 6 (90s–2000s Melodic Nostalgia & Alt-Rock)**, featuring iconic tracks from Savage Garden, Celine Dion, Plain White T's, Aerosmith, Snow Patrol, Linkin Park, Survivor, Jennifer Paige, Modjo, Sash!, Vengaboys, Shania Twain, Will Smith, Phil Collins, Natalie Imbruglia, and Dido. It also anchors core progressive trance classics (Adam K & Soha, Reflekt, Armin van Buuren, Arty, 009 Sound System) and serene Buddha Bar chillout tracks (Al-Pha-X, Ravi Prasad, Schiller, Ustad Sultan Khan, Utada Hikaru).
+   - **Year-Month Monthly Batches (696 Tracks)**: 26 monthly folders spanning 2016 through 2020 (e.g. `2016 June`, `2016 December`, `2017 Febuary`, `2018 August`, `2020 July`, etc.). Represents his monthly audio discovery phases, handpicked and downloaded song by song.
+   - **Desi Heritage & Sufi Folder (108 Tracks)**: Hand-selected South Asian heritage and Sufi classics (NFAK, Fuzon, Junoon, Strings, Atif Aslam, Kailash Kher). Carries equal highest priority.
+2. **Tier 1 — Spotify Active Playlists · Weight: 1.3x–1.4x**:
+   - `Liked Songs` (294 tracks)
+   - `Gym Playlist` (202 tracks)
+   - `Trance Playlist` (62 tracks)
+3. **Tier 2 — Curated Compilations · Weight: 1.0x–1.2x**:
    - `Deep 2019`, `Sax House`, `Beatport Progressive House`, `Buddha Bar`, `Blank & Jones`, `Ehrling`, `Tiësto ISOS`.
 
 ---
@@ -162,6 +162,23 @@ When scoring or prioritizing songs, follow Sikander's explicit weighting hierarc
 | **🪕 Desi Soul & Sufi** | 85–115 | Pillar 4 (Desi Heritage) | Emotive Soul | Reflective Evening, Deep Nostalgia |
 | **☕ Zen Focus / Lounge** | 80–105 | Pillar 5 (Buddha Bar & Chill) | Mellow / Ambient | Reading, Deep Work, Unwinding |
 | **🎸 Nostalgic Anthems** | 112–128 | Pillar 6 (Retro & Alt-Rock) | Medium-High | Casual Listening, Retro Roadtrip |
+
+---
+
+## 🎧 SPOTIFY PLAYLIST FOLDER ARCHITECTURE (MOOD FLOW VS. RANDOM SHUFFLE)
+
+To seamlessly switch between **playing for an exact mood** and **playing all songs in a random shuffle**, use Spotify Desktop's Playlist Folder feature:
+1. **Create Master Folder in Spotify Desktop**: Right-click left playlist sidebar -> select **"Create Folder"** -> name it **`🎵 Sikander OS Music`**.
+2. **Populate with the 6 Pre-Categorized Mood Playlists**:
+   - `🌅 Sunset Deep House` (586 tracks · 118–124 BPM)
+   - `🌌 Hypnotic Trance & Balearic` (150 tracks · 128–136 BPM)
+   - `⚡ Gym Peak Energy` (197 tracks · 126–132 BPM)
+   - `🪕 Desi Heritage & Sufi` (108 tracks · 85–115 BPM)
+   - `☕ Buddha Bar & Lounge` (120 tracks · 80–105 BPM)
+   - `🎸 Retro Dance & Pop-Rock` (1,358 tracks · 112–128 BPM)
+3. **Execution Modes**:
+   - **Mood Flow Mode**: Click directly on an individual playlist (e.g. `⚡ Gym Peak Energy`) and play straight through.
+   - **Master Shuffle Mode**: Click directly on the **`🎵 Sikander OS Music`** folder header and hit **Shuffle Play** (`Ctrl + S`). Spotify will dynamically shuffle across all 2,519 tracks simultaneously across all moods.
 
 ---
 

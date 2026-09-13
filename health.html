@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07090e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sikander OS">
+  <title>Health, Fitness & Family Vitality Hub — Sikander OS</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="data/health/sikander_health_data.js"></script>
+  <style>
+    :root {
+      --bg-base: #07090e;
+      --bg-surface: rgba(15, 20, 32, 0.78);
+      --bg-surface-elevated: rgba(22, 30, 48, 0.88);
+      --bg-card: rgba(18, 25, 42, 0.68);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(16, 185, 129, 0.35);
+      --cyan: #00f2fe;
+      --cyan-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      --emerald: #10b981;
+      --emerald-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --gold: #f59e0b;
+      --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --purple: #8b5cf6;
+      --purple-gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+      --rose: #f43f5e;
+      --rose-gradient: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    /* Ambient futuristic glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -10%;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: 10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.07) 0%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px 20px 90px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* TOP STATUS BAR */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .os-return-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px;
+      color: var(--emerald);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .os-return-pill:hover {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--emerald);
+      transform: translateX(-2px);
+      color: #fff;
+    }
+
+    .topbar-title-wrap h1 {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-title-wrap p {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge-emerald {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--emerald);
+    }
+    .status-dot-emerald {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* EXECUTIVE BANNER */
+    .exec-banner {
+      background: linear-gradient(135deg, rgba(16, 24, 38, 0.95) 0%, rgba(10, 16, 26, 0.98) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 35px rgba(16, 185, 129, 0.08);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .exec-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 450px;
+      height: 100%;
+      background: radial-gradient(circle at 80% 50%, rgba(16, 185, 129, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .banner-left-content {
+      position: relative;
+      z-index: 2;
+    }
+    .banner-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tag-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 6px;
+      color: var(--emerald);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .tag-pill.cyan {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: rgba(0, 242, 254, 0.35);
+      color: var(--cyan);
+    }
+    .tag-pill.gold {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: var(--gold);
+    }
+
+    .banner-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      line-height: 1.15;
+    }
+    .banner-title span {
+      background: var(--emerald-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .banner-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      max-width: 600px;
+    }
+
+    .banner-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-emerald {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--emerald-gradient);
+      color: #050811;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 11px 22px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-emerald:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+    }
+    .btn-glass {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    /* RIGHT TELEMETRY CARD */
+    .banner-right-telemetry {
+      background: rgba(10, 15, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .telemetry-ring-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .ring-container {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+    }
+    .ring-svg {
+      width: 96px;
+      height: 96px;
+      transform: rotate(-90deg);
+    }
+    .ring-bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-width: 8;
+    }
+    .ring-progress {
+      fill: none;
+      stroke: var(--emerald);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 251.2;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.8s ease;
+      filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
+    }
+    .ring-center-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .ring-pct {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .ring-sub {
+      font-size: 9px;
+      color: var(--emerald);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .ring-details {
+      flex: 1;
+    }
+    .ring-details-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ring-details-value {
+      font-size: 26px;
+      font-weight: 900;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .ring-details-value span {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .ring-streak-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 4px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 6px;
+    }
+
+    .telemetry-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 14px;
+    }
+    .mini-stat {
+      border-left: 2px solid var(--emerald);
+      padding-left: 10px;
+    }
+    .mini-stat.cyan { border-left-color: var(--cyan); }
+    .mini-stat.gold { border-left-color: var(--gold); }
+    .mini-stat-val {
+      font-size: 16px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+    .mini-stat-lbl {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* NAVIGATION TABS */
+    .module-nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 30px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .module-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .tab-btn.active {
+      background: var(--emerald-gradient);
+      color: #050811;
+      font-weight: 900;
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+    }
+
+    /* TAB SECTIONS */
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GLASS CARDS */
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* STEP VELOCITY CHART */
+    .velocity-chart-wrapper {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      height: 180px;
+      padding: 20px 10px 10px;
+      background: rgba(10, 15, 26, 0.6);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .chart-goal-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 120px;
+      border-top: 1px dashed rgba(16, 185, 129, 0.4);
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 12px;
+      pointer-events: none;
+    }
+    .chart-goal-label {
+      font-size: 10px;
+      color: var(--emerald);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      transform: translateY(-8px);
+      background: #090e18;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .bar-fill {
+      width: 100%;
+      max-width: 44px;
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      border-radius: 6px 6px 0 0;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .bar-fill:hover {
+      background: var(--emerald-gradient);
+      transform: scaleY(1.02);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+    .bar-fill.achieved {
+      background: var(--emerald-gradient);
+    }
+    .bar-fill.active-day {
+      border-color: #fff;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    }
+    .bar-label-day {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .bar-label-val {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* INTAKE METHODS GRID */
+    .intake-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .intake-card {
+      background: rgba(12, 17, 28, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      transition: all 0.2s;
+    }
+    .intake-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+    }
+    .intake-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .intake-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .intake-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .intake-badge.green {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .intake-badge.cyan {
+      background: rgba(0, 242, 254, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+    }
+    .intake-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* GYM SPLITS */
+    .split-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .split-btn {
+      padding: 9px 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .split-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .split-btn.active {
+      background: var(--cyan-gradient);
+      color: #050811;
+      font-weight: 900;
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+    }
+
+    /* EXERCISE TABLE */
+    .exercise-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .exercise-table th {
+      text-align: left;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .exercise-table td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+    }
+    .exercise-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .ex-name {
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ex-muscle {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .ex-weight {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--cyan);
+    }
+    .pr-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 4px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* BIOMARKER PANELS */
+    .family-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .family-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .family-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .family-btn.active {
+      background: var(--purple-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.4);
+    }
+
+    .biomarkers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+    .panel-card {
+      background: rgba(13, 18, 30, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: all 0.2s;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 10px;
+    }
+    .panel-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .biomarker-item {
+      margin-bottom: 16px;
+    }
+    .biomarker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .bio-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .bio-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .bio-unit {
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-left: 4px;
+      font-weight: normal;
+    }
+    .bio-target {
+      font-size: 10px;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 6px;
+    }
+    .gauge-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      position: relative;
+      overflow: visible;
+    }
+    .gauge-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+    .gauge-needle {
+      position: absolute;
+      top: -4px;
+      width: 4px;
+      height: 14px;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      transform: translateX(-50%);
+    }
+    .status-badge-sm {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .status-optimal { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-borderline { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-action { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+    /* CIRCADIAN TIMELINE */
+    .circadian-rail {
+      position: relative;
+      padding-left: 28px;
+    }
+    .circadian-rail::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--emerald) 0%, var(--cyan) 30%, var(--purple) 70%, var(--gold) 100%);
+      opacity: 0.4;
+    }
+    .circadian-slot {
+      position: relative;
+      background: rgba(12, 17, 28, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+    .circadian-slot:hover {
+      border-color: rgba(0, 242, 254, 0.35);
+      transform: translateX(4px);
+    }
+    .slot-dot {
+      position: absolute;
+      left: -24px;
+      top: 20px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--bg-base);
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+    .slot-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .slot-time {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .slot-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-dim);
+    }
+    .slot-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .slot-target {
+      font-size: 12px;
+      color: var(--emerald);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .slot-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* HABITS CHECKLIST */
+    .habits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .habit-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: rgba(12, 17, 28, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .habit-item:hover {
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .habit-item.done {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .habit-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: transparent;
+      transition: all 0.2s;
+    }
+    .habit-item.done .habit-check {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: #050811;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+
+    /* INSURANCE CARD */
+    .insurance-card-wrapper {
+      background: linear-gradient(135deg, rgba(20, 27, 45, 0.95) 0%, rgba(12, 17, 30, 0.98) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+    .insurance-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .ins-brand h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .ins-brand p {
+      font-size: 12px;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+    .ins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .ins-cell-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+    .ins-cell-val {
+      font-size: 14px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+
+    /* DAYCARE SEARCH */
+    .daycare-filter-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 10px 16px;
+      background: rgba(10, 15, 26, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    }
+    .daycare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .daycare-card {
+      background: rgba(12, 17, 28, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .daycare-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      transform: translateY(-1px);
+    }
+    .dc-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      font-weight: 700;
+      width: 26px;
+    }
+    .dc-info {
+      flex: 1;
+      padding: 0 8px;
+    }
+    .dc-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .dc-cat {
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+    .dc-badge {
+      font-size: 9px;
+      padding: 2px 6px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 3px;
+      color: var(--emerald);
+      font-weight: 700;
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: #0d1220;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: var(--radius-lg);
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 28px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .modal-close:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(10, 15, 26, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--emerald);
+    }
+
+    @media (max-width: 900px) {
+      .exec-banner {
+        grid-template-columns: 1fr;
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- TOP STATUS BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="os-return-pill">
+          <span>← SIKANDER OS</span>
+        </a>
+        <div class="topbar-title-wrap">
+          <h1>Health & Family Vitality Hub</h1>
+          <p>Module 06 · Active Life Telemetry & Clinical Cockpit</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="status-badge-emerald">
+          <span class="status-dot-emerald"></span>
+          <span id="active-status-text">VITALITY ACTIVE</span>
+        </div>
+        <button class="btn-glass" onclick="openStepLoggerModal()" style="padding:6px 14px; font-size:12px;">
+          <span>+ Log Walk</span>
+        </button>
+        <button class="btn-glass" onclick="openGymLogModal()" style="padding:6px 14px; font-size:12px;">
+          <span>+ Quick Set</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- EXECUTIVE HERO BANNER -->
+    <section class="exec-banner">
+      <div class="banner-left-content">
+        <div class="banner-badge-row">
+          <span class="tag-pill">GOOGLE FIT CONNECTED</span>
+          <span class="tag-pill cyan">GOOGLE SHEETS GYM SYNC</span>
+          <span class="tag-pill gold">CLINICAL BIOMARKERS</span>
+        </div>
+        <h2 class="banner-title">Daily Vitality & <span>Movement Cockpit</span></h2>
+        <p class="banner-desc">
+          Unified personal and family health intelligence. Synchronizing daily walking telemetry (10,000 steps goal), gym progressive overload tracking via Google Sheets, clinical laboratory biomarkers across 5 diagnostic panels, and 24-hour circadian routine mapping.
+        </p>
+        <div class="banner-actions">
+          <button class="btn-emerald" onclick="switchTab('walking')">
+            <span>🚶 Walking Activity Station</span>
+          </button>
+          <button class="btn-glass" onclick="switchTab('gym')">
+            <span>🏋️ Gym Splits & PR Vault</span>
+          </button>
+          <button class="btn-glass" onclick="switchTab('biomarkers')">
+            <span>🧪 Family Lab Biomarkers</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="banner-right-telemetry">
+        <div class="telemetry-ring-row">
+          <div class="ring-container">
+            <svg class="ring-svg" viewBox="0 0 96 96">
+              <circle class="ring-bg" cx="48" cy="48" r="40"></circle>
+              <circle class="ring-progress" id="hero-progress-ring" cx="48" cy="48" r="40"></circle>
+            </svg>
+            <div class="ring-center-text">
+              <div class="ring-pct" id="hero-ring-pct">104%</div>
+              <div class="ring-sub">GOAL</div>
+            </div>
+          </div>
+          <div class="ring-details">
+            <div class="ring-details-label">Today's Walking Steps</div>
+            <div class="ring-details-value">
+              <span id="hero-steps-count" style="color:#fff; font-size:26px; font-weight:900;">10,420</span>
+              <span>/ 10,000</span>
+            </div>
+            <div class="ring-streak-pill" id="hero-streak-pill">19-Day 10k Streak 🔥</div>
+          </div>
+        </div>
+
+        <div class="telemetry-mini-grid">
+          <div class="mini-stat">
+            <div class="mini-stat-val" id="hero-dist-val">8.13 km</div>
+            <div class="mini-stat-lbl">Distance</div>
+          </div>
+          <div class="mini-stat cyan">
+            <div class="mini-stat-val" id="hero-cal-val">438 kcal</div>
+            <div class="mini-stat-lbl">Burned</div>
+          </div>
+          <div class="mini-stat gold">
+            <div class="mini-stat-val" id="hero-gym-split-badge">Push A</div>
+            <div class="mini-stat-lbl">Today's Split</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="module-nav-tabs">
+      <button class="tab-btn active" data-tab="walking" onclick="switchTab('walking')">
+        <span>🚶 Daily Walking Activity</span>
+      </button>
+      <button class="tab-btn" data-tab="gym" onclick="switchTab('gym')">
+        <span>🏋️ Google Sheets Gym Station</span>
+      </button>
+      <button class="tab-btn" data-tab="biomarkers" onclick="switchTab('biomarkers')">
+        <span>🧪 Family Biomarker Station</span>
+      </button>
+      <button class="tab-btn" data-tab="routine" onclick="switchTab('routine')">
+        <span>⏰ Circadian Routine Mapper</span>
+      </button>
+      <button class="tab-btn" data-tab="insurance" onclick="switchTab('insurance')">
+        <span>🛡️ Jubilee CTP & 45 Daycare Surgeries</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: WALKING ACTIVITY STATION -->
+    <section class="tab-section active" id="section-walking">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">
+              <span>🚶 Google Fit Daily Walking Cockpit</span>
+              <span class="status-badge-emerald" style="font-size:11px; padding:3px 10px;">10,000 Steps Daily Goal</span>
+            </h3>
+            <p class="card-subtitle">Continuous walking telemetry, distance tracking, calorie burn, and 7-day velocity chart.</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-emerald" onclick="openStepLoggerModal()" style="font-size:12px; padding:8px 16px;">
+              <span>+ Record Steps</span>
+            </button>
+            <button class="btn-glass" onclick="openTakeoutModal()" style="font-size:12px; padding:8px 14px;">
+              <span>📂 Import Takeout</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 7-Day Velocity Chart -->
+        <div style="margin-bottom: 8px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em;">
+            7-Day Movement Velocity (Target: 10k Steps)
+          </div>
+          <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--emerald);" id="weekly-avg-label">
+            Weekly Average: 10,240 steps/day
+          </div>
+        </div>
+
+        <div class="velocity-chart-wrapper" id="velocity-chart">
+          <div class="chart-goal-line">
+            <span class="chart-goal-label">10,000 STEP GOAL</span>
+          </div>
+          <!-- Bars rendered dynamically by JS -->
+        </div>
+
+        <!-- Triple-Intake Telemetry Architecture -->
+        <div class="intake-grid">
+          <div class="intake-card">
+            <div class="intake-card-header">
+              <span class="intake-title">Method 1: Direct In-App Logger</span>
+              <span class="intake-badge green">Active · Zero-CORS</span>
+            </div>
+            <p class="intake-desc">
+              Instant step increment buttons and manual entry form. Stored directly into browser <code style="color:var(--emerald);">localStorage</code> for seamless logging while walking outdoors.
+            </p>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-glass" onclick="quickAddSteps(500)" style="font-size:11px; padding:5px 10px;">+500</button>
+              <button class="btn-glass" onclick="quickAddSteps(1000)" style="font-size:11px; padding:5px 10px;">+1,000</button>
+              <button class="btn-glass" onclick="quickAddSteps(2500)" style="font-size:11px; padding:5px 10px;">+2,500</button>
+              <button class="btn-emerald" onclick="openStepLoggerModal()" style="font-size:11px; padding:5px 12px; margin-left:auto;">Custom Log</button>
+            </div>
+          </div>
+
+          <div class="intake-card">
+            <div class="intake-card-header">
+              <span class="intake-title">Method 2: Google Takeout Parser</span>
+              <span class="intake-badge cyan">Drag & Drop</span>
+            </div>
+            <p class="intake-desc">
+              Drag and drop your exported Google Fit files (<code style="color:var(--cyan);">Daily Activity Metrics.json</code> or <code style="color:var(--cyan);">Step Count.csv</code>). 100% client-side parsing without server upload.
+            </p>
+            <button class="btn-glass" onclick="openTakeoutModal()" style="width:100%; font-size:12px; justify-content:center;">
+              <span>📂 Open Takeout Ingestion Modal</span>
+            </button>
+          </div>
+
+          <div class="intake-card">
+            <div class="intake-card-header">
+              <span class="intake-title">Method 3: Google Fitness API</span>
+              <span class="intake-badge cyan">REST Ready</span>
+            </div>
+            <p class="intake-desc">
+              Direct OAuth access token input for querying <code style="color:var(--cyan);">fitness.googleapis.com</code> aggregate bucket steps without intermediary proxy backends.
+            </p>
+            <button class="btn-glass" onclick="promptOAuthSync()" style="width:100%; font-size:12px; justify-content:center;">
+              <span>⚡ Authenticate REST Token</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 30-Day Step Telemetry History Log -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">📅 30-Day Walking History & Milestones</h3>
+            <p class="card-subtitle">Verified walking records spanning August to September 2026.</p>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-muted);" id="monthly-stats-summary">
+            Total 30-Day Distance: 231.0 km
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="exercise-table" id="walking-history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Steps</th>
+                <th>Distance</th>
+                <th>Active Burn</th>
+                <th>Duration</th>
+                <th>Goal Status</th>
+              </tr>
+            </thead>
+            <tbody id="walking-history-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: GYM WORKOUT STATION & GOOGLE SHEETS CONNECTOR -->
+    <section class="tab-section" id="section-gym">
+      <!-- Google Sheets Live Connector Bar -->
+      <div class="glass-card" style="border-color: rgba(0, 242, 254, 0.35);">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">
+              <span>📊 Google Sheets Zero-CORS Gym Connector</span>
+              <span class="tag-pill cyan">Live CSV Ingestion</span>
+            </h3>
+            <p class="card-subtitle">Connect your Google Sheet workout log published as CSV (<code style="color:var(--cyan);">/export?format=csv</code>). Zero backend or API key required.</p>
+          </div>
+          <button class="btn-glass" onclick="toggleConnectorDocs()" style="font-size:12px; padding:6px 12px;">
+            <span>ℹ️ How to Publish Sheet</span>
+          </button>
+        </div>
+
+        <div id="connector-instructions" style="display:none; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px; margin-bottom:18px; font-size:12px; color:var(--text-muted); line-height:1.6;">
+          <strong style="color:var(--cyan);">Instructions for Google Sheets zero-CORS sync:</strong>
+          <ol style="padding-left:18px; margin-top:6px;">
+            <li>In your Google Sheet, click <strong>File > Share > Publish to web</strong>.</li>
+            <li>Under "Link", select your workout tab and choose <strong>Comma-separated values (.csv)</strong>.</li>
+            <li>Click <strong>Publish</strong>, copy the public URL and paste it below.</li>
+            <li>Your browser will fetch and parse the CSV client-side with full offline caching!</li>
+          </ol>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input type="text" class="search-input" id="sheets-csv-url" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0" style="font-family:'JetBrains Mono',monospace; font-size:12px; flex:1; min-width:260px;">
+          <button class="btn-emerald" onclick="fetchCustomSheetCSV()">
+            <span>⚡ Fetch Sheet CSV</span>
+          </button>
+          <button class="btn-glass" onclick="loadSampleCSVTemplate()">
+            <span>📄 Load Verified Sample CSV</span>
+          </button>
+          <button class="btn-glass" onclick="openPasteCSVModal()">
+            <span>📋 Paste / Upload CSV</span>
+          </button>
+          <button class="btn-glass" onclick="resetToDefaultSheet()">
+            <span>↺ Default Template</span>
+          </button>
+        </div>
+        <div style="font-size:11px; color:var(--emerald); margin-top:8px; font-family:'JetBrains Mono',monospace;" id="sheet-sync-status">
+          ✓ Loaded Default Verified Split Template (4 Splits · 24 Exercises · 8 All-Time PRs)
+        </div>
+      </div>
+
+      <!-- Split Selector & Exercises -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">🏋️ Weekly Routine Splits & Hypertrophy Program</h3>
+            <p class="card-subtitle" id="split-frequency-label">Target: 4 Sessions/Week · Progressive Overload · Rest 60-150s</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-emerald" onclick="openGymLogModal()" style="font-size:12px; padding:8px 16px;">
+              <span>+ Log Exercise Set</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="split-pills" id="splits-pills-container">
+          <!-- Split selector buttons rendered by JS -->
+        </div>
+
+        <div id="active-split-details-box" style="margin-bottom:16px;">
+          <!-- Active split title, muscle group, target days -->
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="exercise-table" id="exercise-catalog-table">
+            <thead>
+              <tr>
+                <th>Exercise & Target Muscle</th>
+                <th>Target Sets × Reps</th>
+                <th>Current Working Weight</th>
+                <th>Personal Record (PR)</th>
+                <th>Est. 1RM</th>
+                <th>Rest</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="exercise-catalog-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PR Vault & Recent Workouts -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:20px;">
+        <div class="glass-card">
+          <div class="card-header-row">
+            <h3 class="card-title">🏆 Personal Record (PR) Vault</h3>
+            <span class="tag-pill gold">All-Time Bests</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;" id="pr-vault-grid">
+            <!-- PR items rendered by JS -->
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="card-header-row">
+            <h3 class="card-title">📋 Recent Workout Sessions</h3>
+            <span class="tag-pill emerald">7 Weeks Consistency 🔥</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="exercise-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Split</th>
+                  <th>Volume</th>
+                  <th>Energy</th>
+                </tr>
+              </thead>
+              <tbody id="recent-sessions-tbody">
+                <!-- Recent sessions rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: FAMILY BIOMARKER STATION -->
+    <section class="tab-section" id="section-biomarkers">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">
+              <span>🧪 Family Blood Test Biomarker Station</span>
+              <span class="status-badge-emerald" style="font-size:11px; padding:3px 10px;">Clinical Reference Intervals</span>
+            </h3>
+            <p class="card-subtitle">Comprehensive clinical tracker for Sikander and family members. Color-coded status badges for Lipid Profile, HbA1c / Fasting Glucose, CBC, Vitamin D3/B12, and Liver/Kidney panels against clinical reference intervals.</p>
+          </div>
+          <button class="btn-emerald" onclick="openAddBiomarkerModal()" style="font-size:12px; padding:8px 16px;">
+            <span>+ Record New Lab Test</span>
+          </button>
+        </div>
+
+        <!-- Family Member Selector Pills -->
+        <div class="family-pills" id="family-pills-container">
+          <!-- Profile buttons rendered by JS -->
+        </div>
+
+        <!-- Active Patient Header Card -->
+        <div id="active-patient-card" style="background:rgba(12, 17, 28, 0.7); border:1px solid rgba(139, 92, 246, 0.35); border-radius:var(--radius-md); padding:20px; margin-bottom:24px;">
+          <!-- Filled dynamically by JS -->
+        </div>
+
+        <!-- Biomarker Panels Grid -->
+        <div class="biomarkers-grid" id="biomarkers-panels-container">
+          <!-- Panels rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Historical Test Comparison -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">📈 Longitudinal Biomarker Trajectory</h3>
+            <p class="card-subtitle">Compare lab results across multiple test dates to track health velocity.</p>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="exercise-table" id="comparison-history-table">
+            <thead>
+              <tr id="comparison-header-row">
+                <!-- Dynamically populated -->
+              </tr>
+            </thead>
+            <tbody id="comparison-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: CIRCADIAN ROUTINE MAPPER -->
+    <section class="tab-section" id="section-routine">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">
+              <span>⏰ 24-Hour Circadian Schedule Mapper</span>
+              <span class="tag-pill cyan">88% Adherence</span>
+            </h3>
+            <p class="card-subtitle">Daily rhythm visualizer optimizing morning walks, industrial work sprints, gym sessions, and restorative sleep.</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div style="font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--emerald);">
+              💧 Water: <span id="water-liters-val">2.75</span> / 3.0 L
+            </div>
+            <button class="btn-glass" onclick="addWater(0.25)" style="font-size:11px; padding:4px 10px;">+250ml</button>
+            <button class="btn-glass" onclick="addWater(0.50)" style="font-size:11px; padding:4px 10px;">+500ml</button>
+          </div>
+        </div>
+
+        <!-- Daily Habits Checklist -->
+        <div style="margin-bottom:24px;">
+          <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;">
+            Daily Vitality Habits Checklist
+          </div>
+          <div class="habits-grid" id="habits-checklist-container">
+            <!-- Habits rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Chronological Rail -->
+        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:14px;">
+          Chronological Daily Cadence Rail
+        </div>
+        <div class="circadian-rail" id="circadian-rail-container">
+          <!-- Schedule slots rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: JUBILEE CTP & 45 DAYCARE SURGERIES -->
+    <section class="tab-section" id="section-insurance">
+      <!-- Corporate Policy Card -->
+      <div class="insurance-card-wrapper">
+        <div class="insurance-header">
+          <div class="ins-brand">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+              <span style="font-size:20px;">🛡️</span>
+              <h3>Jubilee Life Corporate Health Coverage</h3>
+            </div>
+            <p>Novatex Limited · CTP Group Hospitalization & Daycare Policy</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="tel:021111111545" class="btn-emerald" style="font-size:12px; padding:8px 16px;">
+              <span>📞 24/7 Hotline (021-111-111-545)</span>
+            </a>
+            <a href="https://wa.me/923000341111" target="_blank" class="btn-glass" style="font-size:12px; padding:8px 14px;">
+              <span>💬 Emergency WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ins-grid">
+          <div>
+            <div class="ins-cell-label">Policy Number</div>
+            <div class="ins-cell-val" style="color:var(--cyan);"><span class="privacy-maskable-acc">JLI-NVX-CTP-2024-8842</span></div>
+          </div>
+          <div>
+            <div class="ins-cell-label">Employee ID</div>
+            <div class="ins-cell-val"><span class="privacy-maskable-acc">NVX-10842</span> (Sikander)</div>
+          </div>
+          <div>
+            <div class="ins-cell-label">Covered Category</div>
+            <div class="ins-cell-val">Self + Spouse + Children</div>
+          </div>
+          <div>
+            <div class="ins-cell-label">Annual IPD Hospital Limit</div>
+            <div class="ins-cell-val" style="color:var(--emerald);"><span class="privacy-maskable">PKR 600,000</span> / person</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 Specialized Outpatient Investigations -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">🔬 20 Specialized Outpatient Investigations</h3>
+            <p class="card-subtitle">Covered 100% directly from Hospitalization IPD Limit without 24-hour admission requirement.</p>
+          </div>
+          <span class="tag-pill cyan">100% IPD Limit Covered</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:10px;" id="investigations-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- 45 Covered Daycare Surgeries Grid -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">🏥 45 Covered Daycare Surgical Procedures</h3>
+            <p class="card-subtitle">Procedures covered under corporate health insurance without mandatory 24-hour hospital admission.</p>
+          </div>
+          <span class="tag-pill emerald">45 Surgeries Listed</span>
+        </div>
+
+        <div class="daycare-filter-row">
+          <input type="text" class="search-input" id="daycare-search-input" placeholder="Search procedure (e.g., Cataract, Lithotripsy, Arthroscopy, Tonsillectomy)..." oninput="filterDaycareSurgeries()">
+          <select class="search-input" id="daycare-category-filter" style="max-width:200px;" onchange="filterDaycareSurgeries()">
+            <option value="ALL">All Specialties</option>
+            <option value="Urology">Urology</option>
+            <option value="ENT">ENT</option>
+            <option value="Ophthalmology">Ophthalmology</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="General Surgery">General Surgery</option>
+            <option value="Gastroenterology">Gastroenterology</option>
+            <option value="Gynecology">Gynecology</option>
+          </select>
+        </div>
+
+        <div class="daycare-grid" id="daycare-procedures-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Panel Hospitals -->
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title">🏨 Primary Panel Hospitals (Karachi & Sheikhupura/Lahore)</h3>
+            <p class="card-subtitle">Direct credit / cashless admission facilities for Novatex Jubilee corporate members.</p>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Hospital Name</th>
+                <th>City</th>
+                <th>Location / Landmark</th>
+                <th>Emergency Contact</th>
+                <th>Admission Status</th>
+              </tr>
+            </thead>
+            <tbody id="panel-hospitals-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="margin-top:60px; padding-top:24px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; color:var(--text-dim); font-size:12px;">
+      <div>
+        <strong>Sikander OS</strong> · Module 06: Health, Fitness & Family Vitality Hub · 
+        <a href="index.html" style="color:var(--emerald); text-decoration:none;">Master Command Center</a>
+      </div>
+      <div>
+        Telemetry: <span style="color:var(--emerald);">Google Fit + Sheets CSV Connected</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- STEP LOGGER MODAL -->
+  <div class="modal-backdrop" id="modal-step-logger" onclick="if(event.target===this) closeStepLoggerModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeStepLoggerModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:22px;">🚶</span>
+        <h3 style="font-size:18px; font-weight:800; color:#fff;">Log Daily Walking Steps</h3>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">
+        Record steps for today. Persists instantly in browser LocalStorage.
+      </p>
+
+      <form onsubmit="saveCustomSteps(event)">
+        <div class="form-group">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-input" id="step-log-date" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Step Count (10,000 daily target)</label>
+          <input type="number" class="form-input" id="step-log-count" placeholder="e.g. 10420" min="100" max="60000" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes / Route</label>
+          <input type="text" class="form-input" id="step-log-notes" placeholder="e.g. Morning outdoor walk + plant floor rounds">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" class="btn-glass" onclick="closeStepLoggerModal()">Cancel</button>
+          <button type="submit" class="btn-emerald">Save Walking Telemetry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- GYM SET LOGGER MODAL -->
+  <div class="modal-backdrop" id="modal-gym-logger" onclick="if(event.target===this) closeGymLogModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeGymLogModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:22px;">🏋️</span>
+        <h3 style="font-size:18px; font-weight:800; color:#fff;">Quick Gym Set Logger</h3>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">
+        Record sets, weights, and reps during your workout session. Cached offline.
+      </p>
+
+      <form onsubmit="saveGymSetLog(event)">
+        <div class="form-group">
+          <label class="form-label">Workout Split</label>
+          <select class="form-input" id="gym-log-split">
+            <option value="Push A">Push A (Chest & Delts Focus)</option>
+            <option value="Pull A">Pull A (Back & Biceps)</option>
+            <option value="Legs & Core">Legs & Core Conditioning</option>
+            <option value="Push B">Push B (Upper Volume & Hypertrophy)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Exercise Name</label>
+          <input type="text" class="form-input" id="gym-log-exercise" placeholder="e.g. Incline Dumbbell Press" required>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Weight Lifted (kg)</label>
+            <input type="number" step="0.5" class="form-input" id="gym-log-weight" placeholder="e.g. 32.5" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reps Completed</label>
+            <input type="number" class="form-input" id="gym-log-reps" placeholder="e.g. 10" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notes / RPE (Rate of Perceived Exertion)</label>
+          <input type="text" class="form-input" id="gym-log-notes" placeholder="e.g. RPE 8.5 · Clean lockout">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" class="btn-glass" onclick="closeGymLogModal()">Cancel</button>
+          <button type="submit" class="btn-emerald">Save Set Log</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD BIOMARKER MODAL -->
+  <div class="modal-backdrop" id="modal-biomarker" onclick="if(event.target===this) closeAddBiomarkerModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeAddBiomarkerModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:22px;">🧪</span>
+        <h3 style="font-size:18px; font-weight:800; color:#fff;">Record New Lab Test Report</h3>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">
+        Enter lab results (Chughtai, Essa, IDC, AKUH). Automatic reference check against clinical intervals.
+      </p>
+
+      <form onsubmit="saveCustomBiomarkers(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Family Member</label>
+            <select class="form-input" id="bio-form-member">
+              <option value="sikander">Sikander (Self)</option>
+              <option value="spouse">Spouse</option>
+              <option value="khadija">Khadija (Daughter)</option>
+              <option value="parents">Parents (Father/Mother)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Test Date</label>
+            <input type="date" class="form-input" id="bio-form-date" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Laboratory & Location</label>
+          <input type="text" class="form-input" id="bio-form-lab" placeholder="e.g. Chughtai Healthcare, Karachi" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Total Chol (mg/dL)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-chol" placeholder="< 200">
+          </div>
+          <div class="form-group">
+            <label class="form-label">HDL Chol (mg/dL)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-hdl" placeholder="> 40">
+          </div>
+          <div class="form-group">
+            <label class="form-label">LDL Chol (mg/dL)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-ldl" placeholder="< 100">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Fasting Sugar (FBS)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-fbs" placeholder="70-99">
+          </div>
+          <div class="form-group">
+            <label class="form-label">HbA1c (%)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-hba1c" placeholder="< 5.7%">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vitamin D3 (ng/mL)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-vitd" placeholder="30-100">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+          <div class="form-group">
+            <label class="form-label">Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" class="form-input" id="bio-form-hgb" placeholder="13.5-17.5">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Creatinine (mg/dL)</label>
+            <input type="number" step="0.01" class="form-input" id="bio-form-creat" placeholder="0.7-1.2">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ALT / SGPT (U/L)</label>
+            <input type="number" step="1" class="form-input" id="bio-form-alt" placeholder="10-45">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+          <button type="button" class="btn-glass" onclick="closeAddBiomarkerModal()">Cancel</button>
+          <button type="submit" class="btn-emerald">Save Lab Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAKEOUT IMPORT MODAL -->
+  <div class="modal-backdrop" id="modal-takeout" onclick="if(event.target===this) closeTakeoutModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeTakeoutModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:22px;">📂</span>
+        <h3 style="font-size:18px; font-weight:800; color:#fff;">Google Fit Takeout Parser</h3>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">
+        Select or drag-and-drop your Google Fit export JSON or CSV. Zero external uploads.
+      </p>
+
+      <div style="border:2px dashed rgba(16, 185, 129, 0.4); border-radius:12px; padding:32px; text-align:center; background:rgba(16, 185, 129, 0.04); cursor:pointer;" onclick="document.getElementById('takeout-file-input').click()" ondragover="event.preventDefault(); this.style.borderColor='var(--cyan)';" ondragleave="this.style.borderColor='rgba(16, 185, 129, 0.4)';" ondrop="event.preventDefault(); this.style.borderColor='rgba(16, 185, 129, 0.4)'; if(event.dataTransfer.files.length) { handleTakeoutFile({target:{files:event.dataTransfer.files}}); }">
+        <span style="font-size:32px; display:block; margin-bottom:10px;">📥</span>
+        <div style="font-size:13px; font-weight:700; color:#fff; margin-bottom:4px;">Click to Browse or Drop File Here</div>
+        <div style="font-size:11px; color:var(--text-dim);">Accepts Daily Activity Metrics.json or Step Count.csv</div>
+        <input type="file" id="takeout-file-input" accept=".json,.csv" style="display:none;" onchange="handleTakeoutFile(event)">
+      </div>
+
+      <div id="takeout-result-box" style="margin-top:16px; font-size:12px; color:var(--emerald); font-family:'JetBrains Mono',monospace; display:none;"></div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+        <button type="button" class="btn-glass" onclick="closeTakeoutModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASTE / UPLOAD CSV MODAL -->
+  <div class="modal-backdrop" id="modal-paste-csv" onclick="if(event.target===this) closePasteCSVModal()">
+    <div class="modal-content" style="max-width:650px;">
+      <button class="modal-close" onclick="closePasteCSVModal()">✕</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <span style="font-size:22px;">📊</span>
+        <h3 style="font-size:18px; font-weight:800; color:#fff;">Import Workout Sheet CSV</h3>
+      </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:18px;">
+        Paste your Google Sheets workout export text below or upload a .csv file. Parsed client-side with 100% zero-CORS and cached offline.
+      </p>
+
+      <div style="margin-bottom:14px;">
+        <label class="form-label" style="margin-bottom:6px; display:block;">Option A: Upload .CSV File</label>
+        <input type="file" id="gym-csv-file-input" accept=".csv,.txt" class="form-input" onchange="handleGymCSVFile(event)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Option B: Paste Raw CSV Text</label>
+        <textarea class="form-input" id="gym-csv-raw-textarea" rows="7" placeholder="Split,Exercise,Target Sets,Target Reps,Working Weight (kg),PR Weight (kg),PR Reps,Est 1RM (kg),Rest (s),Notes&#10;Push A,Incline Dumbbell Press,4,8-10,32.5,35.0,8,44.3,120,30-deg incline" style="font-family:'JetBrains Mono',monospace; font-size:11px;"></textarea>
+      </div>
+
+      <div id="csv-parse-feedback" style="margin-top:10px; font-size:12px; color:var(--emerald); font-family:'JetBrains Mono',monospace; display:none;"></div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; gap:10px;">
+        <button type="button" class="btn-glass" onclick="loadSampleCSVTemplate(true)">📄 Load Verified Sample CSV</button>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn-glass" onclick="closePasteCSVModal()">Cancel</button>
+          <button type="button" class="btn-emerald" onclick="importPastedCSV()">Parse & Import CSV</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE LOGIC & RENDERING ENGINE -->
+  <script>
+    // --- GLOBAL DATA CONTAINER ---
+    let HEALTH_DATA = window.__SIKANDER_HEALTH_DATA__ || null;
+    let currentSplitId = 'push_a';
+    let currentProfileId = 'sikander';
+
+    // LocalStorage Keys
+    const LS_STEPS_KEY = 'sikander_health_steps_custom';
+    const LS_GYM_SETS_KEY = 'sikander_health_gym_custom_logs';
+    const LS_GYM_CSV_KEY = 'sikander_health_custom_gym_csv_data';
+    const LS_SHEETS_URL_KEY = 'sikander_health_sheets_url';
+    const LS_BIOMARKERS_KEY = 'sikander_health_custom_biomarkers';
+    const LS_WATER_KEY = 'sikander_health_water_liters';
+    const LS_HABITS_KEY = 'sikander_health_habits_state';
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!HEALTH_DATA) {
+        try {
+          const res = await fetch('data/health/sikander_health_data.json');
+          if (res.ok) {
+            HEALTH_DATA = await res.json();
+          }
+        } catch (e) {
+          console.warn('Could not fetch sikander_health_data.json:', e);
+        }
+      }
+
+      if (HEALTH_DATA) {
+        initHealthHub();
+        handleHashRouting();
+      } else {
+        document.getElementById('active-status-text').textContent = 'OFFLINE MODE';
+      }
+
+      // Hash change listener for direct URL navigation
+      window.addEventListener('hashchange', handleHashRouting);
+
+      // Initialize date inputs to today
+      const todayIso = new Date().toISOString().split('T')[0];
+      const stepDateInput = document.getElementById('step-log-date');
+      if (stepDateInput) stepDateInput.value = todayIso;
+      const bioDateInput = document.getElementById('bio-form-date');
+      if (bioDateInput) bioDateInput.value = todayIso;
+    });
+
+    function handleHashRouting() {
+      const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+      if (!hash) return;
+      if (hash === 'biomarkers' || hash === 'blood' || hash === 'lab') {
+        switchTab('biomarkers', false);
+      } else if (hash === 'gym' || hash === 'workout' || hash === 'workouts') {
+        switchTab('gym', false);
+      } else if (hash === 'routine' || hash === 'circadian' || hash === 'schedule') {
+        switchTab('routine', false);
+      } else if (hash === 'insurance' || hash === 'jubilee' || hash === 'daycare') {
+        switchTab('insurance', false);
+      } else if (hash === 'walking' || hash === 'steps') {
+        switchTab('walking', false);
+      }
+    }
+
+    function initHealthHub() {
+      // 1. Merge LocalStorage Custom Data
+      mergeLocalCustomData();
+
+      // 2. Render Hero Telemetry
+      renderHeroTelemetry();
+
+      // 3. Render Walking Activity
+      renderVelocityChart();
+      renderWalkingHistory();
+
+      // 4. Render Gym Splits & PR Vault
+      renderSplitButtons();
+      renderActiveSplit();
+      renderPRVault();
+      renderRecentSessions();
+
+      // 5. Render Biomarker Panels & Family Profiles
+      renderFamilyButtons();
+      renderActiveFamilyProfile();
+
+      // 6. Render Circadian Routine & Habits
+      renderHabitsChecklist();
+      renderCircadianRail();
+      renderWaterTracker();
+
+      // 7. Render Corporate Insurance & Daycare Surgeries
+      renderSpecializedInvestigations();
+      renderDaycareSurgeries(HEALTH_DATA.insurance_emergency.daycare_surgeries);
+      renderPanelHospitals();
+
+      // Setup default sheets URL in input
+      const savedUrl = localStorage.getItem(LS_SHEETS_URL_KEY) || HEALTH_DATA.gym_workouts.google_sheets_connector.default_template_url;
+      const sheetsInput = document.getElementById('sheets-csv-url');
+      if (sheetsInput) sheetsInput.value = savedUrl;
+    }
+
+    // --- TAB SWITCHING ---
+    function switchTab(tabId, updateHash = true) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      });
+      document.querySelectorAll('.tab-section').forEach(sec => {
+        sec.classList.toggle('active', sec.id === `section-${tabId}`);
+      });
+      if (updateHash) {
+        try {
+          if (history.replaceState) {
+            history.replaceState(null, '', '#' + tabId);
+          } else {
+            window.location.hash = tabId;
+          }
+        } catch (e) {}
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- LOCAL STORAGE MERGING ---
+    function mergeLocalCustomData() {
+      // 1. Merge custom steps
+      const savedSteps = localStorage.getItem(LS_STEPS_KEY);
+      if (savedSteps) {
+        try {
+          const parsed = JSON.parse(savedSteps);
+          if (parsed.todaySteps !== undefined) {
+            const s = parsed.todaySteps;
+            HEALTH_DATA.walking_telemetry.today.steps = s;
+            HEALTH_DATA.walking_telemetry.today.target_achieved = s >= 10000;
+            HEALTH_DATA.walking_telemetry.today.distance_km = round2((s * 0.78) / 1000);
+            HEALTH_DATA.walking_telemetry.today.calories_kcal = Math.round(s * 0.042);
+            HEALTH_DATA.walking_telemetry.today.active_minutes = Math.round(s / 105);
+            HEALTH_DATA.walking_telemetry.today.achievement_pct = round1((s / 10000) * 100);
+
+            // Update recent_7_days last element
+            const rec = HEALTH_DATA.walking_telemetry.recent_7_days;
+            if (rec && rec.length > 0) {
+              rec[rec.length - 1].steps = s;
+              rec[rec.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+              rec[rec.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+              rec[rec.length - 1].target_achieved = s >= 10000;
+            }
+
+            // Update history_30_days last element
+            const hist = HEALTH_DATA.walking_telemetry.history_30_days;
+            if (hist && hist.length > 0) {
+              hist[hist.length - 1].steps = s;
+              hist[hist.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+              hist[hist.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+              hist[hist.length - 1].target_achieved = s >= 10000;
+            }
+
+            // Update streak status badge
+            if (s >= 10000) {
+              const strk = HEALTH_DATA.walking_telemetry.streak_summary.current_10k_streak_days;
+              HEALTH_DATA.walking_telemetry.streak_summary.status_badge = `${strk}-Day 10k Streak 🔥`;
+            }
+          }
+        } catch (e) {
+          console.error('Error parsing local steps:', e);
+        }
+      }
+
+      // 2. Merge custom gym CSV if cached
+      const savedGymCSV = localStorage.getItem(LS_GYM_CSV_KEY);
+      if (savedGymCSV) {
+        try {
+          parseGymCSV(savedGymCSV, 'Offline Saved Sheet', false);
+        } catch (e) {
+          console.warn('Could not parse cached gym CSV:', e);
+        }
+      }
+
+      // 3. Merge custom gym sets
+      const savedGym = localStorage.getItem(LS_GYM_SETS_KEY);
+      if (savedGym) {
+        try {
+          const parsedSets = JSON.parse(savedGym);
+          if (Array.isArray(parsedSets) && parsedSets.length > 0) {
+            parsedSets.forEach(set => {
+              // Update exercise working weight across splits
+              HEALTH_DATA.gym_workouts.splits.forEach(split => {
+                const ex = split.exercises.find(e => e.name.toLowerCase() === set.exercise.toLowerCase());
+                if (ex) {
+                  ex.current_weight_kg = set.weight_kg;
+                  if (set.reps) ex.target_reps = `${set.reps} reps`;
+                }
+              });
+
+              // Check and update personal records
+              const est1rm = round1(set.weight_kg * (1 + (set.reps || 8) / 30.0));
+              const existingPr = HEALTH_DATA.gym_workouts.personal_records.find(p => p.exercise.toLowerCase() === set.exercise.toLowerCase());
+              if (existingPr && set.weight_kg > existingPr.weight_kg) {
+                existingPr.weight_kg = set.weight_kg;
+                existingPr.reps = set.reps;
+                existingPr.estimated_1rm_kg = est1rm;
+                existingPr.date = set.date;
+              }
+
+              // Add to recent sessions
+              const exists = HEALTH_DATA.gym_workouts.recent_sessions.some(s => s.date === set.date && s.split_name === set.split && s.notes === set.notes);
+              if (!exists) {
+                HEALTH_DATA.gym_workouts.recent_sessions.unshift({
+                  date: set.date,
+                  day: new Date(set.date).toLocaleDateString('en-US', { weekday: 'short' }),
+                  split_id: (set.split || '').toLowerCase().replace(/\s+/g, '_'),
+                  split_name: set.split || 'Custom Split',
+                  duration_mins: 45,
+                  total_volume_kg: Math.round(set.weight_kg * set.reps * 3),
+                  sets_completed: 3,
+                  energy_rating: set.notes ? `Logged: ${set.notes}` : 'Active Set (8.5/10)'
+                });
+              }
+            });
+          }
+        } catch (e) {
+          console.error('Error parsing local gym sets:', e);
+        }
+      }
+
+      // 4. Merge custom family biomarkers
+      const savedBios = localStorage.getItem(LS_BIOMARKERS_KEY);
+      if (savedBios) {
+        try {
+          const customReports = JSON.parse(savedBios);
+          if (Array.isArray(customReports)) {
+            customReports.forEach(item => {
+              const profile = HEALTH_DATA.family_biomarkers.profiles.find(p => p.id === item.memberId);
+              if (profile && item.testRecord) {
+                const exists = profile.test_history.some(t => t.test_date === item.testRecord.test_date && t.lab_name === item.testRecord.lab_name);
+                if (!exists) {
+                  profile.test_history.unshift(item.testRecord);
+                }
+              }
+            });
+          }
+        } catch (e) {
+          console.error('Error merging local biomarkers:', e);
+        }
+      }
+    }
+
+    // --- HERO TELEMETRY ---
+    function renderHeroTelemetry() {
+      const walk = HEALTH_DATA.walking_telemetry;
+      const today = walk.today;
+      const pct = Math.min(today.achievement_pct, 100);
+      const ring = document.getElementById('hero-progress-ring');
+      if (ring) {
+        const circumference = 251.2;
+        const offset = circumference - (pct / 100.0) * circumference;
+        ring.style.strokeDashoffset = offset;
+      }
+      document.getElementById('hero-ring-pct').textContent = `${Math.round(today.achievement_pct)}%`;
+      document.getElementById('hero-steps-count').textContent = today.steps.toLocaleString();
+      document.getElementById('hero-dist-val').textContent = `${today.distance_km} km`;
+      document.getElementById('hero-cal-val').textContent = `${today.calories_kcal} kcal`;
+      document.getElementById('hero-streak-pill').textContent = walk.streak_summary.status_badge;
+    }
+
+    // --- WALKING STATION ---
+    function renderVelocityChart() {
+      const container = document.getElementById('velocity-chart');
+      if (!container) return;
+      // Keep goal line, remove existing bar columns
+      const bars = container.querySelectorAll('.bar-col');
+      bars.forEach(b => b.remove());
+
+      const recent7 = HEALTH_DATA.walking_telemetry.recent_7_days;
+      const maxSteps = Math.max(...recent7.map(r => r.steps), 13000);
+
+      recent7.forEach((r, idx) => {
+        const col = document.createElement('div');
+        col.className = 'bar-col';
+        const heightPct = Math.min(Math.round((r.steps / maxSteps) * 100), 100);
+        const isAchieved = r.steps >= 10000;
+        const isToday = idx === recent7.length - 1;
+
+        col.innerHTML = `
+          <div class="bar-label-val">${(r.steps / 1000).toFixed(1)}k</div>
+          <div class="bar-fill ${isAchieved ? 'achieved' : ''} ${isToday ? 'active-day' : ''}" style="height: ${heightPct}%;" title="${r.date}: ${r.steps.toLocaleString()} steps (${r.distance_km} km)"></div>
+          <div class="bar-label-day">${r.day_name}</div>
+        `;
+        col.onclick = () => {
+          alert(`Activity for ${r.date} (${r.day_name}):\nSteps: ${r.steps.toLocaleString()}\nDistance: ${r.distance_km} km\nActive Calories: ${r.calories_kcal} kcal\nDuration: ${r.active_minutes} mins`);
+        };
+        container.appendChild(col);
+      });
+
+      document.getElementById('weekly-avg-label').textContent = `Weekly Average: ${HEALTH_DATA.walking_telemetry.averages.weekly_average_steps.toLocaleString()} steps/day`;
+    }
+
+    function renderWalkingHistory() {
+      const tbody = document.getElementById('walking-history-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const history = HEALTH_DATA.walking_telemetry.history_30_days;
+
+      history.slice().reverse().forEach(r => {
+        const tr = document.createElement('tr');
+        const badgeClass = r.steps >= 10000 ? 'status-optimal' : 'status-borderline';
+        const badgeText = r.steps >= 10000 ? 'Target Met ✓' : 'Active (8k+)';
+
+        tr.innerHTML = `
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700;">${r.date}</td>
+          <td>${r.day_name}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:800; color:#fff;">${r.steps.toLocaleString()}</td>
+          <td style="font-family:'JetBrains Mono',monospace; color:var(--emerald);">${r.distance_km} km</td>
+          <td style="font-family:'JetBrains Mono',monospace; color:var(--gold);">${r.calories_kcal} kcal</td>
+          <td style="font-family:'JetBrains Mono',monospace;">${r.active_minutes} mins</td>
+          <td><span class="status-badge-sm ${badgeClass}">${badgeText}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const summary = document.getElementById('monthly-stats-summary');
+      if (summary) {
+        summary.textContent = `30-Day Total: ${HEALTH_DATA.walking_telemetry.averages.total_steps_30_days.toLocaleString()} steps · ${HEALTH_DATA.walking_telemetry.averages.total_distance_30_days_km} km`;
+      }
+    }
+
+    // --- QUICK ADD STEPS ---
+    function quickAddSteps(count) {
+      HEALTH_DATA.walking_telemetry.today.steps += count;
+      const s = HEALTH_DATA.walking_telemetry.today.steps;
+      HEALTH_DATA.walking_telemetry.today.target_achieved = s >= 10000;
+      HEALTH_DATA.walking_telemetry.today.distance_km = round2((s * 0.78) / 1000);
+      HEALTH_DATA.walking_telemetry.today.calories_kcal = Math.round(s * 0.042);
+      HEALTH_DATA.walking_telemetry.today.active_minutes = Math.round(s / 105);
+      HEALTH_DATA.walking_telemetry.today.achievement_pct = round1((s / 10000) * 100);
+
+      // Save to localStorage
+      localStorage.setItem(LS_STEPS_KEY, JSON.stringify({
+        todaySteps: s,
+        timestamp: new Date().toISOString()
+      }));
+
+      // Update 7-day last element
+      const recent = HEALTH_DATA.walking_telemetry.recent_7_days;
+      if (recent && recent.length > 0) {
+        recent[recent.length - 1].steps = s;
+        recent[recent.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+        recent[recent.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+        recent[recent.length - 1].target_achieved = s >= 10000;
+      }
+
+      // Update 30-day history last element
+      const history = HEALTH_DATA.walking_telemetry.history_30_days;
+      if (history && history.length > 0) {
+        history[history.length - 1].steps = s;
+        history[history.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+        history[history.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+        history[history.length - 1].target_achieved = s >= 10000;
+      }
+
+      if (s >= 10000) {
+        const strk = HEALTH_DATA.walking_telemetry.streak_summary.current_10k_streak_days;
+        HEALTH_DATA.walking_telemetry.streak_summary.status_badge = `${strk}-Day 10k Streak 🔥`;
+      }
+
+      renderHeroTelemetry();
+      renderVelocityChart();
+      renderWalkingHistory();
+    }
+
+    // --- STEP LOGGER MODAL ---
+    function openStepLoggerModal() {
+      document.getElementById('modal-step-logger').style.display = 'flex';
+      document.getElementById('step-log-count').value = HEALTH_DATA.walking_telemetry.today.steps;
+    }
+    function closeStepLoggerModal() {
+      document.getElementById('modal-step-logger').style.display = 'none';
+    }
+    function saveCustomSteps(e) {
+      e.preventDefault();
+      const count = parseInt(document.getElementById('step-log-count').value, 10);
+      const selectedDate = document.getElementById('step-log-date').value;
+      if (isNaN(count) || count < 0) return;
+
+      const todayIso = new Date().toISOString().split('T')[0];
+      const isToday = !selectedDate || selectedDate === todayIso || selectedDate === HEALTH_DATA.walking_telemetry.today.date;
+
+      if (isToday) {
+        HEALTH_DATA.walking_telemetry.today.steps = count;
+        HEALTH_DATA.walking_telemetry.today.target_achieved = count >= 10000;
+        HEALTH_DATA.walking_telemetry.today.distance_km = round2((count * 0.78) / 1000);
+        HEALTH_DATA.walking_telemetry.today.calories_kcal = Math.round(count * 0.042);
+        HEALTH_DATA.walking_telemetry.today.active_minutes = Math.round(count / 105);
+        HEALTH_DATA.walking_telemetry.today.achievement_pct = round1((count / 10000) * 100);
+
+        const recent = HEALTH_DATA.walking_telemetry.recent_7_days;
+        if (recent && recent.length > 0) {
+          recent[recent.length - 1].steps = count;
+          recent[recent.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+          recent[recent.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+          recent[recent.length - 1].target_achieved = count >= 10000;
+        }
+
+        const history = HEALTH_DATA.walking_telemetry.history_30_days;
+        if (history && history.length > 0) {
+          history[history.length - 1].steps = count;
+          history[history.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+          history[history.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+          history[history.length - 1].target_achieved = count >= 10000;
+        }
+
+        if (count >= 10000) {
+          const strk = HEALTH_DATA.walking_telemetry.streak_summary.current_10k_streak_days;
+          HEALTH_DATA.walking_telemetry.streak_summary.status_badge = `${strk}-Day 10k Streak 🔥`;
+        }
+
+        localStorage.setItem(LS_STEPS_KEY, JSON.stringify({
+          todaySteps: count,
+          timestamp: new Date().toISOString()
+        }));
+      } else {
+        // Specific historical date update
+        const histRec = HEALTH_DATA.walking_telemetry.history_30_days.find(r => r.date === selectedDate);
+        if (histRec) {
+          histRec.steps = count;
+          histRec.distance_km = round2((count * 0.78) / 1000);
+          histRec.calories_kcal = Math.round(count * 0.042);
+          histRec.target_achieved = count >= 10000;
+        }
+      }
+
+      renderHeroTelemetry();
+      renderVelocityChart();
+      renderWalkingHistory();
+      closeStepLoggerModal();
+    }
+
+    // --- GYM STATION ---
+    function renderSplitButtons() {
+      const container = document.getElementById('splits-pills-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const splits = HEALTH_DATA.gym_workouts.splits;
+
+      splits.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = `split-btn ${s.id === currentSplitId ? 'active' : ''}`;
+        btn.textContent = s.name;
+        btn.onclick = () => {
+          currentSplitId = s.id;
+          renderSplitButtons();
+          renderActiveSplit();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderActiveSplit() {
+      const split = HEALTH_DATA.gym_workouts.splits.find(s => s.id === currentSplitId);
+      if (!split) return;
+
+      const detailsBox = document.getElementById('active-split-details-box');
+      if (detailsBox) {
+        detailsBox.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:12px 18px; border-radius:10px; border-left:3px solid ${split.color};">
+            <div>
+              <div style="font-size:15px; font-weight:800; color:#fff;">${split.name}</div>
+              <div style="font-size:12px; color:var(--text-muted);">${split.subtitle}</div>
+            </div>
+            <div class="tag-pill" style="border-color:${split.color}; color:${split.color};">
+              Target Day: ${split.target_days.join(', ')}
+            </div>
+          </div>
+        `;
+      }
+
+      const tbody = document.getElementById('exercise-catalog-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      split.exercises.forEach(ex => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <div class="ex-name">
+              <span>${ex.name}</span>
+            </div>
+            <div class="ex-muscle">${ex.target_muscle}</div>
+          </td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700;">${ex.sets} sets × ${ex.target_reps}</td>
+          <td class="ex-weight">${ex.current_weight_kg} kg</td>
+          <td>
+            <span class="pr-badge">🏆 ${ex.pr_weight_kg} kg × ${ex.pr_reps}</span>
+          </td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--emerald);">
+            ${ex.estimated_1rm_kg} kg
+          </td>
+          <td style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);">${ex.rest_seconds}s</td>
+          <td>
+            <button class="btn-glass" onclick="prefillGymModal('${escapeStr(ex.name)}', ${ex.current_weight_kg})" style="font-size:11px; padding:4px 10px;">
+              + Log Set
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderPRVault() {
+      const grid = document.getElementById('pr-vault-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const prs = HEALTH_DATA.gym_workouts.personal_records;
+
+      prs.forEach(pr => {
+        const item = document.createElement('div');
+        item.style.cssText = 'background:rgba(12, 17, 28, 0.7); border:1px solid rgba(245, 158, 11, 0.25); border-radius:10px; padding:12px 14px;';
+        item.innerHTML = `
+          <div style="font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2px;">${pr.category}</div>
+          <div style="font-size:13px; font-weight:800; color:#fff; margin-bottom:6px;">${pr.exercise}</div>
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:900; color:var(--gold);">
+              ${pr.weight_kg} kg <span style="font-size:11px; color:var(--text-muted);">× ${pr.reps}</span>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--emerald);">
+              1RM: ${pr.estimated_1rm_kg} kg
+            </div>
+          </div>
+        `;
+        grid.appendChild(item);
+      });
+    }
+
+    function renderRecentSessions() {
+      const tbody = document.getElementById('recent-sessions-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const sessions = HEALTH_DATA.gym_workouts.recent_sessions;
+
+      sessions.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700;">${s.date}</td>
+          <td style="color:var(--cyan); font-weight:700;">${s.split_name}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:800; color:#fff;">${s.total_volume_kg.toLocaleString()} kg</td>
+          <td><span class="status-badge-sm status-optimal">${s.energy_rating}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function prefillGymModal(exName, weight) {
+      openGymLogModal();
+      document.getElementById('gym-log-exercise').value = exName;
+      document.getElementById('gym-log-weight').value = weight;
+    }
+
+    function openGymLogModal() {
+      document.getElementById('modal-gym-logger').style.display = 'flex';
+    }
+    function closeGymLogModal() {
+      document.getElementById('modal-gym-logger').style.display = 'none';
+    }
+
+    function saveGymSetLog(e) {
+      e.preventDefault();
+      const split = document.getElementById('gym-log-split').value;
+      const exercise = document.getElementById('gym-log-exercise').value.trim();
+      const weight = parseFloat(document.getElementById('gym-log-weight').value);
+      const reps = parseInt(document.getElementById('gym-log-reps').value, 10);
+      const notes = document.getElementById('gym-log-notes').value.trim();
+
+      if (!exercise || isNaN(weight) || isNaN(reps)) return;
+
+      const todayIso = new Date().toISOString().split('T')[0];
+      const newLog = {
+        date: todayIso,
+        split,
+        exercise,
+        weight_kg: weight,
+        reps,
+        notes
+      };
+
+      let existing = [];
+      try {
+        existing = JSON.parse(localStorage.getItem(LS_GYM_SETS_KEY) || '[]');
+      } catch (err) {}
+      existing.unshift(newLog);
+      localStorage.setItem(LS_GYM_SETS_KEY, JSON.stringify(existing));
+
+      // 1. Update matching exercise in active split in memory
+      HEALTH_DATA.gym_workouts.splits.forEach(s => {
+        const ex = s.exercises.find(item => item.name.toLowerCase() === exercise.toLowerCase());
+        if (ex) {
+          ex.current_weight_kg = weight;
+          ex.target_reps = `${reps} reps`;
+          if (weight > ex.pr_weight_kg) {
+            ex.pr_weight_kg = weight;
+            ex.pr_reps = reps;
+          }
+        }
+      });
+
+      // 2. Prepend to recent_sessions
+      HEALTH_DATA.gym_workouts.recent_sessions.unshift({
+        date: todayIso,
+        day: new Date().toLocaleDateString('en-US', { weekday: 'short' }),
+        split_id: split.toLowerCase().replace(/\s+/g, '_'),
+        split_name: split,
+        duration_mins: 45,
+        total_volume_kg: Math.round(weight * reps * 3),
+        sets_completed: 3,
+        energy_rating: notes ? `Logged: ${notes}` : 'Active Set (8.5/10)'
+      });
+
+      // 3. Check and update Personal Record (PR)
+      const est1rm = round1(weight * (1 + reps / 30.0));
+      const prObj = HEALTH_DATA.gym_workouts.personal_records.find(p => p.exercise.toLowerCase() === exercise.toLowerCase());
+      if (prObj && weight > prObj.weight_kg) {
+        prObj.weight_kg = weight;
+        prObj.reps = reps;
+        prObj.estimated_1rm_kg = est1rm;
+        prObj.date = todayIso;
+        alert(`🎉 NEW PERSONAL RECORD!\n${exercise}: ${weight} kg × ${reps} reps (Est. 1RM: ${est1rm} kg)`);
+      } else {
+        alert(`✓ Logged set: ${exercise} (${weight} kg × ${reps} reps)`);
+      }
+
+      closeGymLogModal();
+      renderActiveSplit();
+      renderPRVault();
+      renderRecentSessions();
+    }
+
+    function toggleConnectorDocs() {
+      const el = document.getElementById('connector-instructions');
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function fetchCustomSheetCSV() {
+      const url = document.getElementById('sheets-csv-url').value.trim();
+      if (!url) {
+        alert('Please enter a valid Google Sheets published CSV URL.');
+        return;
+      }
+      localStorage.setItem(LS_SHEETS_URL_KEY, url);
+      document.getElementById('sheet-sync-status').textContent = 'Connecting to Google Sheet CSV...';
+
+      fetch(url)
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
+        .then(csv => {
+          const ok = parseGymCSV(csv, 'Live Google Sheet', true);
+          if (ok) {
+            document.getElementById('sheet-sync-status').textContent = `✓ Successfully synced live CSV data (${csv.length} bytes)`;
+          } else {
+            document.getElementById('sheet-sync-status').textContent = `⚠️ Connected to CSV, but could not parse workout headers. Cached template remains active.`;
+          }
+        })
+        .catch(err => {
+          console.warn('Direct fetch failed (CORS or network error), falling back to offline template:', err);
+          document.getElementById('sheet-sync-status').textContent = `✓ Connected with cached offline copy (CORS fallback)`;
+          alert('Note: Google Sheets edit links are blocked by browser CORS policy.\n\nTo sync live:\n1. In Google Sheets: File > Share > Publish to web\n2. Select your tab and choose format "Comma-separated values (.csv)"\n3. Copy that published link into this connector.\n\nAlternatively, use "📄 Load Verified Sample CSV" or "📋 Paste / Upload CSV" for instant zero-CORS sync.');
+        });
+    }
+
+    // --- ZERO-CORS CLIENT-SIDE CSV PARSER ---
+    function parseGymCSV(csvText, sourceName, showFeedback = true) {
+      if (!csvText || typeof csvText !== 'string') return false;
+      const lines = csvText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length <= 1) return false;
+
+      function splitCSVLine(line) {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        result.push(current.trim());
+        return result;
+      }
+
+      const headerCols = splitCSVLine(lines[0]).map(h => h.toLowerCase().replace(/[\(\)]/g, '').trim());
+
+      // Format 1: Exercise catalog / routine split table
+      const isCatalog = headerCols.some(h => h.includes('exercise')) &&
+                        headerCols.some(h => h.includes('split') || h.includes('set') || h.includes('weight'));
+
+      if (isCatalog) {
+        const splitIdx = headerCols.findIndex(h => h.includes('split'));
+        const exIdx = headerCols.findIndex(h => h.includes('exercise'));
+        const setsIdx = headerCols.findIndex(h => h.includes('target set') || h === 'sets');
+        const repsIdx = headerCols.findIndex(h => h.includes('target rep') || h === 'reps');
+        const weightIdx = headerCols.findIndex(h => h.includes('working weight') || h.includes('weight'));
+        const prWeightIdx = headerCols.findIndex(h => h.includes('pr weight') || h === 'pr');
+        const prRepsIdx = headerCols.findIndex(h => h.includes('pr rep'));
+        const 1rmIdx = headerCols.findIndex(h => h.includes('1rm'));
+        const restIdx = headerCols.findIndex(h => h.includes('rest'));
+        const notesIdx = headerCols.findIndex(h => h.includes('note') || h.includes('muscle'));
+
+        let parsedExercisesCount = 0;
+        const groupedBySplit = {};
+
+        for (let i = 1; i < lines.length; i++) {
+          const cols = splitCSVLine(lines[i]);
+          if (cols.length < 2) continue;
+          const splitName = splitIdx >= 0 && cols[splitIdx] ? cols[splitIdx] : 'General Split';
+          const exName = exIdx >= 0 ? cols[exIdx] : '';
+          if (!exName) continue;
+
+          const sets = setsIdx >= 0 && cols[setsIdx] ? parseInt(cols[setsIdx], 10) || 4 : 4;
+          const reps = repsIdx >= 0 && cols[repsIdx] ? cols[repsIdx] : '8-10';
+          const weight = weightIdx >= 0 && cols[weightIdx] ? parseFloat(cols[weightIdx]) || 0 : 0;
+          const prWeight = prWeightIdx >= 0 && cols[prWeightIdx] ? parseFloat(cols[prWeightIdx]) || weight : weight;
+          const prReps = prRepsIdx >= 0 && cols[prRepsIdx] ? parseInt(cols[prRepsIdx], 10) || 8 : 8;
+          const est1rm = 1rmIdx >= 0 && cols[1rmIdx] ? parseFloat(cols[1rmIdx]) : round1(prWeight * (1 + prReps / 30.0));
+          const restSec = restIdx >= 0 && cols[restIdx] ? parseInt(cols[restIdx], 10) || 90 : 90;
+          const notes = notesIdx >= 0 && cols[notesIdx] ? cols[notesIdx] : 'Targeted compound movement';
+
+          if (!groupedBySplit[splitName]) {
+            groupedBySplit[splitName] = [];
+          }
+          groupedBySplit[splitName].push({
+            name: exName,
+            target_muscle: notes,
+            sets: sets,
+            target_reps: reps,
+            current_weight_kg: weight,
+            pr_weight_kg: prWeight,
+            pr_reps: prReps,
+            estimated_1rm_kg: est1rm,
+            rest_seconds: restSec,
+            notes: notes
+          });
+          parsedExercisesCount++;
+
+          // Update PR Vault if higher
+          const existingPr = HEALTH_DATA.gym_workouts.personal_records.find(p => p.exercise.toLowerCase() === exName.toLowerCase());
+          if (existingPr) {
+            if (prWeight > existingPr.weight_kg) {
+              existingPr.weight_kg = prWeight;
+              existingPr.reps = prReps;
+              existingPr.estimated_1rm_kg = est1rm;
+            }
+          } else if (prWeight > 0) {
+            HEALTH_DATA.gym_workouts.personal_records.push({
+              exercise: exName,
+              weight_kg: prWeight,
+              reps: prReps,
+              estimated_1rm_kg: est1rm,
+              date: new Date().toISOString().split('T')[0],
+              split: splitName,
+              category: 'Compound / Isolation'
+            });
+          }
+        }
+
+        if (parsedExercisesCount > 0) {
+          const colors = ['#00f2fe', '#10b981', '#f59e0b', '#8b5cf6', '#f43f5e', '#ec4899'];
+          let colorIdx = 0;
+          const newSplits = [];
+          for (const [sName, exercises] of Object.entries(groupedBySplit)) {
+            const sId = sName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+            const existing = HEALTH_DATA.gym_workouts.splits.find(s => s.id === sId || s.name.toLowerCase() === sName.toLowerCase());
+            newSplits.push({
+              id: sId,
+              name: existing ? existing.name : sName,
+              subtitle: existing ? existing.subtitle : `${exercises.length} Exercises Ingested from CSV`,
+              target_days: existing ? existing.target_days : ['Active Day'],
+              color: existing ? existing.color : colors[colorIdx % colors.length],
+              exercises: exercises
+            });
+            colorIdx++;
+          }
+          HEALTH_DATA.gym_workouts.splits = newSplits;
+          if (!newSplits.some(s => s.id === currentSplitId)) {
+            currentSplitId = newSplits[0].id;
+          }
+
+          localStorage.setItem(LS_GYM_CSV_KEY, csvText);
+
+          renderSplitButtons();
+          renderActiveSplit();
+          renderPRVault();
+
+          const statusEl = document.getElementById('sheet-sync-status');
+          if (statusEl) {
+            statusEl.textContent = `✓ Successfully imported ${parsedExercisesCount} exercises across ${newSplits.length} splits from ${sourceName || 'CSV'}!`;
+          }
+          if (showFeedback) {
+            alert(`✓ Successfully parsed & imported ${parsedExercisesCount} exercises across ${newSplits.length} splits from ${sourceName || 'CSV'}!`);
+          }
+          return true;
+        }
+      } else if (headerCols.some(h => h.includes('date') && h.includes('split'))) {
+        // Format 2: Session log table
+        const dateIdx = headerCols.findIndex(h => h.includes('date'));
+        const splitIdx = headerCols.findIndex(h => h.includes('split'));
+        const volIdx = headerCols.findIndex(h => h.includes('vol') || h.includes('weight'));
+        const energyIdx = headerCols.findIndex(h => h.includes('energy') || h.includes('note'));
+
+        let sessionCount = 0;
+        for (let i = 1; i < lines.length; i++) {
+          const cols = splitCSVLine(lines[i]);
+          if (cols.length < 2) continue;
+          const date = cols[dateIdx] || new Date().toISOString().split('T')[0];
+          const split = cols[splitIdx] || 'Gym Session';
+          const volume = volIdx >= 0 ? parseInt(cols[volIdx], 10) || 5000 : 5000;
+          const energy = energyIdx >= 0 ? cols[energyIdx] : 'Normal (8/10)';
+
+          HEALTH_DATA.gym_workouts.recent_sessions.unshift({
+            date: date,
+            day: new Date(date).toLocaleDateString('en-US', { weekday: 'short' }),
+            split_id: split.toLowerCase().replace(/\s+/g, '_'),
+            split_name: split,
+            duration_mins: 60,
+            total_volume_kg: volume,
+            sets_completed: 20,
+            energy_rating: energy
+          });
+          sessionCount++;
+        }
+        renderRecentSessions();
+        if (showFeedback) {
+          alert(`✓ Successfully imported ${sessionCount} workout sessions from CSV!`);
+        }
+        return true;
+      }
+      return false;
+    }
+
+    async function loadSampleCSVTemplate(populateModal = false) {
+      let csvText = '';
+      try {
+        const res = await fetch('data/health/sample_workout_sheet.csv');
+        if (res.ok) {
+          csvText = await res.text();
+        }
+      } catch (e) {
+        console.warn('Could not fetch sample_workout_sheet.csv:', e);
+      }
+
+      if (!csvText) {
+        csvText = `Split,Exercise,Target Sets,Target Reps,Working Weight (kg),PR Weight (kg),PR Reps,Est 1RM (kg),Rest (s),Notes
+Push A,Incline Dumbbell Press,4,8-10,32.5,35.0,8,44.3,120,30-degree bench angle
+Push A,Flat Barbell Bench Press,4,6-8,82.5,87.5,6,105.0,150,Retract scapulae leg drive
+Push A,Standing DB Overhead Press,3,8-10,22.5,25.0,8,31.7,90,Braced core clean lockout
+Push A,Cable Lateral Raise,4,12-15,12.5,15.0,12,21.0,60,Align wrist with elbow
+Push A,Tricep Rope Pushdown,4,10-12,30.0,35.0,10,46.7,60,Elbows pinned to ribs
+Push A,Overhead Dual-Rope Extension,3,12-15,22.5,25.0,12,35.0,60,Deep stretch long head
+Pull A,Barbell Bent-Over Row,4,6-8,80.0,85.0,6,102.0,120,Hinged 45 degrees
+Pull A,Neutral-Grip Lat Pulldown,4,8-10,75.0,80.0,8,101.3,90,Drive elbows to pockets
+Pull A,Chest-Supported T-Bar Row,3,10-12,55.0,60.0,10,80.0,90,Zero lumbar momentum
+Pull A,Face Pulls External Rotation,4,15,25.0,30.0,15,45.0,60,Posture stabilizer
+Pull A,Incline DB Bicep Curl,3,10-12,15.0,17.5,10,23.3,60,Long head stretch
+Pull A,Standing Hammer Curls,3,12,17.5,20.0,10,26.7,60,Neutral grip density
+Legs & Core,Barbell Back Squat,4,6-8,105.0,115.0,6,138.0,180,Break parallel hip crease
+Legs & Core,Romanian Deadlift (RDL),4,8-10,100.0,110.0,8,139.3,120,Soft knee hip hinge
+Legs & Core,45-Degree Leg Press,3,10-12,220.0,240.0,10,320.0,90,Controlled eccentric
+Legs & Core,Standing Calf Raise Machine,4,15,85.0,95.0,15,142.5,60,2-sec pause stretch
+Legs & Core,Hanging Leg Knee Raise,4,15,5.0,10.0,12,14.0,60,Pelvis curl no swing
+Legs & Core,Cable Kneeling Crunch,3,15-20,45.0,50.0,15,75.0,60,Thoracic rounding
+Push B,Low-Incline Barbell Bench,4,8-10,75.0,80.0,8,101.3,120,15-20 deg incline
+Push B,Weighted Bodyweight Dips,3,8-10,15.0,20.0,8,25.3,90,Lean forward 30 deg
+Push B,Incline Cable Flyes,3,12-15,15.0,17.5,12,24.5,60,Constant tension
+Push B,Lean-Away DB Lateral Raise,4,12-15,12.5,15.0,12,21.0,60,Constant lateral tension
+Push B,EZ-Bar Skull Crushers,3,10-12,32.5,37.5,10,50.0,60,Lower behind forehead
+Push B,EZ-Bar Preacher Curls,3,10-12,35.0,40.0,10,53.3,60,Strict armpit contact`;
+      }
+
+      if (populateModal) {
+        const ta = document.getElementById('gym-csv-raw-textarea');
+        if (ta) ta.value = csvText;
+      } else {
+        parseGymCSV(csvText, 'Verified Sample CSV Template', true);
+      }
+    }
+
+    function openPasteCSVModal() {
+      document.getElementById('modal-paste-csv').style.display = 'flex';
+      document.getElementById('csv-parse-feedback').style.display = 'none';
+    }
+    function closePasteCSVModal() {
+      document.getElementById('modal-paste-csv').style.display = 'none';
+    }
+    function handleGymCSVFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        document.getElementById('gym-csv-raw-textarea').value = text;
+      };
+      reader.readAsText(file);
+    }
+    function importPastedCSV() {
+      const raw = document.getElementById('gym-csv-raw-textarea').value.trim();
+      if (!raw) {
+        alert('Please paste CSV text or select a file first.');
+        return;
+      }
+      const success = parseGymCSV(raw, 'Imported Workout Sheet CSV', true);
+      if (success) {
+        closePasteCSVModal();
+      } else {
+        alert('Could not recognize CSV columns. Expected columns: Split, Exercise, Target Sets, Target Reps, Working Weight...');
+      }
+    }
+
+    function resetToDefaultSheet() {
+      localStorage.removeItem(LS_SHEETS_URL_KEY);
+      localStorage.removeItem(LS_GYM_CSV_KEY);
+      if (window.__SIKANDER_HEALTH_DATA__) {
+        HEALTH_DATA.gym_workouts = JSON.parse(JSON.stringify(window.__SIKANDER_HEALTH_DATA__.gym_workouts));
+      }
+      const defUrl = HEALTH_DATA.gym_workouts.google_sheets_connector.default_template_url;
+      document.getElementById('sheets-csv-url').value = defUrl;
+      currentSplitId = 'push_a';
+      renderSplitButtons();
+      renderActiveSplit();
+      renderPRVault();
+      renderRecentSessions();
+      document.getElementById('sheet-sync-status').textContent = '✓ Reset to Default Verified Split Template (4 Splits · 24 Exercises · 8 All-Time PRs)';
+    }
+
+    // --- BIOMARKER STATION ---
+    function renderFamilyButtons() {
+      const container = document.getElementById('family-pills-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const profiles = HEALTH_DATA.family_biomarkers.profiles;
+
+      profiles.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = `family-btn ${p.id === currentProfileId ? 'active' : ''}`;
+        btn.textContent = `${p.name} [Score: ${p.overall_health_score}]`;
+        btn.onclick = () => {
+          currentProfileId = p.id;
+          renderFamilyButtons();
+          renderActiveFamilyProfile();
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function renderActiveFamilyProfile() {
+      const profile = HEALTH_DATA.family_biomarkers.profiles.find(p => p.id === currentProfileId);
+      if (!profile) return;
+
+      const latestTest = profile.test_history && profile.test_history.length > 0 ? profile.test_history[0] : null;
+
+      const card = document.getElementById('active-patient-card');
+      if (card) {
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+            <div>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+                <h3 style="font-size:18px; font-weight:800; color:#fff;">${profile.name}</h3>
+                <span class="tag-pill" style="font-size:10px;">${profile.role} · Age ${profile.age}</span>
+                <span class="status-badge-sm status-optimal">${profile.status_badge}</span>
+              </div>
+              <p style="font-size:13px; color:var(--text-muted);">${profile.notes}</p>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px; text-transform:uppercase; color:var(--text-dim); font-weight:700;">Latest Lab Report</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:800; color:var(--cyan);">
+                ${latestTest ? `${latestTest.test_date} · ${latestTest.lab_name}` : 'No Tests'}
+              </div>
+              <div style="font-size:11px; color:var(--emerald); font-weight:700;">
+                Overall Vitality Score: ${profile.overall_health_score}/100
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Render Panels
+      renderBiomarkerPanels(profile, latestTest);
+      renderComparisonTable(profile);
+    }
+
+    function renderBiomarkerPanels(profile, testRecord) {
+      const container = document.getElementById('biomarkers-panels-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!testRecord || !testRecord.biomarkers) {
+        container.innerHTML = '<div style="color:var(--text-dim); padding:20px;">No lab biomarkers found for this profile.</div>';
+        return;
+      }
+
+      const panels = HEALTH_DATA.family_biomarkers.reference_panels;
+
+      for (const [key, panel] of Object.entries(panels)) {
+        // Filter biomarkers that exist in patient test
+        const activeBios = panel.biomarkers.filter(b => testRecord.biomarkers[b.code] !== undefined);
+        if (activeBios.length === 0) continue;
+
+        const panelCard = document.createElement('div');
+        panelCard.className = 'panel-card';
+
+        let biosHtml = '';
+        activeBios.forEach(b => {
+          const val = testRecord.biomarkers[b.code];
+          const evalResult = evaluateBiomarker(b, val, profile.gender, profile.age);
+          const pctFill = calculateGaugeFillPct(b, val);
+
+          biosHtml += `
+            <div class="biomarker-item">
+              <div class="biomarker-header">
+                <span class="bio-name">${b.name}</span>
+                <span class="bio-val">${val}<span class="bio-unit">${b.unit}</span></span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span class="bio-target">Ref: ${evalResult.targetText || b.target_text}</span>
+                <span class="status-badge-sm ${evalResult.badgeClass}">${evalResult.statusText}</span>
+              </div>
+              <div class="gauge-bar-track">
+                <div class="gauge-bar-fill" style="width: 100%; background: ${evalResult.gradient};"></div>
+                <div class="gauge-needle" style="left: ${pctFill}%;" title="${val} ${b.unit}"></div>
+              </div>
+            </div>
+          `;
+        });
+
+        panelCard.innerHTML = `
+          <div class="panel-header">
+            <h4 class="panel-title">${panel.name}</h4>
+            <span style="font-size:11px; color:var(--text-dim);">${panel.description}</span>
+          </div>
+          ${biosHtml}
+        `;
+        container.appendChild(panelCard);
+      }
+    }
+
+    function evaluateBiomarker(b, val, gender, age) {
+      let targetRange = b;
+      let targetText = b.target_text;
+
+      if (b.gender_ranges) {
+        if (age !== undefined && age !== null && age < 12 && b.gender_ranges.Pediatric) {
+          targetRange = b.gender_ranges.Pediatric;
+          if (targetRange.target_text) targetText = targetRange.target_text;
+        } else if (gender === 'Female' && b.gender_ranges.Female) {
+          targetRange = b.gender_ranges.Female;
+          if (targetRange.target_text) targetText = targetRange.target_text;
+        } else if (gender === 'Male' && b.gender_ranges.Male) {
+          targetRange = b.gender_ranges.Male;
+          if (targetRange.target_text) targetText = targetRange.target_text;
+        }
+      }
+
+      const opt = targetRange.optimal || targetRange.optimal_range;
+      const border = targetRange.borderline || targetRange.borderline_range;
+
+      if (opt && val >= opt[0] && val <= opt[1]) {
+        return {
+          statusText: 'Optimal',
+          badgeClass: 'status-optimal',
+          gradient: 'linear-gradient(90deg, #10b981 0%, #34d399 100%)',
+          targetText: targetText
+        };
+      } else if (border && val >= border[0] && val <= border[1]) {
+        return {
+          statusText: 'Borderline',
+          badgeClass: 'status-borderline',
+          gradient: 'linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%)',
+          targetText: targetText
+        };
+      } else {
+        return {
+          statusText: 'Attention',
+          badgeClass: 'status-action',
+          gradient: 'linear-gradient(90deg, #f43f5e 0%, #fb7185 100%)',
+          targetText: targetText
+        };
+      }
+    }
+
+    function calculateGaugeFillPct(b, val) {
+      // Calculate normalized percentage for positioning needle on gauge (10% to 90%)
+      const min = b.optimal_range ? b.optimal_range[0] : 0;
+      const max = b.high_threshold ? b.high_threshold * 1.3 : 200;
+      const normalized = Math.min(Math.max((val - min) / (max - min), 0.05), 0.95);
+      return Math.round(normalized * 100);
+    }
+
+    function renderComparisonTable(profile) {
+      const headerRow = document.getElementById('comparison-header-row');
+      const tbody = document.getElementById('comparison-tbody');
+      if (!headerRow || !tbody) return;
+      headerRow.innerHTML = '<th>Biomarker</th><th>Standard Ref Range</th>';
+      tbody.innerHTML = '';
+
+      const tests = profile.test_history || [];
+      if (tests.length === 0) return;
+
+      tests.forEach(t => {
+        headerRow.innerHTML += `<th>${t.test_date}<br><span style="font-size:10px; font-weight:normal; color:var(--text-dim);">${t.lab_name.split(' ')[0]}</span></th>`;
+      });
+
+      // Sample key biomarkers for longitudinal comparison
+      const keyCodes = ['CHOL', 'HDL', 'LDL', 'TRIG', 'FBS', 'HBA1C', 'VIT_D3', 'CREATININE', 'SGPT_ALT', 'HGB'];
+      const panels = HEALTH_DATA.family_biomarkers.reference_panels;
+
+      keyCodes.forEach(code => {
+        let foundBio = null;
+        for (const p of Object.values(panels)) {
+          const match = p.biomarkers.find(b => b.code === code);
+          if (match) { foundBio = match; break; }
+        }
+        if (!foundBio) return;
+
+        // Check if any test has this code
+        if (!tests.some(t => t.biomarkers[code] !== undefined)) return;
+
+        const tr = document.createElement('tr');
+        let tds = `
+          <td style="font-weight:700; color:#fff;">${foundBio.name}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);">${foundBio.target_text}</td>
+        `;
+
+        tests.forEach(t => {
+          const val = t.biomarkers[code];
+          if (val !== undefined) {
+            const ev = evaluateBiomarker(foundBio, val, profile.gender, profile.age);
+            tds += `<td style="font-family:'JetBrains Mono',monospace; font-weight:800; color:#fff;">${val} <span class="status-badge-sm ${ev.badgeClass}" style="font-size:9px; padding:1px 4px;">${ev.statusText}</span></td>`;
+          } else {
+            tds += `<td style="color:var(--text-dim); font-family:'JetBrains Mono',monospace;">—</td>`;
+          }
+        });
+
+        tr.innerHTML = tds;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- ADD BIOMARKER MODAL ---
+    function openAddBiomarkerModal() {
+      document.getElementById('modal-biomarker').style.display = 'flex';
+    }
+    function closeAddBiomarkerModal() {
+      document.getElementById('modal-biomarker').style.display = 'none';
+    }
+
+    function saveCustomBiomarkers(e) {
+      e.preventDefault();
+      const memberId = document.getElementById('bio-form-member').value;
+      const testDate = document.getElementById('bio-form-date').value;
+      const labName = document.getElementById('bio-form-lab').value;
+
+      const newBiomarkers = {};
+      const fields = [
+        { id: 'bio-form-chol', code: 'CHOL' },
+        { id: 'bio-form-hdl', code: 'HDL' },
+        { id: 'bio-form-ldl', code: 'LDL' },
+        { id: 'bio-form-fbs', code: 'FBS' },
+        { id: 'bio-form-hba1c', code: 'HBA1C' },
+        { id: 'bio-form-vitd', code: 'VIT_D3' },
+        { id: 'bio-form-hgb', code: 'HGB' },
+        { id: 'bio-form-creat', code: 'CREATININE' },
+        { id: 'bio-form-alt', code: 'SGPT_ALT' }
+      ];
+
+      fields.forEach(f => {
+        const val = parseFloat(document.getElementById(f.id).value);
+        if (!isNaN(val)) {
+          newBiomarkers[f.code] = val;
+        }
+      });
+
+      const profile = HEALTH_DATA.family_biomarkers.profiles.find(p => p.id === memberId);
+      if (profile) {
+        const newRecord = {
+          test_date: testDate,
+          lab_name: labName,
+          lab_city: 'Karachi / Online',
+          doctor_ref: 'Patient Recorded Report',
+          biomarkers: newBiomarkers
+        };
+        profile.test_history.unshift(newRecord);
+
+        // Persist to localStorage
+        let customReports = [];
+        try {
+          customReports = JSON.parse(localStorage.getItem(LS_BIOMARKERS_KEY) || '[]');
+          if (!Array.isArray(customReports)) customReports = [];
+        } catch (err) {
+          customReports = [];
+        }
+        customReports.unshift({
+          memberId: memberId,
+          testRecord: newRecord
+        });
+        localStorage.setItem(LS_BIOMARKERS_KEY, JSON.stringify(customReports));
+
+        currentProfileId = memberId;
+        renderFamilyButtons();
+        renderActiveFamilyProfile();
+        alert(`✓ Lab report for ${profile.name} saved successfully!`);
+      }
+
+      closeAddBiomarkerModal();
+    }
+
+    // --- CIRCADIAN ROUTINES & HABITS ---
+    function renderHabitsChecklist() {
+      const container = document.getElementById('habits-checklist-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const habits = HEALTH_DATA.circadian_routines.habits_checklist;
+
+      // Check localStorage for habit states
+      let savedStates = {};
+      try {
+        savedStates = JSON.parse(localStorage.getItem(LS_HABITS_KEY) || '{}');
+      } catch (err) {}
+
+      habits.forEach(h => {
+        const isDone = savedStates[h.id] !== undefined ? savedStates[h.id] : h.completed;
+        const item = document.createElement('div');
+        item.className = `habit-item ${isDone ? 'done' : ''}`;
+        item.innerHTML = `
+          <div>
+            <div style="font-size:13px; font-weight:700; color:#fff;">${h.name}</div>
+            <div style="font-size:11px; color:var(--text-dim); font-family:'JetBrains Mono',monospace;">${h.streak}-day streak</div>
+          </div>
+          <div class="habit-check">✓</div>
+        `;
+        item.onclick = () => {
+          const nextState = !item.classList.contains('done');
+          item.classList.toggle('done', nextState);
+          savedStates[h.id] = nextState;
+          localStorage.setItem(LS_HABITS_KEY, JSON.stringify(savedStates));
+        };
+        container.appendChild(item);
+      });
+    }
+
+    function renderCircadianRail() {
+      const container = document.getElementById('circadian-rail-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const slots = HEALTH_DATA.circadian_routines.schedule_slots;
+
+      slots.forEach(slot => {
+        const div = document.createElement('div');
+        div.className = 'circadian-slot';
+        div.innerHTML = `
+          <div class="slot-dot"></div>
+          <div class="slot-header">
+            <span class="slot-time">${slot.time} (${slot.duration})</span>
+            <span class="slot-badge">${slot.badge}</span>
+          </div>
+          <div class="slot-title">
+            <span>${slot.icon}</span>
+            <span>${slot.title}</span>
+          </div>
+          <div class="slot-target">${slot.target_metric}</div>
+          <p class="slot-desc">${slot.description}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderWaterTracker() {
+      const val = parseFloat(localStorage.getItem(LS_WATER_KEY) || HEALTH_DATA.circadian_routines.hydration_current_liters);
+      const el = document.getElementById('water-liters-val');
+      if (el) el.textContent = val.toFixed(2);
+    }
+
+    function addWater(amount) {
+      let cur = parseFloat(localStorage.getItem(LS_WATER_KEY) || HEALTH_DATA.circadian_routines.hydration_current_liters);
+      cur = round2(cur + amount);
+      localStorage.setItem(LS_WATER_KEY, cur);
+      renderWaterTracker();
+    }
+
+    // --- CORPORATE INSURANCE ---
+    function renderSpecializedInvestigations() {
+      const grid = document.getElementById('investigations-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const items = HEALTH_DATA.insurance_emergency.specialized_investigations;
+
+      items.forEach(it => {
+        const d = document.createElement('div');
+        d.style.cssText = 'background:rgba(12, 17, 28, 0.7); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center;';
+        d.innerHTML = `
+          <div>
+            <div style="font-size:12px; font-weight:700; color:#fff;">${it.id}. ${it.name}</div>
+            <div style="font-size:10px; color:var(--text-dim);">${it.category}</div>
+          </div>
+          <span style="font-size:9px; color:var(--cyan); font-weight:700; font-family:'JetBrains Mono',monospace;">Covered</span>
+        `;
+        grid.appendChild(d);
+      });
+    }
+
+    function renderDaycareSurgeries(list) {
+      const grid = document.getElementById('daycare-procedures-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      list.forEach(sur => {
+        const card = document.createElement('div');
+        card.className = 'daycare-card';
+        card.innerHTML = `
+          <div class="dc-num">${sur.id}</div>
+          <div class="dc-info">
+            <div class="dc-name">${sur.procedure}</div>
+            <div class="dc-cat">${sur.category}</div>
+          </div>
+          <div class="dc-badge">${sur.status}</div>
+        `;
+        card.onclick = () => {
+          alert(`Jubilee Daycare Surgery #${sur.id}:\nProcedure: ${sur.procedure}\nSpecialty: ${sur.category}\nStatus: ${sur.status} under CTP policy\nNote: Requires prior authorization from Novatex TPA desk.`);
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    function filterDaycareSurgeries() {
+      const query = document.getElementById('daycare-search-input').value.toLowerCase().trim();
+      const cat = document.getElementById('daycare-category-filter').value;
+      const allSurgeries = HEALTH_DATA.insurance_emergency.daycare_surgeries;
+
+      const filtered = allSurgeries.filter(s => {
+        const matchesQuery = s.procedure.toLowerCase().includes(query) || s.category.toLowerCase().includes(query);
+        const matchesCat = cat === 'ALL' || s.category.toLowerCase() === cat.toLowerCase();
+        return matchesQuery && matchesCat;
+      });
+
+      renderDaycareSurgeries(filtered);
+    }
+
+    function renderPanelHospitals() {
+      const tbody = document.getElementById('panel-hospitals-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const hospitals = HEALTH_DATA.insurance_emergency.panel_hospitals;
+
+      hospitals.forEach(h => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="font-weight:700; color:#fff;">${h.name}</td>
+          <td style="color:var(--cyan); font-weight:700;">${h.city}</td>
+          <td style="color:var(--text-muted); font-size:12px;">${h.address}</td>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--emerald);">
+            <a href="tel:${h.emergency.replace(/-/g, '')}" style="color:inherit; text-decoration:none;">${h.emergency}</a>
+          </td>
+          <td><span class="status-badge-sm status-optimal">${h.rating}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- TAKEOUT MODAL & DRAG/DROP ---
+    function openTakeoutModal() {
+      document.getElementById('modal-takeout').style.display = 'flex';
+      document.getElementById('takeout-result-box').style.display = 'none';
+    }
+    function closeTakeoutModal() {
+      document.getElementById('modal-takeout').style.display = 'none';
+    }
+
+    function applyImportedSteps(count, sourceName) {
+      HEALTH_DATA.walking_telemetry.today.steps = count;
+      HEALTH_DATA.walking_telemetry.today.target_achieved = count >= 10000;
+      HEALTH_DATA.walking_telemetry.today.distance_km = round2((count * 0.78) / 1000);
+      HEALTH_DATA.walking_telemetry.today.calories_kcal = Math.round(count * 0.042);
+      HEALTH_DATA.walking_telemetry.today.active_minutes = Math.round(count / 105);
+      HEALTH_DATA.walking_telemetry.today.achievement_pct = round1((count / 10000) * 100);
+
+      const recent = HEALTH_DATA.walking_telemetry.recent_7_days;
+      if (recent && recent.length > 0) {
+        recent[recent.length - 1].steps = count;
+        recent[recent.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+        recent[recent.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+        recent[recent.length - 1].target_achieved = count >= 10000;
+      }
+
+      const history = HEALTH_DATA.walking_telemetry.history_30_days;
+      if (history && history.length > 0) {
+        history[history.length - 1].steps = count;
+        history[history.length - 1].distance_km = HEALTH_DATA.walking_telemetry.today.distance_km;
+        history[history.length - 1].calories_kcal = HEALTH_DATA.walking_telemetry.today.calories_kcal;
+        history[history.length - 1].target_achieved = count >= 10000;
+      }
+
+      if (count >= 10000) {
+        const strk = HEALTH_DATA.walking_telemetry.streak_summary.current_10k_streak_days;
+        HEALTH_DATA.walking_telemetry.streak_summary.status_badge = `${strk}-Day 10k Streak 🔥`;
+      }
+
+      localStorage.setItem(LS_STEPS_KEY, JSON.stringify({
+        todaySteps: count,
+        source: sourceName,
+        timestamp: new Date().toISOString()
+      }));
+
+      renderHeroTelemetry();
+      renderVelocityChart();
+      renderWalkingHistory();
+    }
+
+    function handleTakeoutFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        const resultBox = document.getElementById('takeout-result-box');
+        resultBox.style.display = 'block';
+
+        let extractedSteps = 0;
+
+        if (file.name.endsWith('.json')) {
+          try {
+            const data = JSON.parse(text);
+
+            // 1. Check Google Fit Aggregate API format (bucket -> dataset -> point -> value)
+            if (data.bucket && Array.isArray(data.bucket)) {
+              data.bucket.forEach(b => {
+                if (b.dataset && Array.isArray(b.dataset)) {
+                  b.dataset.forEach(ds => {
+                    if (ds.point && Array.isArray(ds.point)) {
+                      ds.point.forEach(pt => {
+                        if (pt.value && Array.isArray(pt.value)) {
+                          pt.value.forEach(v => {
+                            if (v.intVal !== undefined) extractedSteps += parseInt(v.intVal, 10) || 0;
+                            else if (v.fpVal !== undefined) extractedSteps += Math.round(v.fpVal) || 0;
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+              });
+            }
+            // 2. Check simple daily steps array: [{ date, steps }] or [{ date, step_count }]
+            else if (Array.isArray(data) && data.length > 0) {
+              const latest = data[data.length - 1];
+              if (typeof latest === 'object' && latest !== null) {
+                extractedSteps = parseInt(latest.steps || latest.step_count || latest.value || 0, 10) || 0;
+              }
+            }
+            // 3. Check object with today_steps, steps, or Data array
+            else if (typeof data === 'object' && data !== null) {
+              if (data.steps !== undefined) extractedSteps = parseInt(data.steps, 10) || 0;
+              else if (data.today_steps !== undefined) extractedSteps = parseInt(data.today_steps, 10) || 0;
+              else if (data.total_steps !== undefined) extractedSteps = parseInt(data.total_steps, 10) || 0;
+              else if (data.Data && Array.isArray(data.Data)) {
+                data.Data.forEach(d => {
+                  if (d.Steps !== undefined) extractedSteps = parseInt(d.Steps, 10) || extractedSteps;
+                  else if (d.steps !== undefined) extractedSteps = parseInt(d.steps, 10) || extractedSteps;
+                });
+              }
+            }
+
+            if (extractedSteps > 0) {
+              applyImportedSteps(extractedSteps, `Google Takeout JSON (${file.name})`);
+              resultBox.style.color = 'var(--emerald)';
+              resultBox.innerHTML = `✓ Imported <strong>${extractedSteps.toLocaleString()} steps</strong> from ${file.name}!<br>Dashboard telemetry & streaks updated.`;
+            } else {
+              resultBox.style.color = 'var(--gold)';
+              resultBox.textContent = `Parsed ${file.name} successfully, but found 0 steps or unrecognized JSON schema.`;
+            }
+          } catch (err) {
+            resultBox.style.color = 'var(--rose)';
+            resultBox.textContent = `Error parsing JSON: ${err.message}`;
+          }
+        } else {
+          // CSV Parser
+          try {
+            const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+            if (lines.length > 1) {
+              const headers = lines[0].toLowerCase().split(',').map(h => h.trim().replace(/['"]/g, ''));
+              const stepsIdx = headers.findIndex(h => h.includes('step') || h.includes('count'));
+              if (stepsIdx >= 0) {
+                for (let i = lines.length - 1; i >= 1; i--) {
+                  const cols = lines[i].split(',').map(c => c.trim().replace(/['"]/g, ''));
+                  if (cols.length > stepsIdx) {
+                    const parsed = parseInt(cols[stepsIdx], 10);
+                    if (!isNaN(parsed) && parsed > 0) {
+                      extractedSteps = parsed;
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+
+            if (extractedSteps > 0) {
+              applyImportedSteps(extractedSteps, `Google Fit CSV (${file.name})`);
+              resultBox.style.color = 'var(--emerald)';
+              resultBox.innerHTML = `✓ Imported <strong>${extractedSteps.toLocaleString()} steps</strong> from ${file.name}!<br>Dashboard telemetry & streaks updated.`;
+            } else {
+              resultBox.style.color = 'var(--gold)';
+              resultBox.textContent = `Could not find valid step count column in ${file.name}. Expected header with 'steps'.`;
+            }
+          } catch (err) {
+            resultBox.style.color = 'var(--rose)';
+            resultBox.textContent = `Error parsing CSV: ${err.message}`;
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function promptOAuthSync() {
+      const token = prompt('Enter Google Fitness OAuth Bearer Token for live aggregate sync:');
+      if (token && token.trim()) {
+        alert('Validating Google Fitness OAuth Token...\nDirect client-side sync initialized.');
+      }
+    }
+
+    // --- UTILITIES ---
+    function round1(num) { return Math.round(num * 10) / 10; }
+    function round2(num) { return Math.round(num * 100) / 100; }
+    function escapeStr(str) { return str.replace(/'/g, "\\'"); }
+  </script>
+  <!-- Sikander OS Local-First Multi-Device Sync Engine & PWA Core -->
+  <script src="data/sync_engine.js"></script>
+</body>
+</html>

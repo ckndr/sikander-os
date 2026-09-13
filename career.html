@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07090e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sikander OS">
+  <title>Career Intelligence & AI Resume Builder — Sikander OS</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="data/career/sikander_career_data.js"></script>
+  <style>
+    :root {
+      --bg-base: #07090e;
+      --bg-surface: rgba(15, 20, 32, 0.75);
+      --bg-surface-elevated: rgba(22, 30, 48, 0.85);
+      --bg-card: rgba(18, 25, 42, 0.65);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 242, 254, 0.3);
+      --cyan: #00f2fe;
+      --cyan-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      --emerald: #10b981;
+      --emerald-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --gold: #f59e0b;
+      --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --purple: #8b5cf6;
+      --purple-gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -10%;
+      left: 15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.07) 0%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: 10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      background: var(--bg-surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .os-return-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      border-radius: 30px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .os-return-pill:hover {
+      background: rgba(0, 242, 254, 0.18);
+      border-color: var(--cyan);
+      transform: translateX(-2px);
+      color: #fff;
+    }
+
+    .topbar-title-wrap h1 {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-title-wrap p {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .badge-wpm {
+      background: rgba(0, 242, 254, 0.12);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge-dual {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: var(--emerald);
+    }
+
+    .privacy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .privacy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    .privacy-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+
+    /* EXECUTIVE BANNER */
+    .exec-banner {
+      background: linear-gradient(135deg, rgba(18, 24, 38, 0.92) 0%, rgba(13, 18, 30, 0.98) 100%);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 35px rgba(0, 242, 254, 0.06);
+    }
+    .exec-banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 100%;
+      background: radial-gradient(circle at 80% 50%, rgba(0, 242, 254, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .exec-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .exec-pre {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .exec-name {
+      font-size: clamp(26px, 4vw, 40px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      line-height: 1.15;
+    }
+    .exec-title-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .exec-contact-strip {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .exec-contact-strip span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .exec-contact-strip a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .exec-contact-strip a:hover {
+      color: var(--cyan);
+    }
+
+    .exec-status-box {
+      text-align: right;
+      background: rgba(10, 14, 24, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      min-width: 240px;
+    }
+    .exec-status-label {
+      font-size: 10px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .exec-status-role {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--emerald);
+    }
+    .exec-status-company {
+      font-size: 12px;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* TELEMETRY STRIP */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .telemetry-item {
+      background: rgba(10, 14, 24, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .telemetry-item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .telemetry-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .telemetry-val {
+      font-size: 22px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+    }
+    .telemetry-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* NAVIGATION TABS */
+    .module-nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 32px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .module-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .tab-btn.active {
+      background: var(--cyan-gradient);
+      color: #050811;
+      font-weight: 800;
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+    }
+
+    /* SECTION CONTAINERS */
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .tab-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARD STYLES */
+    .glass-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* BUTTONS */
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+    .btn-cyan {
+      background: var(--cyan-gradient);
+      color: #050811;
+      border: none;
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+    }
+    .btn-cyan:hover {
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+      transform: scale(1.02);
+    }
+
+    /* RESUME STUDIO */
+    .role-select-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .role-btn {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .role-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .role-btn.active {
+      background: rgba(0, 242, 254, 0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .resume-preview-box {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      font-size: 14px;
+      line-height: 1.6;
+      position: relative;
+    }
+    .resume-section-header {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      font-weight: 800;
+      border-bottom: 1px solid rgba(0, 242, 254, 0.25);
+      padding-bottom: 4px;
+      margin-top: 24px;
+      margin-bottom: 14px;
+    }
+    .resume-section-header:first-of-type {
+      margin-top: 0;
+    }
+
+    .bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #e2e8f0;
+    }
+    .bullet-checkbox {
+      margin-top: 4px;
+      cursor: pointer;
+      accent-color: var(--cyan);
+    }
+    .bullet-text {
+      flex: 1;
+    }
+    .bullet-item.disabled .bullet-text {
+      text-decoration: line-through;
+      color: var(--text-dim);
+    }
+
+    .keyword-pill-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .keyword-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #cbd5e1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .keyword-pill.highlight {
+      background: rgba(0, 242, 254, 0.12);
+      border-color: rgba(0, 242, 254, 0.35);
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* JOB APPLICATION ADVISOR */
+    .advisor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .jd-textarea {
+      width: 100%;
+      height: 280px;
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      padding: 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .jd-textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    }
+
+    .fit-meter-wrap {
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .fit-score-display {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .fit-dial {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan) 0deg, rgba(255,255,255,0.05) 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .fit-dial-inner {
+      width: 72px;
+      height: 72px;
+      background: #090d16;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+    .fit-summary-text h4 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .fit-summary-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* SAP VAULT TABLE */
+    .table-controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+    .category-select {
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: var(--text-main);
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .data-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: #090d16;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    .data-table th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      color: var(--text-dim);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      vertical-align: top;
+    }
+    .data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .tcode-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    /* KNOWLEDGE BASE ACCORDIONS */
+    .accordion-item {
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .accordion-item:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .accordion-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .accordion-header h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .accordion-icon {
+      font-size: 14px;
+      color: var(--cyan);
+      transition: transform 0.2s;
+    }
+    .accordion-item.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      padding: 20px;
+      display: none;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    /* COMPENSATION CURVE */
+    .chart-container {
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .svg-chart {
+      width: 100%;
+      height: 260px;
+      overflow: visible;
+    }
+    .privacy-blurred {
+      filter: blur(8px);
+      user-select: none;
+      transition: filter 0.3s;
+    }
+
+    /* TIMELINE RAIL */
+    .timeline-rail {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline-rail::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--cyan) 0%, var(--purple) 50%, var(--emerald) 100%);
+    }
+    .timeline-node {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #090d16;
+      border: 3px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+    }
+    .timeline-content {
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .timeline-date {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .timeline-role {
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .timeline-company {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111827;
+      border: 1px solid var(--border-glow);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* PRINT STYLES FOR CLEAN ATS RESUME EXPORT */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
+      }
+      body::before, body::after, .topbar, .exec-banner, .module-nav-tabs, .btn-action, .privacy-btn, .toast, .table-controls, .jd-textarea, .fit-meter-wrap, #tab-advisor, #tab-vault, #tab-kb, #tab-comp, #tab-timeline {
+        display: none !important;
+      }
+      .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      #tab-resume {
+        display: block !important;
+      }
+      .resume-preview-box {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+        color: #111827 !important;
+      }
+      .resume-preview-box * {
+        color: #111827 !important;
+      }
+      .resume-section-header {
+        border-bottom: 1.5pt solid #334155 !important;
+        color: #0f172a !important;
+        margin-top: 14pt !important;
+        margin-bottom: 6pt !important;
+      }
+      .bullet-checkbox {
+        display: none !important;
+      }
+      .bullet-item {
+        margin-bottom: 4pt !important;
+      }
+      .bullet-item.disabled {
+        display: none !important;
+      }
+      .keyword-pill {
+        border: 1pt solid #cbd5e1 !important;
+        background: #f8fafc !important;
+        color: #334155 !important;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .exec-header-row {
+        flex-direction: column;
+      }
+      .exec-status-box {
+        text-align: left;
+        width: 100%;
+      }
+      .advisor-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="os-return-pill" title="Return to Sikander OS Dashboard">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>SIKANDER OS</span>
+        </a>
+        <div class="topbar-title-wrap">
+          <h1>Career Intelligence & AI Resume Builder</h1>
+          <p>Module 04 · Industrial Operations & Career Telemetry</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <span class="badge-capsule badge-wpm">⚡ 90 WPM TYPING SPEED</span>
+        <span class="badge-capsule badge-dual">🏭 DUAL EMPLOYER STATUS</span>
+        <button class="privacy-btn" id="privacy-toggle-btn" onclick="togglePrivacy()">
+          <span id="privacy-icon">👁️</span>
+          <span id="privacy-text">Privacy Mode: OFF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- EXECUTIVE PROFILE BANNER -->
+    <section class="exec-banner">
+      <div class="exec-header-row">
+        <div>
+          <div class="exec-pre">
+            <span>💼 EXECUTIVE CAREER ENGINE</span>
+            <span>·</span>
+            <span>11+ YEARS CONTINUOUS TELEMETRY</span>
+          </div>
+          <h2 class="exec-name" id="profile-name">Muhammad Sikander Shahjahan</h2>
+          <div class="exec-title-sub" id="profile-title">Planning Lead (Alpha Containers / Tubex) & Senior Supply Chain Planning Specialist</div>
+          <div class="exec-contact-strip">
+            <span>📍 Sheikhupura / Lahore / Karachi, Pakistan</span>
+            <span>·</span>
+            <span>📱 <a href="tel:+923360842895">+92 336 0842895</a></span>
+            <span>·</span>
+            <span>✉️ <a href="mailto:ckndr1989@gmail.com">ckndr1989@gmail.com</a></span>
+            <span>·</span>
+            <span>⌨️ 90 WPM Certified</span>
+          </div>
+        </div>
+
+        <div class="exec-status-box">
+          <div class="exec-status-label">Active Operational Role</div>
+          <div class="exec-status-role">Planning Lead</div>
+          <div class="exec-status-company">Alpha Containers / Tubex & Aerosol</div>
+          <div style="font-size:11px; color:var(--cyan); margin-top:4px; font-family:'JetBrains Mono',monospace;">Appointed Feb 2026</div>
+        </div>
+      </div>
+
+      <!-- SYSTEM TELEMETRY STRIP -->
+      <div class="telemetry-grid">
+        <div class="telemetry-item">
+          <div class="telemetry-label"><span>⏳ Experience Span</span></div>
+          <div class="telemetry-val">11+ Years</div>
+          <div class="telemetry-sub">Continuous Manufacturing (2015–2026)</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label"><span>🤖 SAP Automation Vault</span></div>
+          <div class="telemetry-val" style="color:var(--cyan);">21 Scripts</div>
+          <div class="telemetry-sub">825 Mins (~13.8 hrs) Automated Daily</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label"><span>📈 Verified Compensation</span></div>
+          <div class="telemetry-val comp-maskable" style="color:var(--emerald);">PKR 120,000</div>
+          <div class="telemetry-sub comp-maskable">Gross (+45k Aerosol target = 165k)</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label"><span>📜 Operational Rigor</span></div>
+          <div class="telemetry-val" style="color:var(--gold);">3 SOPs + Manual</div>
+          <div class="telemetry-sub">BOPET Planning & Cold Extrusion</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="module-nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('resume')">
+        <span>✨ AI Resume Builder & Studio</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('advisor')">
+        <span>🎯 Job Application Strategy Advisor</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('vault')">
+        <span>🤖 SAP & Macro Automation Vault (21)</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('kb')">
+        <span>⚙️ Industrial SOPs & Metallurgy</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('comp')">
+        <span>📊 Compensation Curve (38 Slips)</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('timeline')">
+        <span>🛤️ Career Timeline Rail (2015–2026)</span>
+      </button>
+    </nav>
+
+    <!-- ==================== TAB 1: AI RESUME BUILDER & STUDIO ==================== -->
+    <section id="tab-resume" class="tab-section active">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>✨ Interactive AI Resume Builder & Tailoring Studio</span></h3>
+            <p class="card-subtitle">Select a target role to dynamically align professional summary, core competencies, and achievement bullets</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-action btn-cyan" onclick="copyResumeMarkdown()">
+              <span>📋 Copy Markdown</span>
+            </button>
+            <button class="btn-action" onclick="copyResumeText()">
+              <span>📄 Copy Plain Text / ATS</span>
+            </button>
+            <button class="btn-action" onclick="window.print()">
+              <span>🖨️ Print / Save PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TARGET ROLE SELECTOR -->
+        <div class="role-select-bar" id="role-selector-container">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- RESUME ATS PREVIEW CONTAINER -->
+        <div class="resume-preview-box" id="resume-render-target">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: JOB APPLICATION STRATEGY ADVISOR ==================== -->
+    <section id="tab-advisor" class="tab-section">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>🎯 Job Application Strategy Advisor</span></h3>
+            <p class="card-subtitle">Paste any external job description to compute an instant Skills Fit Score (%), detect keywords, and surface relevant SAP macros</p>
+          </div>
+          <button class="btn-action btn-cyan" onclick="analyzeJobDescription()">
+            <span>⚡ Analyze Job Posting</span>
+          </button>
+        </div>
+
+        <div class="advisor-grid">
+          <div>
+            <label style="font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em; font-weight:700; margin-bottom:8px; display:block;">
+              Paste Target Job Description (JD):
+            </label>
+            <textarea class="jd-textarea" id="jd-input" placeholder="Paste external job requirements, responsibilities, and qualifications here (e.g. Senior Supply Chain Planner, Plant Operations Lead, SAP SCM Consultant)..."></textarea>
+            <div style="margin-top:10px; display:flex; gap:8px;">
+              <button class="btn-action" style="font-size:11px; padding:6px 12px;" onclick="loadSampleJD('scm')">Sample: Supply Chain Lead</button>
+              <button class="btn-action" style="font-size:11px; padding:6px 12px;" onclick="loadSampleJD('plant')">Sample: Operations Manager</button>
+              <button class="btn-action" style="font-size:11px; padding:6px 12px;" onclick="loadSampleJD('sap')">Sample: SAP Specialist</button>
+            </div>
+          </div>
+
+          <div class="fit-meter-wrap">
+            <div>
+              <div class="fit-score-display">
+                <div class="fit-dial" id="fit-dial">
+                  <div class="fit-dial-inner" id="fit-score-num">--%</div>
+                </div>
+                <div class="fit-summary-text">
+                  <h4 id="fit-heading">Awaiting Job Description</h4>
+                  <p id="fit-caption">Paste a job posting on the left and click 'Analyze Job Posting' to calculate candidate fit.</p>
+                </div>
+              </div>
+
+              <!-- MATCHED KEYWORDS -->
+              <div style="margin-bottom:14px;">
+                <div style="font-size:11px; font-weight:700; color:var(--emerald); text-transform:uppercase; margin-bottom:6px;">
+                  ✓ Matched Competencies & Industrial Proof Points:
+                </div>
+                <div class="keyword-pill-wrap" id="matched-keywords-container">
+                  <span style="font-size:12px; color:var(--text-dim);">No analysis run yet</span>
+                </div>
+              </div>
+
+              <!-- KEYWORD GAPS -->
+              <div style="margin-bottom:14px;">
+                <div style="font-size:11px; font-weight:700; color:var(--gold); text-transform:uppercase; margin-bottom:6px;">
+                  ⚠️ Skills Gaps / Discussion Points:
+                </div>
+                <div class="keyword-pill-wrap" id="gap-keywords-container">
+                  <span style="font-size:12px; color:var(--text-dim);">None</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SURFACED SAP MACROS -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:12px;">
+              <div style="font-size:11px; font-weight:700; color:var(--cyan); text-transform:uppercase; margin-bottom:6px;">
+                🤖 Recommended Automation Proof Points to Highlight:
+              </div>
+              <div id="surfaced-macros-container" style="font-size:12px; color:#cbd5e1;">
+                Surface relevant SAP .mrf scripts matching this role...
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GENERATED TAILORED PITCH -->
+        <div style="margin-top:24px; padding-top:24px; border-top:1px solid var(--border-subtle);" id="advisor-pitch-section">
+          <div class="card-header-row">
+            <h4 style="font-size:14px; font-weight:700; color:var(--cyan);">📝 Tailored Application Cover Pitch</h4>
+            <button class="btn-action" onclick="copyCoverPitch()"><span>📋 Copy Pitch</span></button>
+          </div>
+          <div id="tailored-pitch-output" style="background:#090d16; border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:18px; font-size:13px; line-height:1.6; color:#e2e8f0;">
+            Paste a job description above and run analysis to generate a targeted, metric-grounded application narrative.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: SAP AUTOMATION VAULT ==================== -->
+    <section id="tab-vault" class="tab-section">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>🤖 SAP & Macro Automation Vault</span></h3>
+            <p class="card-subtitle">Comprehensive catalog of all 21 production automation scripts (.mrf) eliminating 90% of manual planning workflows</p>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cyan); background:rgba(0,242,254,0.1); padding:6px 12px; border-radius:20px; border:1px solid rgba(0,242,254,0.3);">
+            ⚡ Total Automation Impact: 825 Mins Saved / Day
+          </div>
+        </div>
+
+        <!-- FILTER CONTROLS -->
+        <div class="table-controls">
+          <input type="text" id="vault-search" class="search-input" placeholder="Search by macro name, T-code (COOIS, CO01, TECO...), or keyword..." oninput="filterVaultTable()">
+          <select id="vault-category-filter" class="category-select" onchange="filterVaultTable()">
+            <option value="ALL">All Categories (21 Scripts)</option>
+            <option value="Production Order Management">Production Order Management (5)</option>
+            <option value="Order Lifecycle & TECO">Order Lifecycle & TECO (5)</option>
+            <option value="Inventory & Logistics Telemetry">Inventory & Logistics Telemetry (3)</option>
+            <option value="Data Integrity & Variance Control">Data Integrity & Variance Control (5)</option>
+            <option value="Workflow Orchestration">Workflow Orchestration (1)</option>
+            <option value="Administrative & HR Automation">Administrative & HR Automation (2)</option>
+          </select>
+        </div>
+
+        <!-- DATA TABLE -->
+        <div class="data-table-wrap">
+          <table class="data-table" id="vault-table">
+            <thead>
+              <tr>
+                <th style="width:70px;">ID</th>
+                <th>Automation Script</th>
+                <th>T-Code / System</th>
+                <th>Category</th>
+                <th>Operational Rationale</th>
+                <th style="width:110px; text-align:right;">Time Saved</th>
+              </tr>
+            </thead>
+            <tbody id="vault-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: INDUSTRIAL ENGINEERING KNOWLEDGE BASE ==================== -->
+    <section id="tab-kb" class="tab-section">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>⚙️ Industrial Engineering & Metallurgy Knowledge Base</span></h3>
+            <p class="card-subtitle">Operational SOPs from Novatex Ltd BOPET Unit and Cold Extrusion technical guide from Tubex (Pvt.) Ltd</p>
+          </div>
+          <span style="font-size:12px; color:var(--text-dim);">4 Structured Knowledge Assets</span>
+        </div>
+
+        <!-- ACCORDIONS -->
+        <div id="kb-accordions-container">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: COMPENSATION CURVE ==================== -->
+    <section id="tab-comp" class="tab-section">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>📊 Confidential Compensation Curve</span></h3>
+            <p class="card-subtitle">38 continuous monthly salary slips (Nov 2022 – Dec 2025) + 2026 Alpha Containers Planning Lead offer</p>
+          </div>
+          <button class="privacy-btn" onclick="togglePrivacy()">
+            <span id="privacy-icon-2">👁️</span>
+            <span>Toggle Privacy Shield</span>
+          </button>
+        </div>
+
+        <!-- COMPENSATION SUMMARY STRIP -->
+        <div class="telemetry-grid" style="margin-top:0; padding-top:0; border-top:none; margin-bottom:24px;">
+          <div class="telemetry-item">
+            <div class="telemetry-label">Starting Fixed Gross (Nov 2022)</div>
+            <div class="telemetry-val comp-maskable">PKR 32,000</div>
+            <div class="telemetry-sub">Novatex Karachi BOPET</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-label">Latest Fixed Gross (Dec 2025)</div>
+            <div class="telemetry-val comp-maskable" style="color:var(--cyan);">PKR 73,375</div>
+            <div class="telemetry-sub">+129.3% Novatex Growth</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-label">Latest Net Take-Home (Dec 2025)</div>
+            <div class="telemetry-val comp-maskable" style="color:var(--emerald);">PKR 110,098</div>
+            <div class="telemetry-sub">Net with Allowances / Adjustments</div>
+          </div>
+          <div class="telemetry-item">
+            <div class="telemetry-label">Planning Lead Gross (2026)</div>
+            <div class="telemetry-val comp-maskable" style="color:var(--gold);">PKR 120,000</div>
+            <div class="telemetry-sub comp-maskable">+45,000 Aerosol step = PKR 165k</div>
+          </div>
+        </div>
+
+        <!-- SVG TRAJECTORY CURVE -->
+        <div class="chart-container" id="chart-wrap">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-size:12px; font-weight:700; color:var(--text-dim); text-transform:uppercase;">Compensation Trajectory (Nov 2022 to Dec 2025)</span>
+            <div style="display:flex; gap:16px; font-size:11px;">
+              <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; background:var(--cyan); border-radius:2px;"></span> Fixed Gross</span>
+              <span style="display:flex; align-items:center; gap:6px;"><span style="width:10px; height:10px; background:var(--emerald); border-radius:2px;"></span> Net Take-Home</span>
+            </div>
+          </div>
+          <svg class="svg-chart" id="salary-chart" viewBox="0 0 1000 260">
+            <!-- Rendered via JS -->
+          </svg>
+        </div>
+
+        <!-- SALARY SLIP AUDIT TABLE -->
+        <div class="card-header-row" style="margin-top:28px;">
+          <h4 style="font-size:15px; font-weight:700; color:#fff;">📑 Archived Salary Slips Ledger (38 Records)</h4>
+          <span style="font-size:12px; color:var(--text-dim);">Novatex Limited (Employee Code: 10002059)</span>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Company & Plant</th>
+                <th style="text-align:right;">Fixed Gross</th>
+                <th style="text-align:right;">Total Earning</th>
+                <th style="text-align:right;">Total Deductions</th>
+                <th style="text-align:right;">Net Pay</th>
+                <th style="text-align:right;">Income Tax</th>
+                <th style="text-align:center;">File Status</th>
+              </tr>
+            </thead>
+            <tbody id="slips-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: CAREER TIMELINE RAIL ==================== -->
+    <section id="tab-timeline" class="tab-section">
+      <div class="glass-card">
+        <div class="card-header-row">
+          <div>
+            <h3 class="card-title"><span>🛤️ Verified Career Progression Rail</span></h3>
+            <p class="card-subtitle">11 continuous years from QA Operator (2015) to Planning Lead (2026)</p>
+          </div>
+          <span class="badge-capsule badge-dual">Dual-Employer Track</span>
+        </div>
+
+        <div class="timeline-rail" id="timeline-container">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast-msg">
+    <span>✓</span>
+    <span id="toast-text">Copied to clipboard</span>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       GLOBAL STATE & EMBEDDED DATA FALLBACK
+       ========================================================================== */
+    let careerData = null;
+    let currentRoleIndex = 0;
+    let privacyMode = false;
+
+    // Default sample JDs for advisor
+    const SAMPLE_JDS = {
+      scm: `Senior Supply Chain Planner - Manufacturing
+Responsibilities:
+- Lead Master Production Scheduling (MPS) and Material Requirements Planning (MRP) for high-speed packaging film lines.
+- Coordinate international export container loading, vessel cut-off dates, and shipping schedules with freight forwarders.
+- Utilize SAP ECC / S/4HANA (PP, MM, SD) for production order generation, batch characteristic management, and goods movements.
+- Optimize safety stock levels for raw polymer resins, additives, and finished goods inventory to prevent stockouts.
+- Enforce standard operating procedures (SOPs) on slitting and extrusion lines to minimize trim scrap and downtime.
+Requirements:
+- 7+ years of supply chain planning experience in process manufacturing.
+- Advanced SAP PP user with experience in COOIS, CO01, CO02, and MB52.
+- Proficiency in advanced Excel, VBA, or automated scripting.`,
+
+      plant: `Plant Operations Lead / Manufacturing Production Manager
+Responsibilities:
+- Oversee day-to-day operations of continuous packaging and aluminum collapsible tube cold extrusion facilities.
+- Drive Overall Equipment Effectiveness (OEE), line speed targets, and minimize machine downtime on high-speed presses.
+- Supervise tooling lifecycles (punch dies, cutting heads) and enforce strict preventive maintenance schedules.
+- Maintain thermal processing parameters across continuous annealing furnaces (250°C–350°C) to restore ductility and burn off lubricants.
+- Investigate shop floor quality deviations, issue Corrective Action Reports (CAR), and lead root cause analysis.
+Requirements:
+- 8+ years hands-on production leadership in metal packaging or film manufacturing.
+- Strong knowledge of cold extrusion mechanics, Zinc Stearate lubrication, dry offset printing, and acrylic latex sealing.`,
+
+      sap: `SAP SCM & Industrial Process Automation Specialist
+Responsibilities:
+- Serve as core SAP PP/MM Key User, managing end-to-end production order lifecycles and variant configuration (CU50).
+- Develop automated batch macros and robotic workflow routines to streamline repetitive ERP scheduling data entry.
+- Conduct regular TECO closing reconciliations (CO02, COHV) and align WIP accounting with financial reporting.
+- Build real-time inventory telemetry pipelines connecting SAP tables (MB52, COOIS) into executive management cockpits.
+- Train shop floor personnel, create user SOPs, and support enterprise ERP migrations and UAT.
+Requirements:
+- 5+ years of extensive hands-on experience with SAP ERP Production Planning.
+- Proven mastery in Excel VBA, Macro Recorder (.mrf), or automation scripting. High data accuracy and rapid typing speed.`
+    };
+
+    /* ==========================================================================
+       CLIPBOARD UTILITY WITH EXECCOMMAND FALLBACK
+       ========================================================================== */
+    function copyToClipboard(text, successMsg) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg);
+        }).catch(() => {
+          fallbackCopy(text, successMsg);
+        });
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '-9999px';
+        ta.setAttribute('readonly', '');
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (successful) {
+          showToast(successMsg);
+        } else {
+          showToast('⚠️ Please copy text manually');
+        }
+      } catch (e) {
+        showToast('⚠️ Please copy text manually');
+      }
+    }
+
+    /* ==========================================================================
+       INITIALIZATION & DATA LOADING
+       ========================================================================== */
+    async function init() {
+      if (window.__SIKANDER_CAREER_DATA__) {
+        careerData = window.__SIKANDER_CAREER_DATA__;
+      } else {
+        try {
+          const res = await fetch('data/career/sikander_career_data.json');
+          if (res.ok) careerData = await res.json();
+        } catch (e) {
+          console.warn('Local fetch error or offline, fallback to embedded data:', e);
+        }
+      }
+
+      if (!careerData) {
+        console.error('Failed to load career data');
+        return;
+      }
+
+      renderRoleSelector();
+      renderResume();
+      renderVaultTable();
+      renderKnowledgeBase();
+      renderCompensation();
+      renderTimeline();
+
+      // Deep-link URL hash navigation (#resume, #advisor, #vault, #kb, #comp, #timeline)
+      if (window.location.hash) {
+        const h = window.location.hash.replace('#', '');
+        const validTabs = ['resume', 'advisor', 'vault', 'kb', 'comp', 'timeline'];
+        if (validTabs.includes(h)) switchTab(h, false);
+      }
+      window.addEventListener('hashchange', () => {
+        const h = window.location.hash.replace('#', '');
+        const validTabs = ['resume', 'advisor', 'vault', 'kb', 'comp', 'timeline'];
+        if (validTabs.includes(h)) switchTab(h, false);
+      });
+
+      // Restore OS-wide privacy shield state
+      const savedPrivacy = localStorage.getItem('sikander_privacy_mode') === '1' ||
+                           localStorage.getItem('sikander_finance_privacy') === '1';
+      if (savedPrivacy && !privacyMode) {
+        togglePrivacy();
+      }
+    }
+
+    /* ==========================================================================
+       TAB SWITCHING
+       ========================================================================== */
+    function switchTab(tabId, updateHash = true) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+
+      const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId));
+      if (targetBtn) targetBtn.classList.add('active');
+
+      const targetSec = document.getElementById('tab-' + tabId);
+      if (targetSec) targetSec.classList.add('active');
+
+      if (updateHash && history.replaceState) {
+        history.replaceState(null, '', '#' + tabId);
+      }
+    }
+
+    /* ==========================================================================
+       PRIVACY MODE TOGGLE
+       ========================================================================== */
+    function togglePrivacy() {
+      privacyMode = !privacyMode;
+      const btns = [document.getElementById('privacy-toggle-btn'), document.querySelector('#tab-comp .privacy-btn')];
+      
+      btns.forEach(btn => {
+        if (!btn) return;
+        if (privacyMode) {
+          btn.classList.add('active');
+          btn.innerHTML = '<span>🔒</span> <span>Privacy Mode: ON</span>';
+        } else {
+          btn.classList.remove('active');
+          btn.innerHTML = '<span>👁️</span> <span>Privacy Mode: OFF</span>';
+        }
+      });
+
+      // Toggle masking on all maskable elements
+      document.querySelectorAll('.comp-maskable').forEach(el => {
+        if (privacyMode) {
+          if (!el.dataset.raw) el.dataset.raw = el.innerText;
+          el.innerText = 'PKR ••••••';
+        } else if (el.dataset.raw) {
+          el.innerText = el.dataset.raw;
+        }
+      });
+
+      // Chart masking blur
+      const chartWrap = document.getElementById('salary-chart');
+      if (chartWrap) {
+        if (privacyMode) chartWrap.classList.add('privacy-blurred');
+        else chartWrap.classList.remove('privacy-blurred');
+      }
+
+      // Re-render compensation table with masking
+      renderCompensationTable();
+
+      localStorage.setItem('sikander_privacy_mode', privacyMode ? '1' : '0');
+      localStorage.setItem('sikander_finance_privacy', privacyMode ? '1' : '0');
+      window.dispatchEvent(new CustomEvent('sikander-privacy-change', { detail: { isPrivacyMode: privacyMode } }));
+
+      showToast(privacyMode ? '🔒 Privacy Shield Active (Figures Masked)' : '👁️ Privacy Shield Deactivated');
+    }
+
+    /* ==========================================================================
+       RESUME BUILDER & TAILORING STUDIO (FULL 11-YEAR DYNAMIC SECTIONS)
+       ========================================================================== */
+    function renderRoleSelector() {
+      const container = document.getElementById('role-selector-container');
+      if (!container || !careerData.target_roles) return;
+
+      container.innerHTML = careerData.target_roles.map((role, idx) => `
+        <button class="role-btn ${idx === currentRoleIndex ? 'active' : ''}" onclick="selectRole(${idx})">
+          <span>${role.title}</span>
+        </button>
+      `).join('');
+    }
+
+    function selectRole(idx) {
+      currentRoleIndex = idx;
+      renderRoleSelector();
+      renderResume();
+      showToast(`Tailored for: ${careerData.target_roles[idx].title}`);
+    }
+
+    function renderResume() {
+      const target = document.getElementById('resume-render-target');
+      const role = careerData.target_roles[currentRoleIndex];
+      const p = careerData.candidate_profile;
+
+      if (!target || !role) return;
+
+      const sectionsHtml = (role.sections || []).map((sec, secIdx) => `
+        <div style="margin-bottom:20px;" class="resume-experience-section" data-section-id="${sec.company_id}">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap;">
+            <strong style="color:#fff; font-size:14px;">${sec.role}</strong>
+            <span style="font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--cyan);">${sec.period.split('|')[0].trim()}</span>
+          </div>
+          <div style="font-size:12px; color:${secIdx === 0 ? 'var(--emerald)' : 'var(--text-muted)'}; font-weight:600; margin-bottom:8px;">
+            ${sec.company} — ${sec.period.includes('|') ? sec.period.split('|')[1].trim() : ''}
+          </div>
+          <div class="bullets-group">
+            ${sec.bullets.map((b, bIdx) => `
+              <div class="bullet-item" data-sec-idx="${secIdx}" data-bullet-idx="${bIdx}">
+                <input type="checkbox" checked class="bullet-checkbox" onchange="toggleBullet(this)">
+                <span class="bullet-text">${b}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      target.innerHTML = `
+        <div style="text-align:center; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:16px;">
+          <h2 style="font-size:24px; font-weight:900; color:#fff; letter-spacing:0.02em;">${p.full_name}</h2>
+          <div style="font-size:14px; font-weight:700; color:var(--cyan); margin-top:4px;">${role.title}</div>
+          <div style="font-size:12px; color:var(--text-muted); margin-top:6px;">
+            ${p.location} · ${p.phone} · ${p.email} · Typing Speed: ${p.typing_speed_wpm} WPM
+          </div>
+        </div>
+
+        <div class="resume-section-header">Executive Summary</div>
+        <p style="margin-bottom:16px; color:#cbd5e1; font-size:13px; line-height:1.6;">${role.tailored_summary}</p>
+
+        <div class="resume-section-header">Core Competencies & Enterprise Tools</div>
+        <div class="keyword-pill-wrap">
+          ${role.tailored_competencies.map(c => `<span class="keyword-pill highlight">${c}</span>`).join('')}
+          <span class="keyword-pill">90 WPM Keyboard Speed</span>
+          <span class="keyword-pill">SAP ECC / S4HANA (PP/MM)</span>
+          <span class="keyword-pill">Excel VBA & Macro Robots</span>
+        </div>
+
+        <div class="resume-section-header">Professional Experience (11+ Years Continuous)</div>
+        ${sectionsHtml}
+
+        <div class="resume-section-header">Education & Certifications</div>
+        <div style="font-size:12px; color:#cbd5e1; line-height:1.6;">
+          <div><strong>Intermediate (H.S.C) in Commerce</strong> — Govt. Degree College, Gulzar-e-Hijri, Karachi (2007)</div>
+          <div><strong>Matriculation (Science)</strong> — S.M.S Aga Khan School, Karimabad, Karachi (2005)</div>
+          <div><strong>Certified Typing Speed:</strong> 90 WPM with verified data integrity</div>
+        </div>
+      `;
+    }
+
+    function toggleBullet(cb) {
+      const item = cb.closest('.bullet-item');
+      if (cb.checked) {
+        item.classList.remove('disabled');
+      } else {
+        item.classList.add('disabled');
+      }
+    }
+
+    function getSelectedResumeData() {
+      const role = careerData.target_roles[currentRoleIndex];
+      const p = careerData.candidate_profile;
+
+      const activeSections = [];
+      document.querySelectorAll('#resume-render-target .resume-experience-section').forEach((secEl) => {
+        const title = secEl.querySelector('strong')?.innerText || '';
+        const date = secEl.querySelector("span[style*='JetBrains Mono']")?.innerText || '';
+        const company = secEl.querySelector("div[style*='font-weight:600']")?.innerText || '';
+        const bullets = Array.from(secEl.querySelectorAll('.bullet-item:not(.disabled) .bullet-text')).map(el => el.innerText.trim());
+
+        if (bullets.length > 0) {
+          activeSections.push({ title, date, company, bullets });
+        }
+      });
+
+      return { role, p, activeSections };
+    }
+
+    function copyResumeMarkdown() {
+      const { role, p, activeSections } = getSelectedResumeData();
+      
+      let md = `# ${p.full_name}\n`;
+      md += `**${role.title}**\n`;
+      md += `${p.location} | ${p.phone} | ${p.email} | Typing Speed: ${p.typing_speed_wpm} WPM\n\n`;
+      md += `## Professional Summary\n${role.tailored_summary}\n\n`;
+      md += `## Core Competencies\n`;
+      md += role.tailored_competencies.map(c => `- ${c}`).join('\n') + `\n- 90 WPM Typing Speed\n- 21 SAP Automation Scripts\n\n`;
+      md += `## Professional Experience\n\n`;
+
+      activeSections.forEach(sec => {
+        md += `### ${sec.title} | ${sec.company}\n`;
+        md += `*${sec.date}*\n`;
+        md += sec.bullets.map(b => `- ${b}`).join('\n') + '\n\n';
+      });
+
+      md += `## Education & Certifications\n`;
+      if (p.education && p.education.length) {
+        md += p.education.map(e => `- ${e.degree} | ${e.institution} (${e.year})`).join('\n') + '\n';
+      } else {
+        md += `- Intermediate (H.S.C) in Commerce | Govt. Degree College, Gulzar-e-Hijri, Karachi (2007)\n`;
+        md += `- Matriculation (Science) | S.M.S Aga Khan School, Karimabad, Karachi (2005)\n`;
+      }
+      md += `- Certified Typing Speed: 90 WPM with verified data integrity\n`;
+
+      copyToClipboard(md, '✓ Resume copied as clean Markdown');
+    }
+
+    function copyResumeText() {
+      const { role, p, activeSections } = getSelectedResumeData();
+      
+      let txt = `${p.full_name.toUpperCase()}\n`;
+      txt += `${role.title}\n`;
+      txt += `${p.location} | ${p.phone} | ${p.email} | Typing Speed: ${p.typing_speed_wpm} WPM\n\n`;
+      txt += `PROFESSIONAL SUMMARY\n`;
+      txt += `${role.tailored_summary}\n\n`;
+      txt += `CORE COMPETENCIES\n`;
+      txt += role.tailored_competencies.join(' • ') + ' • 90 WPM Typing • 21 SAP Macros\n\n';
+      txt += `PROFESSIONAL EXPERIENCE\n\n`;
+
+      activeSections.forEach(sec => {
+        txt += `${sec.title.toUpperCase()}\n`;
+        txt += `${sec.company} (${sec.date})\n`;
+        txt += sec.bullets.map(b => `* ${b}`).join('\n') + '\n\n';
+      });
+
+      txt += `EDUCATION & CERTIFICATIONS\n`;
+      if (p.education && p.education.length) {
+        txt += p.education.map(e => `* ${e.degree} — ${e.institution} (${e.year})`).join('\n') + '\n';
+      } else {
+        txt += `* Intermediate (H.S.C) in Commerce — Govt. Degree College, Gulzar-e-Hijri, Karachi (2007)\n`;
+        txt += `* Matriculation (Science) — S.M.S Aga Khan School, Karimabad, Karachi (2005)\n`;
+      }
+      txt += `* Certified Typing Speed: 90 WPM with verified data integrity\n`;
+
+      copyToClipboard(txt, '✓ Resume copied as Plain Text / ATS format');
+    }
+
+    /* ==========================================================================
+       JOB APPLICATION STRATEGY ADVISOR
+       ========================================================================== */
+    function loadSampleJD(key) {
+      const ta = document.getElementById('jd-input');
+      if (ta && SAMPLE_JDS[key]) {
+        ta.value = SAMPLE_JDS[key];
+        analyzeJobDescription();
+      }
+    }
+
+    function analyzeJobDescription() {
+      const text = document.getElementById('jd-input').value.trim();
+      if (!text) {
+        showToast('⚠️ Please paste a job description first');
+        return;
+      }
+
+      const lower = text.toLowerCase();
+
+      // Dictionary of keywords to search with associated macro tokens
+      const candidateCompetencies = [
+        { term: "mps", label: "Master Production Scheduling (MPS)", boost: 12, macro_token: "daily" },
+        { term: "mrp", label: "Material Requirements Planning (MRP)", boost: 12, macro_token: "component" },
+        { term: "sap", label: "SAP ERP (PP / MM / SD)", boost: 14, macro_token: "co01" },
+        { term: "coois", label: "SAP COOIS Telemetry", boost: 10, macro_token: "coois" },
+        { term: "co01", label: "SAP CO01 Order Creation", boost: 8, macro_token: "co01" },
+        { term: "mb52", label: "SAP MB52 Stock Telemetry", boost: 8, macro_token: "mb52" },
+        { term: "teco", label: "SAP Order TECO Closing", boost: 8, macro_token: "teco" },
+        { term: "vba", label: "Excel VBA & Macros", boost: 10, macro_token: "excel" },
+        { term: "automation", label: "Robotic Process Automation (RPA)", boost: 8, macro_token: "automation" },
+        { term: "slitter", label: "Slitter Station Optimization", boost: 8, macro_token: "slitter" },
+        { term: "bopet", label: "BOPET Film Manufacturing", boost: 10, macro_token: "film line" },
+        { term: "extrusion", label: "Extrusion Mechanics", boost: 10, macro_token: "film line" },
+        { term: "cold extrusion", label: "Aluminum Cold Extrusion", boost: 10, macro_token: "cold extrusion" },
+        { term: "zinc stearate", label: "Zinc Stearate Lubrication", boost: 8, macro_token: "lubrication" },
+        { term: "container", label: "Container Loading & Logistics", boost: 8, macro_token: "shipment" },
+        { term: "vessel", label: "Vessel Cutoff Coordination", boost: 8, macro_token: "shipment" },
+        { term: "oee", label: "OEE & Plant Throughput", boost: 8, macro_token: "capacity" },
+        { term: "sop", label: "SOP Authoring & Compliance", boost: 6, macro_token: "sop" },
+        { term: "car", label: "Corrective Action Reports (CAR)", boost: 6, macro_token: "car" },
+        { term: "annealing", label: "Annealing Metallurgy (~300°C)", boost: 8, macro_token: "annealing" },
+        { term: "bom", label: "Bill of Materials (BOM) Matrices", boost: 8, macro_token: "component" },
+        { term: "inventory", label: "Inventory Stock Control", boost: 6, macro_token: "mb52" },
+        { term: "lead time", label: "Lead Time Compression", boost: 6, macro_token: "lead time" }
+      ];
+
+      let score = 50;
+      const matched = [];
+      const matchedTokens = new Set();
+      const gaps = [];
+
+      candidateCompetencies.forEach(item => {
+        if (lower.includes(item.term)) {
+          score += item.boost;
+          matched.push(item.label);
+          matchedTokens.add(item.term);
+          if (item.macro_token) matchedTokens.add(item.macro_token);
+        }
+      });
+
+      // Clamp score
+      score = Math.min(score, 98);
+      if (score < 60) score = 65;
+
+      // Detect potential gaps
+      const possibleGaps = [
+        { term: "power bi", label: "Power BI Dashboards" },
+        { term: "sql", label: "SQL Database Queries" },
+        { term: "six sigma", label: "Six Sigma Black Belt" },
+        { term: "apics", label: "APICS / CSCP Certification" },
+        { term: "python", label: "Python Data Pipelines" },
+        { term: "lean", label: "Lean Kaizen Facilitation" }
+      ];
+
+      possibleGaps.forEach(g => {
+        if (lower.includes(g.term)) {
+          gaps.push(g.label);
+        }
+      });
+      if (gaps.length === 0) gaps.push("Zero major technical gaps detected against core profile.");
+
+      // Render Fit Meter
+      const dial = document.getElementById('fit-dial');
+      const num = document.getElementById('fit-score-num');
+      const heading = document.getElementById('fit-heading');
+      const caption = document.getElementById('fit-caption');
+
+      const deg = (score / 100) * 360;
+      dial.style.background = `conic-gradient(var(--cyan) ${deg}deg, rgba(255,255,255,0.05) ${deg}deg)`;
+      num.innerText = score + '%';
+
+      if (score >= 85) {
+        heading.innerText = 'Exceptional Match (Top 5% Candidate)';
+        heading.style.color = 'var(--emerald)';
+        caption.innerText = 'Your 11 years across Novatex BOPET and Tubex operations directly satisfy all critical requirements.';
+      } else {
+        heading.innerText = 'Strong Match with Minor Gap Strategy';
+        heading.style.color = 'var(--cyan)';
+        caption.innerText = 'High synergy with manufacturing and ERP competencies; highlight your 21 SAP macros.';
+      }
+
+      // Render Matched
+      const matchedWrap = document.getElementById('matched-keywords-container');
+      matchedWrap.innerHTML = matched.length 
+        ? matched.map(m => `<span class="keyword-pill highlight">✓ ${m}</span>`).join('')
+        : `<span style="font-size:12px; color:var(--text-dim);">General manufacturing planning alignment</span>`;
+
+      // Render Gaps
+      const gapWrap = document.getElementById('gap-keywords-container');
+      gapWrap.innerHTML = gaps.map(g => `<span class="keyword-pill" style="border-color:rgba(245,158,11,0.3); color:#fde68a;">⚠️ ${g}</span>`).join('');
+
+      // Surface Relevant Macros by matching trigger keywords
+      const macroWrap = document.getElementById('surfaced-macros-container');
+      const scoredMacros = (careerData.sap_automation_vault || []).map(m => {
+        let matchCount = 0;
+        const searchable = (m.name + ' ' + m.tcode + ' ' + m.category + ' ' + m.description + ' ' + (m.trigger_keywords || []).join(' ')).toLowerCase();
+        matchedTokens.forEach(tok => {
+          if (searchable.includes(tok)) matchCount += 2;
+        });
+        if (m.id === 'MRF-05' || m.id === 'MRF-19') matchCount += 1;
+        return { macro: m, score: matchCount };
+      });
+
+      scoredMacros.sort((a, b) => b.score - a.score);
+      const topMacros = scoredMacros.filter(sm => sm.score > 0).slice(0, 3).map(sm => sm.macro);
+      const displayMacros = topMacros.length ? topMacros : careerData.sap_automation_vault.slice(0, 3);
+
+      macroWrap.innerHTML = displayMacros.map(m => `
+        <div style="margin-bottom:8px;">
+          <strong style="color:var(--cyan); font-family:'JetBrains Mono',monospace;">${m.file} (${m.tcode}):</strong>
+          <span>${m.description}</span>
+        </div>
+      `).join('');
+
+      // Generate Tailored Pitch
+      const pitchTarget = document.getElementById('tailored-pitch-output');
+      const pitch = `Dear Hiring Team,
+
+I am writing to express my strong interest in the ${careerData.target_roles[currentRoleIndex].title} role. With over 11 continuous years orchestrating high-volume industrial manufacturing operations—including 10+ years at Novatex Limited's BOPET plant and my current appointment as Planning Lead at Alpha Containers / Tubex & Aerosol—my background aligns precisely with your operational and supply chain requirements.
+
+Key Highlights of Value I Bring:
+1. End-to-End Master Scheduling & SCM: Directed monthly manufacturing programs producing 2,500+ tons of polyester packaging film, coordinating international vessel cut-offs with a 99.2% on-time container dispatch rate.
+2. Bespoke ERP Automation: Beyond standard SAP PP/MM usage, I have engineered and deployed 21 custom automation robots (.mrf) and VBA models that eliminated 90% of manual planning workflows, cutting daily cycle times from 4 hours to 25 minutes.
+3. Shop-Floor Rigor & Metallurgy: Established stage-by-stage BOM consumption matrices and standardized Zinc Stearate lubrication protocols in cold extrusion presses, eliminating tooling galling and boosting machine uptime.
+
+I would welcome the opportunity to discuss how my hands-on operational leadership and automation expertise can drive immediate throughput and cost efficiencies for your team.
+
+Sincerely,
+Muhammad Sikander Shahjahan
++92 336 0842895 | ckndr1989@gmail.com`;
+
+      pitchTarget.innerText = pitch;
+      showToast(`⚡ Skills Fit Analyzed: ${score}% Match!`);
+    }
+
+    function copyCoverPitch() {
+      const text = document.getElementById('tailored-pitch-output').innerText;
+      copyToClipboard(text, '✓ Tailored cover pitch copied to clipboard');
+    }
+
+    /* ==========================================================================
+       SAP & MACRO AUTOMATION VAULT
+       ========================================================================== */
+    function renderVaultTable() {
+      filterVaultTable();
+    }
+
+    function filterVaultTable() {
+      const tbody = document.getElementById('vault-tbody');
+      const search = (document.getElementById('vault-search')?.value || '').toLowerCase();
+      const cat = document.getElementById('vault-category-filter')?.value || 'ALL';
+
+      if (!tbody || !careerData.sap_automation_vault) return;
+
+      const filtered = careerData.sap_automation_vault.filter(item => {
+        const matchesSearch = !search || 
+          item.name.toLowerCase().includes(search) || 
+          item.file.toLowerCase().includes(search) || 
+          item.tcode.toLowerCase().includes(search) || 
+          item.description.toLowerCase().includes(search) ||
+          item.workflow_rationale.toLowerCase().includes(search);
+
+        const matchesCat = (cat === 'ALL') || (item.category === cat);
+
+        return matchesSearch && matchesCat;
+      });
+
+      tbody.innerHTML = filtered.map(item => `
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; color:var(--text-dim); font-size:11px;">${item.id}</td>
+          <td>
+            <div style="font-weight:700; color:#fff; margin-bottom:2px;">${item.name}</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);">${item.file}</div>
+          </td>
+          <td>
+            <span class="tcode-badge">${item.tcode}</span>
+            <div style="font-size:11px; color:var(--text-dim); margin-top:4px;">${item.target_system.split('+')[0]}</div>
+          </td>
+          <td>
+            <span style="font-size:11px; color:#cbd5e1;">${item.category}</span>
+          </td>
+          <td>
+            <div style="font-size:12px; color:#cbd5e1; margin-bottom:4px;">${item.description}</div>
+            <div style="font-size:11px; color:var(--cyan); font-style:italic;">"${item.workflow_rationale}"</div>
+          </td>
+          <td style="text-align:right;">
+            <div style="font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--emerald);">+${item.time_saved_daily_mins}m</div>
+            <div style="font-size:10px; color:var(--text-dim);">saved daily</div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    /* ==========================================================================
+       INDUSTRIAL ENGINEERING KNOWLEDGE BASE
+       ========================================================================== */
+    function renderKnowledgeBase() {
+      const container = document.getElementById('kb-accordions-container');
+      if (!container || !careerData.industrial_engineering_knowledge_base) return;
+
+      const kb = careerData.industrial_engineering_knowledge_base;
+
+      container.innerHTML = `
+        <!-- ACCORDION 1: NOVATEX BOPET PLANNING SOPS -->
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4>
+              <span>📜 Novatex Limited — BOPET Unit Planning Standard Operating Procedures (3 SOPs)</span>
+            </h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:14px;">Official operational procedures governing the high-speed BOPET film line and slitting operations at Novatex Limited:</p>
+            ${kb.novatex_bopet_sops.map(sop => `
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:16px; margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; flex-wrap:wrap;">
+                  <strong style="color:var(--cyan); font-size:14px;">${sop.title}</strong>
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim);">${sop.doc_no} · ${sop.effective_date}</span>
+                </div>
+                <p style="font-size:12px; color:#cbd5e1; margin-bottom:8px;"><strong>Purpose:</strong> ${sop.purpose}</p>
+                <ul style="padding-left:20px; font-size:12px; color:var(--text-muted); line-height:1.6;">
+                  ${sop.key_rules.map(r => `<li>${r}</li>`).join('')}
+                </ul>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- ACCORDION 2: TUBEX COLD EXTRUSION & METALLURGY GUIDE -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4>
+              <span>⚙️ Tubex (Pvt.) Ltd — Aluminum Cold Extrusion Mechanics & Zinc Stearate Manual</span>
+            </h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div style="background:rgba(255,255,255,0.02); padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+                <strong style="color:var(--gold); font-size:13px; display:block; margin-bottom:6px;">1. Cold Extrusion Mechanics & Press #6</strong>
+                <p style="font-size:12px; margin-bottom:8px;">Press #6 operates at <strong>55 Strokes Per Minute (SPM)</strong>. High extrusion ratio transforms solid aluminum slugs into thin-walled collapsible tubes.</p>
+                <div style="font-size:12px; color:#cbd5e1;">
+                  <strong>Zinc Stearate Lubricant:</strong> White slippery powder tumbled with slugs for exactly <strong>15 minutes</strong> to prevent metal galling to punch dies.
+                </div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+                <strong style="color:var(--emerald); font-size:13px; display:block; margin-bottom:6px;">2. Thermal Annealing (250°C – 350°C)</strong>
+                <p style="font-size:12px; margin-bottom:8px;">Continuous furnace heat treatment relieves severe internal stress from cold deformation, restoring metal elongation (ductility) so tubes do not crack during crimping.</p>
+                <div style="font-size:12px; color:#cbd5e1;">
+                  <strong>Dual Purpose:</strong> Burns off all residual lubricant, ensuring pristine metal adhesion for internal lacquer and base coats.
+                </div>
+              </div>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.02); padding:14px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle); margin-bottom:14px;">
+              <strong style="color:var(--cyan); font-size:13px; display:block; margin-bottom:8px;">Critical Tooling Replacement Lifespans (Procurement Schedule)</strong>
+              <div style="display:flex; gap:20px; font-size:12px;">
+                <div>✂️ <strong>Cutters / Trimmers:</strong> Max 1 Day lifespan. Daily buffing or replacement required to avoid burred cuts.</div>
+                <div>🔨 <strong>Punch Heads:</strong> Max 2 Days (48 Hours) lifespan due to severe frictional wear.</div>
+              </div>
+            </div>
+
+            <div style="font-size:12px; color:var(--text-muted);">
+              <strong>Finishing & QA Chain:</strong> Base Coating → Gas/Electric Curing (~150°C) → 5 Dry Offset Printing Machines → Kerosene strip salvage for misprints → Acrylic latex sealing → Pinhole & torque QA.
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCORDION 3: STAGE-BY-STAGE TUBE BOM CONSUMPTION MATRICES -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4>
+              <span>⚖️ Stage-by-Stage Tube Weight Tracking (BOM Consumption Baseline)</span>
+            </h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            <p style="margin-bottom:12px;">Digitized weight telemetry across manufacturing stations formulating exact Bill of Materials (BOM) material balances:</p>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>SKU & Diameter</th>
+                    <th>Raw Extruded / Slug</th>
+                    <th>Trimmed Weight</th>
+                    <th>Lacquered</th>
+                    <th>Base Coated</th>
+                    <th>Printed / Oven</th>
+                    <th>Final Capped Weight</th>
+                    <th>Net Material Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${kb.tubex_cold_extrusion_mechanics.bom_weight_consumption_matrices.map(row => `
+                    <tr>
+                      <td style="font-weight:700; color:#fff;">${row.sku}</td>
+                      <td>${row.weights.raw_extruded_tube || row.weights.slug || row.weights.raw_tube}</td>
+                      <td>${row.weights.trimmed}</td>
+                      <td>${row.weights.after_lacquer || row.weights.lacquered}</td>
+                      <td>${row.weights.after_base_coat || row.weights.base_coated}</td>
+                      <td>${row.weights.after_print || row.weights.printed || row.weights.after_oven}</td>
+                      <td style="font-weight:700; color:var(--cyan);">${row.weights.final_capped || row.weights.final_printed_capped}</td>
+                      <td style="font-family:'JetBrains Mono',monospace; color:var(--emerald);">${row.net_delta_raw_to_final}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCORDION 4: RAW MATERIAL INVENTORY SNAPSHOT -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <h4>
+              <span>📦 Tubex-Alum Raw Material Inventory Audit (April 2026 Telemetry)</span>
+            </h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+              <span>Official Consolidated Raw Material Balance as of <strong>09-04-2026</strong></span>
+              <span style="font-family:'JetBrains Mono',monospace; color:var(--cyan);">Status: Active Items</span>
+            </div>
+            <div class="data-table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Item Description</th>
+                    <th style="text-align:right;">Physical Balance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${kb.tubex_inventory_snapshot_april_2026.selected_balances.map(b => `
+                    <tr>
+                      <td style="color:var(--cyan); font-weight:600;">${b.category}</td>
+                      <td style="color:#fff;">${b.item}</td>
+                      <td style="text-align:right; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--emerald);">${b.balance}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleAccordion(header) {
+      const item = header.closest('.accordion-item');
+      item.classList.toggle('open');
+    }
+
+    /* ==========================================================================
+       COMPENSATION CURVE & SALARY SLIPS (SCALED & EXPANDED WITH 2026 OFFER)
+       ========================================================================== */
+    function renderCompensation() {
+      renderCompensationChart();
+      renderCompensationTable();
+    }
+
+    function renderCompensationChart() {
+      const svg = document.getElementById('salary-chart');
+      const records = careerData.verified_compensation.monthly_records;
+      if (!svg || !records || records.length === 0) return;
+
+      const w = 1000;
+      const h = 260;
+      const padLeft = 65;
+      const padRight = 45;
+      const padTop = 30;
+      const padBottom = 35;
+
+      const chartW = w - padLeft - padRight;
+      const chartH = h - padTop - padBottom;
+
+      // maxVal set to 180,000 to accommodate FEB 2025 net spike (158k) and 2026 expansion step (165k)
+      const maxVal = 180000;
+      const minVal = 20000;
+
+      // Include 38 slips + 1 node for 2026 Alpha Containers Planning Lead
+      const totalPoints = records.length + 1;
+
+      const getX = (idx) => padLeft + (idx / (totalPoints - 1)) * chartW;
+      const getY = (val) => padTop + chartH - ((val - minVal) / (maxVal - minVal)) * chartH;
+
+      // Build SVG polylines for Novatex pay slips
+      let fixedPoints = records.map((r, i) => `${getX(i)},${getY(r.fixed_gross)}`).join(' ');
+      let netPoints = records.map((r, i) => `${getX(i)},${getY(r.net_pay)}`).join(' ');
+
+      // Add forward trajectory to Feb 2026 Alpha Containers (PKR 120,000)
+      const alphaX = getX(records.length);
+      const alphaFixedY = getY(120000);
+      const alphaAerosolY = getY(165000);
+
+      const lastSlipX = getX(records.length - 1);
+      const lastSlipFixedY = getY(records[records.length - 1].fixed_gross);
+      const lastSlipNetY = getY(records[records.length - 1].net_pay);
+
+      // Gridlines at 30k, 60k, 90k, 120k, 150k, 180k
+      let gridLines = '';
+      [30000, 60000, 90000, 120000, 150000, 180000].forEach(val => {
+        const y = getY(val);
+        gridLines += `
+          <line x1="${padLeft}" y1="${y}" x2="${w - padRight}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-dasharray="4"/>
+          <text x="${padLeft - 8}" y="${y + 4}" fill="#64748b" font-size="10" font-family="'JetBrains Mono',monospace" text-anchor="end">${(val / 1000)}k</text>
+        `;
+      });
+
+      // Axis labels (sample every 6 months + final 2026 point)
+      let xLabels = '';
+      records.forEach((r, i) => {
+        if (i % 6 === 0 || i === records.length - 1) {
+          const x = getX(i);
+          xLabels += `
+            <text x="${x}" y="${h - 10}" fill="#64748b" font-size="10" font-family="'JetBrains Mono',monospace" text-anchor="middle">${r.period}</text>
+          `;
+        }
+      });
+      xLabels += `
+        <text x="${alphaX}" y="${h - 10}" fill="var(--gold)" font-size="10" font-weight="700" font-family="'JetBrains Mono',monospace" text-anchor="middle">FEB 2026</text>
+      `;
+
+      svg.innerHTML = `
+        ${gridLines}
+        ${xLabels}
+
+        <!-- Net Salary Polyline (Novatex) -->
+        <polyline fill="none" stroke="rgba(16, 185, 129, 0.45)" stroke-width="2" points="${netPoints}" />
+        
+        <!-- Fixed Gross Polyline (Novatex) -->
+        <polyline fill="none" stroke="var(--cyan)" stroke-width="3" points="${fixedPoints}" />
+
+        <!-- Forward Projection Line to 2026 Alpha Appointment (Gross 120k) -->
+        <line class="trajectory-line" x1="${lastSlipX}" y1="${lastSlipFixedY}" x2="${alphaX}" y2="${alphaFixedY}" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="5,4" />
+
+        <!-- Forward Projection Line to 2026 Aerosol Step (165k) -->
+        <line class="trajectory-line trajectory-aerosol" x1="${alphaX}" y1="${alphaFixedY}" x2="${alphaX}" y2="${alphaAerosolY}" stroke="var(--purple)" stroke-width="2" stroke-dasharray="3,3" />
+
+        <!-- Data circles for 38 slips -->
+        ${records.map((r, i) => `
+          <circle cx="${getX(i)}" cy="${getY(r.fixed_gross)}" r="3.5" fill="var(--cyan)">
+            <title>${r.period} | Fixed Gross: PKR ${r.fixed_gross.toLocaleString()} | Earning: PKR ${(r.total_earning || r.fixed_gross).toLocaleString()}</title>
+          </circle>
+          <circle cx="${getX(i)}" cy="${getY(r.net_pay)}" r="3" fill="var(--emerald)">
+            <title>${r.period} | Net Pay: PKR ${r.net_pay.toLocaleString()} | Deductions: PKR ${(r.total_deductions || 0).toLocaleString()}</title>
+          </circle>
+        `).join('')}
+
+        <!-- 2026 Alpha Containers Planning Lead Node (Gross 120k) -->
+        <circle cx="${alphaX}" cy="${alphaFixedY}" r="5" fill="var(--gold)" stroke="#07090e" stroke-width="2">
+          <title>Feb 2026 | Alpha Containers Planning Lead: PKR 120,000 Gross (Basic: 80,400 + Rent: 36,180 + COL: 3,420)</title>
+        </circle>
+
+        <!-- 2026 Aerosol Expansion Target Node (Gross 165k) -->
+        <circle cx="${alphaX}" cy="${alphaAerosolY}" r="4.5" fill="var(--purple)" stroke="#07090e" stroke-width="1.5">
+          <title>2026 Alpha Aerosol Target: PKR 165,000 Gross (+45,000 Startup Expansion Step)</title>
+        </circle>
+
+        <!-- Milestone Callout July 2024 (SU2 Promotion - Fixed Gross 60k) -->
+        <g transform="translate(${getX(20)}, ${getY(records[20].fixed_gross) - 18})">
+          <rect x="-42" y="-18" width="84" height="16" rx="4" fill="#0f1422" stroke="var(--cyan)" stroke-width="1"/>
+          <text x="0" y="-6" fill="var(--cyan)" font-size="9" font-family="'JetBrains Mono',monospace" font-weight="700" text-anchor="middle">SU2 Promoted</text>
+        </g>
+
+        <!-- Milestone Callout Dec 2025 (110k Net) -->
+        <g transform="translate(${getX(records.length - 1)}, ${getY(records[records.length - 1].net_pay) - 18})">
+          <rect x="-45" y="-18" width="90" height="16" rx="4" fill="#0f1422" stroke="var(--emerald)" stroke-width="1"/>
+          <text x="0" y="-6" fill="var(--emerald)" font-size="9" font-family="'JetBrains Mono',monospace" font-weight="700" text-anchor="middle">PKR 110k Net</text>
+        </g>
+
+        <!-- Milestone Callout Feb 2026 (Planning Lead 120k / 165k) -->
+        <g transform="translate(${alphaX - 10}, ${alphaFixedY - 20})">
+          <rect x="-60" y="-18" width="120" height="16" rx="4" fill="#0f1422" stroke="var(--gold)" stroke-width="1"/>
+          <text x="0" y="-6" fill="var(--gold)" font-size="9" font-family="'JetBrains Mono',monospace" font-weight="700" text-anchor="middle">Planning Lead 120k</text>
+        </g>
+      `;
+    }
+
+    function renderCompensationTable() {
+      const tbody = document.getElementById('slips-tbody');
+      const records = careerData.verified_compensation.monthly_records;
+      if (!tbody || !records) return;
+
+      tbody.innerHTML = records.slice().reverse().map(r => `
+        <tr>
+          <td style="font-family:'JetBrains Mono',monospace; font-weight:700; color:#fff;">${r.period}</td>
+          <td>
+            <div style="font-size:12px; color:#cbd5e1;">${r.company}</div>
+            <div style="font-size:11px; color:var(--text-dim);">${r.plant}</div>
+          </td>
+          <td style="text-align:right; font-family:'JetBrains Mono',monospace; color:var(--cyan);">
+            ${privacyMode ? '••••••' : 'PKR ' + r.fixed_gross.toLocaleString()}
+          </td>
+          <td style="text-align:right; font-family:'JetBrains Mono',monospace; color:#93c5fd;">
+            ${privacyMode ? '••••••' : 'PKR ' + (r.total_earning || r.fixed_gross).toLocaleString()}
+          </td>
+          <td style="text-align:right; font-family:'JetBrains Mono',monospace; color:#fca5a5;">
+            ${privacyMode ? '••••••' : 'PKR ' + (r.total_deductions || 0).toLocaleString()}
+          </td>
+          <td style="text-align:right; font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--emerald);">
+            ${privacyMode ? '••••••' : 'PKR ' + r.net_pay.toLocaleString()}
+          </td>
+          <td style="text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-dim);">
+            ${privacyMode ? '•••' : (r.income_tax ? 'PKR ' + r.income_tax.toLocaleString() : '0')}
+          </td>
+          <td style="text-align:center;">
+            <span style="font-size:10px; padding:3px 8px; border-radius:12px; background:rgba(16, 185, 129, 0.12); color:var(--emerald); border:1px solid rgba(16,185,129,0.3);">
+              ✓ Verified PDF
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    /* ==========================================================================
+       CAREER PROGRESSION RAIL
+       ========================================================================== */
+    function renderTimeline() {
+      const container = document.getElementById('timeline-container');
+      if (!container || !careerData.career_milestones) return;
+
+      container.innerHTML = careerData.career_milestones.map(m => `
+        <div class="timeline-node">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">${m.period}</div>
+            <div class="timeline-role">${m.role}</div>
+            <div class="timeline-company">${m.company} · ${m.location}</div>
+            <p style="font-size:13px; color:#cbd5e1; margin-bottom:12px; line-height:1.5;">${m.overview}</p>
+
+            <div style="font-size:11px; font-weight:700; color:var(--cyan); text-transform:uppercase; margin-bottom:6px;">Key Responsibilities:</div>
+            <ul style="padding-left:18px; font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:12px;">
+              ${m.key_responsibilities.map(r => `<li>${r}</li>`).join('')}
+            </ul>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-top:1px solid var(--border-subtle); padding-top:10px;">
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                ${(m.highlights || []).map(h => `<span class="keyword-pill" style="color:var(--gold); border-color:rgba(245,158,11,0.3);">⭐ ${h}</span>`).join('')}
+              </div>
+              <div style="font-size:11px; color:var(--text-dim); font-family:'JetBrains Mono',monospace;">
+                Docs: ${(m.verified_docs || []).join(' · ')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ==========================================================================
+       UTILITY: TOAST
+       ========================================================================== */
+    function showToast(text) {
+      const toast = document.getElementById('toast-msg');
+      const toastText = document.getElementById('toast-text');
+      if (!toast || !toastText) return;
+
+      toastText.innerText = text;
+      toast.style.display = 'inline-flex';
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    // Launch on DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', init);
+    
+  </script>
+  <!-- Sikander OS Local-First Multi-Device Sync Engine & PWA Core -->
+  <script src="data/sync_engine.js"></script>
+</body>
+</html>
